@@ -6,4 +6,5 @@ import Layout from './app/layout'
 ReactDOM.render(
   <Layout/>,
   document.body.appendChild(document.createElement('div'))
-);
+)
+

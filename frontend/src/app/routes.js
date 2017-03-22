@@ -1,4 +1,3 @@
-import ScoreBoard from 'containers/ScoreBoard'
 import SignIn from 'containers/SignIn'
 import NewHackaton from 'containers/NewHackaton'
 import ModeratorBoard from 'containers/ModeratorBoard'
@@ -6,7 +5,7 @@ import ModeratorBoard from 'containers/ModeratorBoard'
 const routes = {
   childRoutes: [{
     path: '/',
-    component: ScoreBoard
+    component: ModeratorBoard
   },{
     path: '/sign-in',
     coomponent: SignIn
@@ -17,7 +16,7 @@ const routes = {
     path: '/moderator',
     component: ModeratorBoard
   }
-    
+
 
   ]
 };
