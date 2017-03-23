@@ -1,8 +1,10 @@
+import {push} from 'react-router-redux'
 import auth from 'api/auth'
 import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
-  LOG_IN_REQUEST_FAILURE
+  LOG_IN_REQUEST_FAILURE,
+  LOG_OUT
 } from 'constants/auth'
 import * as _ from 'lodash'
 
@@ -30,6 +32,12 @@ function loginRequestFailure(error) {
   }
 }
 
+function logout() {
+  return {
+    type: LOG_OUT
+  }
+}
+
 export default {
   login: (credentials) => {
     return dispatch => {
@@ -40,6 +48,12 @@ export default {
       ).catch(
         error => dispatch(loginRequestFailure(error))
       )
+    }
+  },
+  logout: () => {
+    return dispatch => {
+      sessionStorage.removeItem('jwt')
+      dispatch(logout())
     }
   }
 }

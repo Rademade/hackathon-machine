@@ -1,10 +1,7 @@
 import React from 'react'
-import Formsy from 'formsy-react'
 
 const LogIn = () => (
-  <div>
-      LogIn form
-  </div>
+  <h1>LOG IN</h1>
 )
 
 export default LogIn

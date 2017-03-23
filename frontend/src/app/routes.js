@@ -3,16 +3,28 @@ import SignIn from 'containers/SignIn'
 import NewHackaton from 'containers/NewHackaton'
 import ModeratorBoard from 'containers/ModeratorBoard'
 
+function requireAuth(nextState, replace) {
+  if (!sessionStorage.jwt) {
+    replace({
+      pathname: '/login',
+      state: {
+        nextPathname: nextState.location.pathname
+      }
+    })
+  }
+}
+
 const routes = {
   childRoutes: [{
     path: '/',
-    component: ModeratorBoard
+    component: ModeratorBoard,
+    onEnter: requireAuth
   }, {
     path: '/login',
-    coomponent: LogIn
+    component: LogIn
   }, {
     path: '/signin',
-    coomponent: SignIn
+    component: SignIn
   }, {
     path: 'hackatons/new',
     component: NewHackaton

@@ -13,7 +13,7 @@ const initialState = {
   }
 }
 
-export function auth(state = initialState, action = {}) {
+export default function authReducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {
@@ -21,8 +21,6 @@ export function auth(state = initialState, action = {}) {
         isPendingRequest: true
       }
     case LOG_IN_REQUEST_SUCCESS:
-      browserHistory.push('/')
-
       return {
         ...state,
         isPendingRequest: false,
@@ -32,8 +30,6 @@ export function auth(state = initialState, action = {}) {
         }
       }
     case LOG_IN_REQUEST_FAILURE:
-      browserHistory.push('/login')
-
       return {
         ...state,
         isPendingRequest: false,
