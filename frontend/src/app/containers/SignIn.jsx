@@ -2,8 +2,8 @@ import React from 'react'
 
 const SignIn = () => (
   <div>
-      SignIn form
+      New Hackston form
   </div>
 )
 
-export default SignIn;
+export default SignIn

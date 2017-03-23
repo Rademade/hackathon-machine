@@ -1,3 +1,4 @@
+import LogIn from 'containers/LogIn'
 import SignIn from 'containers/SignIn'
 import NewHackaton from 'containers/NewHackaton'
 import ModeratorBoard from 'containers/ModeratorBoard'
@@ -6,19 +7,19 @@ const routes = {
   childRoutes: [{
     path: '/',
     component: ModeratorBoard
-  },{
-    path: '/sign-in',
+  }, {
+    path: '/login',
+    coomponent: LogIn
+  }, {
+    path: '/signin',
     coomponent: SignIn
-  },{
-    path: '/new',
+  }, {
+    path: 'hackatons/new',
     component: NewHackaton
-  },{
+  }, {
     path: '/moderator',
     component: ModeratorBoard
-  }
+  }]
+}
 
-
-  ]
-};
-
-export default routes;
+export default routes

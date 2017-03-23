@@ -40,7 +40,7 @@ module.exports = {
       reducers: path.resolve('src/app/reducers'),
       actions: path.resolve('src/app/actions'),
       store: path.resolve('src/app/store'),
-      assets: path.resolve('src/assets')
+      api: path.resolve('src/app/api')
     }
   },
   plugins: [

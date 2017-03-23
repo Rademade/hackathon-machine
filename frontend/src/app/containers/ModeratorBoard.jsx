@@ -6,4 +6,4 @@ const ModeratorBoard = () => (
   </div>
 )
 
-export default ModeratorBoard;
+export default ModeratorBoard

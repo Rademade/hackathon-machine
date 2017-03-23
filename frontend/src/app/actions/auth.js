@@ -1,5 +1,4 @@
-import axios from 'axios'
-import {API_ENDPOINT} from 'constants/common'
+import auth from 'api/auth'
 import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
@@ -32,13 +31,11 @@ function loginRequestFailure(error) {
 }
 
 export default {
-  login: (user) => {
+  login: (credentials) => {
     return dispatch => {
       dispatch(loginRequest())
 
-      return axios.post(
-        `${API_ENDPOINT}/auth/login`, user
-      ).then(
+      return auth.login(credentials).then(
         response => dispatch(loginRequestSuccess(response.data))
       ).catch(
         error => dispatch(loginRequestFailure(error))

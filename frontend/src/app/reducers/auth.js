@@ -9,7 +9,7 @@ const initialState = {
   isPendingRequest: false,
   user: {
     email: null,
-    isLogged: false
+    isLoggedIn: false
   }
 }
 
@@ -28,11 +28,11 @@ export function auth(state = initialState, action = {}) {
         isPendingRequest: false,
         user: {
           ...state.user,
-          isLogged: true
+          isLoggedIn: true
         }
       }
     case LOG_IN_REQUEST_FAILURE:
-      browserHistory.push('/sign-in')
+      browserHistory.push('/login')
 
       return {
         ...state,
@@ -40,7 +40,7 @@ export function auth(state = initialState, action = {}) {
         error: action.payload.error,
         user: {
           ...state.user,
-          isLogged: false
+          isLoggedIn: false
         }
       }
     default:
