@@ -1,5 +1,5 @@
 import LogIn from 'containers/LogIn'
-import SignIn from 'containers/SignIn'
+import Registration from 'containers/Registration'
 import NewHackaton from 'containers/NewHackaton'
 import ModeratorBoard from 'containers/ModeratorBoard'
 
@@ -23,14 +23,16 @@ const routes = {
     path: '/login',
     component: LogIn
   }, {
-    path: '/signin',
-    component: SignIn
+    path: '/registration',
+    component: Registration
   }, {
     path: 'hackatons/new',
-    component: NewHackaton
+    component: NewHackaton,
+    onEnter: requireAuth
   }, {
     path: '/moderator',
-    component: ModeratorBoard
+    component: ModeratorBoard,
+    onEnter: requireAuth
   }]
 }
 
