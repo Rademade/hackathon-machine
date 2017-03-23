@@ -5,12 +5,11 @@ import {Provider} from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Header from 'components/Header'
-import configureStore from 'store'
+import store from 'store'
 import routes from './routes'
 
 injectTapEventPlugin()
 
-const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
 const Layout = () => (

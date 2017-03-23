@@ -1,15 +1,13 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import Formsy from 'formsy-react'
-import {FormsyText} from 'formsy-material-ui/lib'
+import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
 import RaisedButton from 'material-ui/RaisedButton'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper'
 
-const wordsError = "Please only use letters"
-const numericError = "Please provide a number"
-const urlError = "Please provide a valid URL"
-
+const emailError = "Email not valid"
 const paperStyle = {
   width: 300,
   margin: 'auto',
@@ -25,20 +23,35 @@ const submitStyle = {
   marginTop: 32
 }
 
-const LogIn = () => (
+const mapStateToProps = (state, ownProps) => ({
+  state: state.auth
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+
+})
+
+const LogIn = ({state, actions}) => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <Paper style={paperStyle}>
       <Formsy.Form>
+        <FormsyToggle
+          name="toggle"
+          label={state.isRegistration ? 'Registration' : 'Log in'}
+          style={switchStyle}
+        />
+
         <FormsyText
           name="email"
-          validations="isWords"
-          validationError={wordsError}
+          validations="isEmail"
+          validationError={emailError}
           required
           hintText="What is your email?"
           floatingLabelText="Email"
         />
         <FormsyText
           name="password"
+          validations="maxLength"
           hintText="What is your password?"
           floatingLabelText="Password"
         />
@@ -52,4 +65,7 @@ const LogIn = () => (
   </MuiThemeProvider>
 )
 
-export default LogIn
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LogIn)
