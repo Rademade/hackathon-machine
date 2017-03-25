@@ -1,15 +1,19 @@
 package main
 
 import (
+	"fmt"
+	"github.com/hackathon-machine/backend/models"
+	"github.com/hackathon-machine/backend/queries"
 	"github.com/hackathon-machine/backend/routes"
 	"github.com/hackathon-machine/backend/services"
-	"github.com/hackathon-machine/backend/queries"
 )
 
-func main () {
+func main() {
 
 	routes.Check()
 	services.Check()
 	queries.Check()
+
+	fmt.Println(models.User{})
 
 }

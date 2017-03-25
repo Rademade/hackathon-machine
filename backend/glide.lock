@@ -1,8 +1,19 @@
-hash: 1cca7284a32f8de5efcd4efd83721c89229707937530501c84408be0aecc2a87
-updated: 2017-03-25T15:30:58.362574962+02:00
+hash: a62e4183bc0077a562a2b1c549833fc7303b09735957eaf6581e6fc9f946845c
+updated: 2017-03-25T16:37:27.210440013+02:00
 imports:
 - name: github.com/jinzhu/gorm
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
+  subpackages:
+  - dialects/postgres
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/labstack/echo
   version: 948d607539e92f3974d8f24951c8975d7342e24a
+- name: github.com/lib/pq
+  version: 2704adc878c21e1329f46f6e56a1c387d788ff94
+  subpackages:
+  - hstore
+  - oid
+- name: gopkg.in/gormigrate.v1
+  version: 8d65e80265237e0c9ccc7fca4771de6d2939576c
 testImports: []
