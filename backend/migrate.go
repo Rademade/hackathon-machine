@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/hackathon-machine/backend/config"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -81,22 +80,90 @@ func main() {
 			},
 		},
 		{
-			ID: "201608301430",
+			ID: "1",
 			Migrate: func(tx *gorm.DB) error {
-
-				type User struct {
-					gorm.Model
-				}
-
 				type Hackathon struct {
 					gorm.Model
-					HeldAt  time.Time
-					Speaker User
+					HeldAt    time.Time
+					SpeakerId int
+					TopicID   int
+					Materials string
 				}
 				return tx.AutoMigrate(&Hackathon{}).Error
 			},
 			Rollback: func(tx *gorm.DB) error {
 				return tx.DropTable("hackathons").Error
+			},
+		},
+		{
+			ID: "2",
+			Migrate: func(tx *gorm.DB) error {
+				type Topic struct {
+					CreatorID int
+				}
+
+				return tx.AutoMigrate(&Topic{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type Topic struct {
+					CreatorID int
+				}
+
+				return tx.Model(&Topic{}).DropColumn("CreatedID").Error
+			},
+		},
+		{
+			ID: "3",
+			Migrate: func(tx *gorm.DB) error {
+				type UserVote struct {
+					UserID  int
+					TopicID int
+				}
+
+				return tx.AutoMigrate(&UserVote{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type UserVote struct {
+					UserID  int
+					TopicID int
+				}
+
+				return tx.Model(&UserVote{}).DropColumn("UserID").Error
+				return tx.Model(&UserVote{}).DropColumn("TopicID").Error
+			},
+		},
+		{
+			ID: "4",
+			Migrate: func(tx *gorm.DB) error {
+				type Hackathon struct {
+					IsDone bool
+				}
+
+				return tx.AutoMigrate(&Hackathon{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type Hackathon struct {
+					IsDone bool
+				}
+
+				return tx.Model(&Hackathon{}).DropColumn("IsDone").Error
+			},
+		},
+		{
+			ID: "5",
+			Migrate: func(tx *gorm.DB) error {
+				type User struct {
+					Fullname string
+				}
+
+				return tx.AutoMigrate(&User{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type User struct {
+					Fullname string
+				}
+
+				return tx.Model(&User{}).DropColumn("Fullname").Error
 			},
 		},
 	})

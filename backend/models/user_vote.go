@@ -8,7 +8,11 @@ import (
 
 type UserVote struct {
 	gorm.Model
+
 	VotedAt time.Time
-	User    User
 	Vote    int
+	User    User
+	UserId  int
+	Topic   Topic
+	TopicId int
 }
