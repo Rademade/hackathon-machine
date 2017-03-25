@@ -14,13 +14,8 @@ var (
 	db gorm.DB
 )
 
-var connectStr = fmt.Sprintf("host=127.0.0.1 user=%s dbname=%s sslmode=disable password=%s",
-	config.DbUser,
-	config.DbName,
-	config.DbPass)
-
 func main() {
-	db, err := gorm.Open("postgres", connectStr)
+	db, err := gorm.Open("postgres", config.DATABASE_URL)
 
 	if err != nil {
 		log.Fatal(err)

@@ -16,6 +16,4 @@ Create db: psql && CREATE DATABASE hmachine
 
 Run migrations: cd backend && go run migrate.go
 
-TODO:
-
-Run server: go run server.go
+Run server: cd backend && go run server.go
