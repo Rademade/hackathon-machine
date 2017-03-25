@@ -2,7 +2,7 @@ const initialState = {
   auth: {
     isPendingRequest: false,
     isRegistration: false,
-    jwt: null
+    jwt: 'auth json secret token'
   }
 }
 

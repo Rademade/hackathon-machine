@@ -21,7 +21,13 @@ export default function configureStore(initialState) {
   )
 
   if (typeof window !== 'undefined') {
-    // store.dispatch(authActions.login(localStorage.getItem('user')))
+    // simulate auth
+    sessionStorage.jwt = 'bla bla bla'
+
+    // if is logged -> redirect to dashboard
+    if (sessionStorage.jwt) {
+      store.dispatch(push('/'))
+    }
   }
 
   return store

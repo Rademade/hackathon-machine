@@ -1,13 +1,40 @@
 import React from 'react'
-import AppBar from 'material-ui/AppBar'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {browserHistory} from 'react-router'
+import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton'
+import * as authActions from 'actions/auth'
 
-const Header = () => (
-  <AppBar
-    title={'Hackathon Machine'}
-    onLeftIconButtonTouchTap={() => browserHistory.push('/')}
-    onTitleTouchTap={() => browserHistory.push('/')}
-  />
+const styles = {
+  title: {
+    cursor: 'pointer'
+  }
+}
+
+const getAuthButton = ({state, actions}) => (
+  <FlatButton
+    label={state.jwt ? 'Logout' : 'Login'}
+    onTouchTap={actions.logout}/>
 )
 
-export default Header
+const mapStateToProps = (state, ownProps) => ({
+  state: state.auth
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  actions: bindActionCreators(authActions, dispatch)
+})
+
+const Header = ({state, actions}) => (
+  <AppBar
+    title={<span style={styles.title}>Hackathon Machine</span>}
+    onLeftIconButtonTouchTap={() => browserHistory.push('/')}
+    onTitleTouchTap={() => browserHistory.push('/')}
+    iconElementRight={getAuthButton({state, actions})}/>
+)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header)

@@ -4,15 +4,10 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
-  LOG_OUT
+  LOG_OUT,
+  TOGGLE
 } from 'constants/auth'
 import * as _ from 'lodash'
-
-function loginRequest() {
-  return {
-    type: LOG_IN_REQUEST
-  }
-}
 
 function loginRequestSuccess(user) {
   return {
@@ -32,28 +27,29 @@ function loginRequestFailure(error) {
   }
 }
 
-function logout() {
-  return {
-    type: LOG_OUT
+export function logout() {
+  return dispatch => {
+    sessionStorage.removeItem('jwt')
+    dispatch(push('/auth/login'))
+    dispatch({ type: LOG_OUT })
   }
 }
 
-export default {
-  login: (credentials) => {
-    return dispatch => {
-      dispatch(loginRequest())
+export function toggle(isRegistration) {
+  return dispatch => {
+    isRegistration ? dispatch(push('/auth/registration')) : dispatch(push('/auth/login'))
+    dispatch({ type: TOGGLE })
+  }
+}
 
-      return auth.login(credentials).then(
-        response => dispatch(loginRequestSuccess(response.data))
-      ).catch(
-        error => dispatch(loginRequestFailure(error))
-      )
-    }
-  },
-  logout: () => {
-    return dispatch => {
-      sessionStorage.removeItem('jwt')
-      dispatch(logout())
-    }
+export function login(credentials) {
+  return dispatch => {
+    dispatch({ type: LOG_IN_REQUEST })
+
+    return auth.login(credentials).then(
+      response => dispatch(loginRequestSuccess(response.data))
+    ).catch(
+      error => dispatch(loginRequestFailure(error))
+    )
   }
 }
