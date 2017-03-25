@@ -9,6 +9,10 @@ import (
 
 type Hackathon struct {
 	gorm.Model
-	HeldAt  time.Time
-	Speaker User
+	HeldAt    time.Time
+	Speaker   User
+	SpeakerID int
+	Topic     Topic
+	TopicID   int    `gorm:"unique_index"`
+	Materials string `gorm:"type:text"`
 }

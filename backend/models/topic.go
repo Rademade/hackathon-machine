@@ -7,6 +7,8 @@ import (
 
 type Topic struct {
 	gorm.Model
-	Name    string
-	Creator User
+	Name      string
+	Creator   User
+	CreatorID int
+	Type      int
 }

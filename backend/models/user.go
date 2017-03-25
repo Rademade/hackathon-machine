@@ -9,10 +9,12 @@ import (
 type User struct {
 	gorm.Model
 
-	Email             string `gorm:"type:varchar(100);unique_index"`
-	EncryptedPassword string
-	password          string `gorm:"-"`
 	IsAdmin           bool
+	EncryptedPassword string
+	Email             string      `gorm:"type:varchar(100);unique_index"`
+	password          string      `gorm:"-"`
+	TopicsHeld        []Hackathon `gorm:"ForeignKey:SpeakerID"`
+	TopicsCreated     []Topic     `gorm:"ForeignKey:CreatorID"`
 	Votes             []UserVote
 }
 
