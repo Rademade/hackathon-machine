@@ -1,0 +1,6 @@
+package: github.com/hackathon-machine/backend
+import:
+- package: github.com/jinzhu/gorm
+  version: ^1.0.0
+- package: github.com/labstack/echo
+  version: ^3.1.0-rc.1
