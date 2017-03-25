@@ -132,6 +132,40 @@ func main() {
 				return tx.Model(&UserVote{}).DropColumn("TopicID").Error
 			},
 		},
+		{
+			ID: "4",
+			Migrate: func(tx *gorm.DB) error {
+				type Hackathon struct {
+					IsDone bool
+				}
+
+				return tx.AutoMigrate(&Hackathon{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type Hackathon struct {
+					IsDone bool
+				}
+
+				return tx.Model(&Hackathon{}).DropColumn("IsDone").Error
+			},
+		},
+		{
+			ID: "5",
+			Migrate: func(tx *gorm.DB) error {
+				type User struct {
+					Fullname string
+				}
+
+				return tx.AutoMigrate(&User{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type User struct {
+					Fullname string
+				}
+
+				return tx.Model(&User{}).DropColumn("Fullname").Error
+			},
+		},
 	})
 
 	if err = m.Migrate(); err != nil {

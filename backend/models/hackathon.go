@@ -9,6 +9,7 @@ import (
 
 type Hackathon struct {
 	gorm.Model
+	IsDone    bool
 	HeldAt    time.Time
 	Speaker   User
 	SpeakerID int

@@ -10,6 +10,7 @@ type User struct {
 	gorm.Model
 
 	IsAdmin           bool
+	Fullname          string
 	EncryptedPassword string
 	Email             string      `gorm:"type:varchar(100);unique_index"`
 	password          string      `gorm:"-"`
