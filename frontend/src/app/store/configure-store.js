@@ -1,5 +1,9 @@
+import React from 'react'
+import {createDevTools} from 'redux-devtools'
+import LogMonitor from 'redux-devtools-log-monitor'
+import DockMonitor from 'redux-devtools-dock-monitor'
 import {browserHistory} from 'react-router'
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import {routerMiddleware, push} from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
@@ -9,23 +13,35 @@ import authActions from 'actions/auth'
 const loggerMiddleware = createLogger()
 const reduxRouterMiddleware = routerMiddleware(browserHistory)
 
+
+export const DevTools = createDevTools(
+  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
+    <LogMonitor theme="tomorrow" />
+  </DockMonitor>
+)
+
 export default function configureStore(initialState) {
-  const store = createStore(
-    reducers,
-    initialState,
+  const enhancer = compose(
     applyMiddleware(
       reduxRouterMiddleware,
       thunkMiddleware,
       loggerMiddleware
-    )
+    ),
+    DevTools.instrument()
+  )
+
+  const store = createStore(
+    reducers,
+    initialState,
+    enhancer
   )
 
   if (typeof window !== 'undefined') {
     // simulate auth
     sessionStorage.jwt = 'bla bla bla'
 
-    // if is logged -> redirect to dashboard
-    if (sessionStorage.jwt) {
+    // if is logged and user on auth page -> redirect to dashboard
+    if (sessionStorage.jwt && (/auth/).test(window.location.pathname)) {
       store.dispatch(push('/'))
     }
   }
