@@ -16,12 +16,13 @@ func main() {
 
 func resource(e *echo.Echo, url string, controller controllers.Controller) {
 
-	singularUrl := fmt.Sprintf("%s/:id", url)
-
-	e.GET(url, controller.Index)
+	e.GET(url, controllers.Index(controller))
 	e.POST(url, controller.Create)
+
+	singularUrl := fmt.Sprintf("%s/:id", url)
 
 	e.GET(singularUrl, controller.Show)
 	e.PUT(singularUrl, controller.Update)
 	e.DELETE(singularUrl, controller.Destroy)
+
 }

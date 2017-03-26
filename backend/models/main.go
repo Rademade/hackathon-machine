@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/hackathon-machine/backend/config"
 	"github.com/jinzhu/gorm"
+	// "time"
 )
 
 var DB *gorm.DB
