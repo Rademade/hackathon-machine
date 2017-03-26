@@ -10,7 +10,7 @@ type User struct {
 	gorm.Model
 
 	IsAdmin           bool        `json:"is_admin"`
-	Fullname          string      `json:"full_name"`
+	Fullname          string      `json:"full_name,omitempty"`
 	EncryptedPassword string      `json:"-"`
 	Email             string      `json:"email", gorm:"type:varchar(100);unique_index"`
 	password          string      `json:"-", gorm:"-"`
