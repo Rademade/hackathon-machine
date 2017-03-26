@@ -1,5 +1,5 @@
-hash: a62e4183bc0077a562a2b1c549833fc7303b09735957eaf6581e6fc9f946845c
-updated: 2017-03-25T16:37:27.210440013+02:00
+hash: b29356ba6d10d2471163c45c4439c07bfa52f363d521245da292fab11ad5b4d2
+updated: 2017-03-26T12:01:35.525043032+03:00
 imports:
 - name: github.com/jinzhu/gorm
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
@@ -9,11 +9,38 @@ imports:
   version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/labstack/echo
   version: 948d607539e92f3974d8f24951c8975d7342e24a
+- name: github.com/labstack/gommon
+  version: c8c07aa087422c146b86d2f79556b450a8e630a1
+  subpackages:
+  - color
+  - log
 - name: github.com/lib/pq
   version: 2704adc878c21e1329f46f6e56a1c387d788ff94
   subpackages:
   - hstore
   - oid
+- name: github.com/mattn/go-colorable
+  version: d228849504861217f796da67fae4f6e347643f15
+- name: github.com/mattn/go-isatty
+  version: 30a891c33c7cde7b02a981314b4228ec99380cca
+- name: github.com/rapidloop/mybot
+  version: 2777401b233f3195e56ff83bed3c65f16319f206
+- name: github.com/valyala/fasttemplate
+  version: 3b874956e03f1636d171bda64b130f9135f42cff
+- name: golang.org/x/crypto
+  version: f6b343c37ca80bfa8ea539da67a0b621f84fab1d
+  subpackages:
+  - acme
+  - acme/autocert
+- name: golang.org/x/net
+  version: 8fd7f25955530b92e73e9e1932a41b522b22ccd9
+  subpackages:
+  - context
+  - context/ctxhttp
+- name: golang.org/x/sys
+  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
+  subpackages:
+  - unix
 - name: gopkg.in/gormigrate.v1
   version: 8d65e80265237e0c9ccc7fca4771de6d2939576c
 testImports: []
