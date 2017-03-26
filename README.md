@@ -21,5 +21,8 @@ http://localhost:3000
 + Run migrations:
     $ cd backend && go run migrate.go
 
++ Start slack bot integration:
+    $ cd backend && go run bot.go
+
 + Run server:
     $ cd backend && go run server.go
