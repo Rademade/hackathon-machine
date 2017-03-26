@@ -9,11 +9,12 @@ http://localhost:3000
 
 # backend
 
-Install package manager: curl https://glide.sh/get | sh
-Install packages: cd backend && glide install
++ Install package manager: curl https://glide.sh/get | sh
 
-Create db: psql && CREATE DATABASE hmachine
++ Install packages: cd backend && glide install
 
-Run migrations: cd backend && go run migrate.go
++ Create db: psql && CREATE DATABASE hmachine
 
-Run server: cd backend && go run server.go
++ Run migrations: cd backend && go run migrate.go
+
++ Run server: cd backend && go run server.go
