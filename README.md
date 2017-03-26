@@ -9,26 +9,26 @@ http://localhost:3000
 
 # backend
 
-+ Install package manager:
+Install package manager:
 
     $ curl https://glide.sh/get | sh
 
-+ Install packages:
+Install packages:
 
     $ cd backend && glide install
 
-+ Create db:
+Create db:
 
-    $ psql && CREATE DATABASE hmachine
+    psql && CREATE DATABASE hmachine
 
-+ Run migrations:
+Run migrations:
 
     $ cd backend && go run migrate.go
 
-+ Start slack bot integration:
+Start slack bot integration:
 
     $ cd backend && go run bot.go
 
-+ Run server:
+Run server:
 
     $ cd backend && go run server.go
