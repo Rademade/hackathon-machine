@@ -4,8 +4,7 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
-  LOG_OUT,
-  TOGGLE
+  LOG_OUT
 } from 'constants/auth'
 import * as _ from 'lodash'
 
@@ -30,15 +29,8 @@ function loginRequestFailure(error) {
 export function logout() {
   return dispatch => {
     sessionStorage.removeItem('jwt')
-    dispatch(push('/auth/login'))
+    dispatch(push('/auth'))
     dispatch({ type: LOG_OUT })
-  }
-}
-
-export function toggle(isRegistration) {
-  return dispatch => {
-    isRegistration ? dispatch(push('/auth/registration')) : dispatch(push('/auth/login'))
-    dispatch({ type: TOGGLE })
   }
 }
 

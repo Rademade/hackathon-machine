@@ -34,13 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Login = ({state, actions}) => (
   <Paper style={styles.paperStyle}>
     <Formsy.Form>
-      <FormsyToggle
-        name="toggle"
-        label="Log in"
-        defaultToggled={state.isRegistration}
-        onChange={(_, isRegistration) => actions.toggle(isRegistration)}
-        style={styles.switchStyle}
-      />
+      <span>Log in</span>
       <FormsyText
         name="email"
         validations="isEmail"
