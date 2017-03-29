@@ -10,6 +10,7 @@ func main() {
 	e := echo.New()
 
 	resource(e, "/users", controllers.UsersController{})
+	resource(e, "/hackathons", controllers.HackathonsController{})
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
