@@ -25,7 +25,11 @@ func (u HackathonsController) Index() interface{} {
 
 func (u HackathonsController) Create(hack interface{}) interface{} {
 
-	return nil
+	if err := models.DB.Create(&hack).Error; err != nil {
+		return err
+	}
+
+	return hack
 
 }
 
@@ -35,10 +39,23 @@ func (u HackathonsController) Show(c echo.Context) error {
 
 }
 
-func (u HackathonsController) Update(c echo.Context) error {
+func (u HackathonsController) Update(c echo.Context) interface{}, error {
 
-	return nil
+	hack := models.Hackathon{}
 
+	if err := models.DB.First(&hack, c.Param("id")).Error; err != nil {
+		return hack, err
+	}
+
+	if err := c.Bind(hack); err != nil {
+		return hack, err
+	}
+
+	if err := models.DB.Save(&hack); err != nil {
+		return hack, err
+	}
+
+	return hack, nil
 }
 
 func (u HackathonsController) Destroy(c echo.Context) error {

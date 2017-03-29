@@ -9,7 +9,7 @@ type Controller interface {
 	Index() interface{}
 	Show(echo.Context) error
 	Create(interface{}) interface{}
-	Update(echo.Context) error
+	Update(echo.Context) interface{}
 	Destroy(echo.Context) error
 
 	newResource() interface{}
@@ -39,7 +39,24 @@ func Create(ctrl Controller) echo.HandlerFunc {
 			return err
 		}
 
-		record := ctrl.Create(c)
+		record := ctrl.Create(r)
+
+		return c.JSON(http.StatusCreated, record)
+	}
+
+}
+
+func Update(ctrl Controller) echo.HandlerFunc {
+
+	//TODO: auth || hooks
+
+	return func(c echo.Context) error {
+
+		record, err := ctrl.Update(c)
+
+		if err != nil {
+			return err
+		}
 
 		return c.JSON(http.StatusCreated, record)
 	}
