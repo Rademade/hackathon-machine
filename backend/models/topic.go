@@ -1,12 +1,12 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
+	// "github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type Topic struct {
-	gorm.Model
+	Base
 	Name      string
 	Creator   User
 	CreatorID int

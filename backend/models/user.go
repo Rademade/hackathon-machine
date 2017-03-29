@@ -2,12 +2,12 @@ package models
 
 import (
 	"github.com/hackathon-machine/backend/services/encryption"
-	"github.com/jinzhu/gorm"
+	// "github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type User struct {
-	gorm.Model
+	Base
 
 	IsAdmin           bool        `json:"is_admin"`
 	Fullname          string      `json:"full_name,omitempty"`
