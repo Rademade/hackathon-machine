@@ -5,8 +5,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-type UsersController struct {
-}
+type UsersController struct{}
 
 func (u UsersController) Index() interface{} {
 
@@ -20,9 +19,9 @@ func (u UsersController) Index() interface{} {
 
 func (u UsersController) Create(c echo.Context) interface{} {
 
-	user := new(models.User)
+	user := models.User{}
 
-	if err := c.Bind(user); err != nil {
+	if err := c.Bind(&user); err != nil {
 		return err
 	}
 
@@ -39,9 +38,9 @@ func (u UsersController) Show(c echo.Context) error {
 
 }
 
-func (u UsersController) Update(c echo.Context) error {
+func (u UsersController) Update(c echo.Context) (interface{}, error) {
 
-	return nil
+	return nil, nil
 
 }
 
