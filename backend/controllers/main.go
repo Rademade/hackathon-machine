@@ -9,7 +9,7 @@ type Controller interface {
 	Index() interface{}
 	Show(echo.Context) error
 	Create(interface{}) interface{}
-	Update(echo.Context) interface{}
+	Update(echo.Context) (interface{}, error)
 	Destroy(echo.Context) error
 
 	newResource() interface{}

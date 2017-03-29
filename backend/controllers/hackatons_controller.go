@@ -39,7 +39,7 @@ func (u HackathonsController) Show(c echo.Context) error {
 
 }
 
-func (u HackathonsController) Update(c echo.Context) interface{}, error {
+func (u HackathonsController) Update(c echo.Context) (interface{}, error) {
 
 	hack := models.Hackathon{}
 
@@ -51,7 +51,7 @@ func (u HackathonsController) Update(c echo.Context) interface{}, error {
 		return hack, err
 	}
 
-	if err := models.DB.Save(&hack); err != nil {
+	if err := models.DB.Save(&hack).Error; err != nil {
 		return hack, err
 	}
 

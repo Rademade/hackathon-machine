@@ -36,9 +36,9 @@ func (u UsersController) Show(c echo.Context) error {
 
 }
 
-func (u UsersController) Update(c echo.Context) error {
+func (u UsersController) Update(c echo.Context) (interface{}, error) {
 
-	return nil
+	return nil, nil
 
 }
 
