@@ -1,6 +1,6 @@
 const initialState = {
   auth: {
-    jwt: null
+    jwt: null,
     isPendingRequest: false,
     loginForm: {
       canSubmit: false

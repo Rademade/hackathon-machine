@@ -20,9 +20,6 @@ const styles = {
   },
   submitStyle: {
     marginTop: 32
-  },
-  titleSryle: {
-    marginBottom: 0
   }
 }
 
@@ -40,7 +37,7 @@ const Login = ({state, actions}) => (
       onSubmit={actions.login}
       onValid={actions.enableLoginButton}
       onInvalid={actions.disableLoginButton}>
-      <h2 style={styles.titleSryle}>Вход</h2>
+      <h2>Вход</h2>
       <FormsyText
         name="email"
         validations="isEmail"
