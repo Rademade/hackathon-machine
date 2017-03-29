@@ -21,7 +21,7 @@ func (u UsersController) Create(c echo.Context) interface{} {
 
 	user := models.User{}
 
-	if err := c.Bind(user); err != nil {
+	if err := c.Bind(&user); err != nil {
 		return err
 	}
 

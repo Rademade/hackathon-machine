@@ -23,7 +23,7 @@ func (u HackathonsController) Create(c echo.Context) interface{} {
 
 	hack := models.Hackathon{}
 
-	if err := c.Bind(hack); err != nil {
+	if err := c.Bind(&hack); err != nil {
 		return err
 	}
 
@@ -49,7 +49,7 @@ func (u HackathonsController) Update(c echo.Context) (interface{}, error) {
 		return hack, err
 	}
 
-	if err := c.Bind(hack); err != nil {
+	if err := c.Bind(&hack); err != nil {
 		return hack, err
 	}
 
