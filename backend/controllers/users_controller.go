@@ -18,25 +18,28 @@ func (u UsersController) Index() interface{} {
 
 }
 
-func (u UsersController) Create(c echo.Context) interface{} {
+func (u UsersController) Create(c echo.Context) (interface{}, error) {
 
 	user := new(models.User)
 
 	if err := c.Bind(user); err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := models.DB.Create(&user).Error; err != nil {
-		return err
+		return nil, err
 	}
 
-	return user
+	return user, nil
 }
 
-func (u UsersController) Show(c echo.Context) error {
+func (u UsersController) Show(c echo.Context) (interface{}, error) {
+	user := new(models.User)
+	if err := models.DB.First(&user, c.Param("id")).Error; err != nil {
+		return nil, err
+	}
 
-	return nil
-
+	return user, nil
 }
 
 func (u UsersController) Update(c echo.Context) error {

@@ -7,8 +7,8 @@ import (
 
 type Controller interface {
 	Index() interface{}
-	Show(echo.Context) error
-	Create(echo.Context) interface{}
+	Show(echo.Context) (interface{}, error)
+	Create(echo.Context) (interface{}, error)
 	Update(echo.Context) error
 	Destroy(echo.Context) error
 }
@@ -31,9 +31,27 @@ func Create(ctrl Controller) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
 
-		record := ctrl.Create(c)
+		record, err := ctrl.Create(c)
+		if err != nil {
+			return err
+		}
 
 		return c.JSON(http.StatusCreated, record)
 	}
 
+}
+
+func Show(ctrl Controller) echo.HandlerFunc {
+
+	//TODO: auth || hooks
+
+	return func(c echo.Context) error {
+
+		record, err := ctrl.Show(c)
+		if err != nil {
+			return err
+		}
+
+		return c.JSON(http.StatusCreated, record)
+	}
 }

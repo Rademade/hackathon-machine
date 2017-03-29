@@ -19,15 +19,15 @@ func (u HackathonsController) Index() interface{} {
 
 }
 
-func (u HackathonsController) Create(c echo.Context) interface{} {
+func (u HackathonsController) Create(c echo.Context) (interface{}, error) {
 
-	return nil
+	return nil, nil
 
 }
 
-func (u HackathonsController) Show(c echo.Context) error {
+func (u HackathonsController) Show(c echo.Context) (interface{}, error) {
 
-	return nil
+	return nil, nil
 
 }
 
