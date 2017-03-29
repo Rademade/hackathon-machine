@@ -4,7 +4,8 @@ import {
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
   LOG_OUT,
-  TOGGLE
+  ENABLE_LOGIN_BUTTON,
+  DISABLE_LOGIN_BUTTON
 } from 'constants/auth'
 import initialState from 'store/initial-state'
 
@@ -42,10 +43,21 @@ export default function authReducer(state = initialState.auth, action = {}) {
         ...state,
         jwt: null
       }
-    case TOGGLE:
+    case ENABLE_LOGIN_BUTTON:
       return {
         ...state,
-        isRegistration: !state.isRegistration
+        loginForm: {
+          ...state.loginForm,
+          canSubmit: true
+        }
+      }
+    case DISABLE_LOGIN_BUTTON:
+      return {
+        ...state,
+        loginForm: {
+          ...state.loginForm,
+          canSubmit: false
+        }
       }
     default:
       return state
