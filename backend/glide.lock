@@ -1,6 +1,8 @@
-hash: b29356ba6d10d2471163c45c4439c07bfa52f363d521245da292fab11ad5b4d2
-updated: 2017-03-26T12:01:35.525043032+03:00
+hash: db3cc126327f1465fb323a02449c159f2f3abdda32f6c5f84491c18a798cf2c8
+updated: 2017-03-26T20:49:34.14862135+03:00
 imports:
+- name: github.com/google/jsonapi
+  version: bce762968295cf96afcbbf082a2e15ca7e664c91
 - name: github.com/jinzhu/gorm
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
   subpackages:
@@ -23,8 +25,6 @@ imports:
   version: d228849504861217f796da67fae4f6e347643f15
 - name: github.com/mattn/go-isatty
   version: 30a891c33c7cde7b02a981314b4228ec99380cca
-- name: github.com/rapidloop/mybot
-  version: 2777401b233f3195e56ff83bed3c65f16319f206
 - name: github.com/valyala/fasttemplate
   version: 3b874956e03f1636d171bda64b130f9135f42cff
 - name: golang.org/x/crypto
@@ -37,6 +37,7 @@ imports:
   subpackages:
   - context
   - context/ctxhttp
+  - websocket
 - name: golang.org/x/sys
   version: d75a52659825e75fff6158388dddc6a5b04f9ba5
   subpackages:

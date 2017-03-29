@@ -11,8 +11,4 @@ func init() {
 
 	DB, _ = gorm.Open("postgres", config.DATABASE_URL)
 
-	// if err != nil {
-	//   // do smth
-	// }
-
 }
