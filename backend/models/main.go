@@ -6,12 +6,20 @@ import (
 	"time"
 )
 
+type Timestamp time.Time
+
+func (t *Timestamp) UnmarshalParam(src string) error {
+	ts, err := time.Parse(time.RFC3339, src)
+	*t = Timestamp(ts)
+	return err
+}
+
 var DB *gorm.DB
 
 type Base struct {
 	ID        int       `json:"id"`
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
 }
 
 func init() {
