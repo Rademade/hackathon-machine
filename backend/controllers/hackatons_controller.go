@@ -45,7 +45,7 @@ func (u HackathonsController) Update(c echo.Context) (interface{}, error) {
 
 	hack := models.Hackathon{}
 
-	if err := models.DB.First(&hack, c.Param("id")).Error; err != nil {
+	if err := models.DB.Preload("Topic").First(&hack, c.Param("id")).Error; err != nil {
 		return hack, err
 	}
 
