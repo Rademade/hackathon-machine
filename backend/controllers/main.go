@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
 )
@@ -22,7 +20,7 @@ func Index(ctrl Controller) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		records := ctrl.Index()
 
-		c.JSON(http.StatusOK, records)
+		return c.JSON(http.StatusOK, records)
 	}
 
 }
@@ -32,9 +30,10 @@ func Create(ctrl Controller) echo.HandlerFunc {
 	//TODO: auth || hooks
 
 	return func(c echo.Context) error {
-		record := ctrl.Create()
 
-		c.JSON(http.StatusOK, record)
+		record := ctrl.Create(c)
+
+		return c.JSON(http.StatusCreated, record)
 	}
 
 }

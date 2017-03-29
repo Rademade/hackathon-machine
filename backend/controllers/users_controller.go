@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/hackathon-machine/backend/models"
 	"github.com/labstack/echo"
-	"net/http"
 )
 
 type UsersController struct {
@@ -19,9 +18,10 @@ func (u UsersController) Index() interface{} {
 
 }
 
-func (u UsersController) Create(c echo.Context) error {
+func (u UsersController) Create(c echo.Context) interface{} {
 
 	user := new(models.User)
+
 	if err := c.Bind(user); err != nil {
 		return err
 	}
@@ -30,7 +30,7 @@ func (u UsersController) Create(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusCreated, user)
+	return user
 }
 
 func (u UsersController) Show(c echo.Context) error {

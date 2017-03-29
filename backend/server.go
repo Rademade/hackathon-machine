@@ -18,7 +18,7 @@ func main() {
 func resource(e *echo.Echo, url string, controller controllers.Controller) {
 
 	e.GET(url, controllers.Index(controller))
-	e.POST(url, controller.Create)
+	e.POST(url, controllers.Create(controller))
 
 	singularUrl := fmt.Sprintf("%s/:id", url)
 

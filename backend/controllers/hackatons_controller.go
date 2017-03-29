@@ -19,7 +19,7 @@ func (u HackathonsController) Index() interface{} {
 
 }
 
-func (u HackathonsController) Create(c echo.Context) error {
+func (u HackathonsController) Create(c echo.Context) interface{} {
 
 	return nil
 
