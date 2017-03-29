@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
 )
@@ -10,7 +8,7 @@ import (
 type Controller interface {
 	Index() interface{}
 	Show(echo.Context) error
-	Create(echo.Context) error
+	Create(echo.Context) interface{}
 	Update(echo.Context) error
 	Destroy(echo.Context) error
 }
@@ -22,14 +20,20 @@ func Index(ctrl Controller) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		records := ctrl.Index()
 
-		fmt.Println("Records fetched")
+		return c.JSON(http.StatusOK, records)
+	}
 
-		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
-		c.Response().WriteHeader(http.StatusOK)
+}
 
-		fmt.Println("Headers written")
+func Create(ctrl Controller) echo.HandlerFunc {
 
-		return json.NewEncoder(c.Response()).Encode(records)
+	//TODO: auth || hooks
+
+	return func(c echo.Context) error {
+
+		record := ctrl.Create(c)
+
+		return c.JSON(http.StatusCreated, record)
 	}
 
 }
