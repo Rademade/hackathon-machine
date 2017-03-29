@@ -1,5 +1,4 @@
 import Login from 'containers/auth/Login'
-import Registration from 'containers/auth/Registration'
 import HackathonIndex from 'containers/hackathons/index'
 import HackathonNew from 'containers/hackathons/new'
 import ModeratorBoard from 'containers/ModeratorBoard'
@@ -8,7 +7,7 @@ import NotFound from 'containers/NotFound'
 function requireAuth(nextState, replace) {
   if (!sessionStorage.jwt) {
     replace({
-      pathname: '/auth/login',
+      pathname: '/auth',
       state: {
         nextPathname: nextState.location.pathname
       }
@@ -21,17 +20,14 @@ const routes = [{
   component: HackathonIndex,
   onEnter: requireAuth
 }, {
-  path: '/auth/login',
+  path: '/auth',
   component: Login
 }, {
-  path: '/auth/registration',
-  component: Registration
-}, {
-  path: '/hackatons',
+  path: '/hackathons',
   component: HackathonIndex,
   onEnter: requireAuth
 }, {
-  path: '/hackatons/new',
+  path: '/hackathons/new',
   component: HackathonNew,
   onEnter: requireAuth
 }, {
