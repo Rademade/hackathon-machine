@@ -4,7 +4,9 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
-  LOG_OUT
+  LOG_OUT,
+  ENABLE_LOGIN_BUTTON,
+  DISABLE_LOGIN_BUTTON
 } from 'constants/auth'
 import * as _ from 'lodash'
 
@@ -24,6 +26,14 @@ function loginRequestFailure(error) {
       error
     }
   }
+}
+
+export function enableLoginButton() {
+  return dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON })
+}
+
+export function disableLoginButton() {
+  return dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
 }
 
 export function logout() {

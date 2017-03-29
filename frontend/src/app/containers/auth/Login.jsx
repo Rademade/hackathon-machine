@@ -33,26 +33,29 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const Login = ({state, actions}) => (
   <Paper style={styles.paperStyle}>
-    <Formsy.Form>
-      <span>Log in</span>
+    <Formsy.Form
+      onSubmit={actions.login}
+      onValid={actions.enableLoginButton}
+      onInvalid={actions.disableLoginButton}>
+      <h2>Вход</h2>
       <FormsyText
         name="email"
         validations="isEmail"
-        validationError={'Email not valid'}
+        validationError={'Email не валидный'}
         required
-        hintText="What is your email?"
+        hintText="Какой Ваш email?"
         floatingLabelText="Email"
       />
       <FormsyText
         name="password"
-        validations="maxLength"
-        hintText="What is your password?"
-        floatingLabelText="Password"
+        hintText="Какой Ваш пароль?"
+        floatingLabelText="Пароль"
       />
       <RaisedButton
         style={styles.submitStyle}
         type="submit"
-        label="Submit"
+        disabled={!state.loginForm.canSubmit}
+        label="Отправить"
       />
     </Formsy.Form>
   </Paper>

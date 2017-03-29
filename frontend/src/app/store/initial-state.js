@@ -1,8 +1,10 @@
 const initialState = {
   auth: {
+    jwt: null,
     isPendingRequest: false,
-    isRegistration: false,
-    jwt: 'auth json secret token'
+    loginForm: {
+      canSubmit: false
+    }
   }
 }
 
