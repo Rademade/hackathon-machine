@@ -23,11 +23,11 @@ const routes = [{
   path: '/auth',
   component: Login
 }, {
-  path: '/hackatons',
+  path: '/hackathons',
   component: HackathonIndex,
   onEnter: requireAuth
 }, {
-  path: '/hackatons/new',
+  path: '/hackathons/new',
   component: HackathonNew,
   onEnter: requireAuth
 }, {
