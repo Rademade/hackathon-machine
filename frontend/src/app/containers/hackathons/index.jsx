@@ -2,65 +2,48 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
+import {
+  Table, TableBody, TableHeader, TableHeaderColumn,
+  TableRow, TableRowColumn, FlatButton, Paper
+} from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import RaisedButton from 'material-ui/RaisedButton'
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, FlatButton } from 'material-ui'
 import * as authActions from 'actions/auth'
-// import {moment} form 'moment'
 import moment from 'moment'
 
-moment.locale('ru');
+moment.locale('ru')
 
-const styles = {
-  paperStyle: {
-    width: 300,
-    margin: 'auto',
-    padding: 20,
-    marginTop: 100
-  },
-  switchStyle: {
-    marginBottom: 16
-  },
-  submitStyle: {
-    marginTop: 32
-  }
+const paperStyle = {
+  margin: 'auto',
+  padding: 20,
+  marginTop: 20
 }
 
-const hackstons = [
-  {
-    id: 1,
-    topic: 'afsadf',
-    date: new Date(),
-    speaker: 'asfasg',
-    done: true,
-    materials_link: 'http://ya.ru'
-  },
-  {
-    id: 2,
-    topic: 'afsadf',
-    date: new Date(),
-    speaker: 'asfasg',
-    done: true,
-    materials_link: 'http://ya.ru'
-  },
-  {
-    id: 3,
-    topic: 'afsadf',
-    date: new Date(),
-    speaker: 'asfasg',
-    done: false,
-    materials_link: 'http://ya.ru'
-  }
-];
+const HackathonTableHeaderRow = ({isAdmin}) => (
+  <TableRow>
+    <TableHeaderColumn>Тема</TableHeaderColumn>
+    <TableHeaderColumn>Дата</TableHeaderColumn>
+    <TableHeaderColumn>Докладчик</TableHeaderColumn>
+    <TableHeaderColumn>Статус</TableHeaderColumn>
+    {isAdmin && <TableHeaderColumn>Действия</TableHeaderColumn>}
+  </TableRow>
+)
 
-const isAdmin = ()=>{
-  return true;
-};
-
+const HackathonTableBodyRow = ({hackston, isAdmin}) => (
+  <TableRow>
+    <TableRowColumn>{hackston.topic}</TableRowColumn>
+    <TableRowColumn>{moment(hackston.date).format('DD, MMM')}</TableRowColumn>
+    <TableRowColumn>{hackston.speaker}</TableRowColumn>
+    <TableRowColumn>{hackston.done
+      ? (<span>Завершен, материалы: <a href={hackston.materials_link}>тут</a></span>)
+      : 'Еще не проведен'}
+    </TableRowColumn>
+    {isAdmin && <TableRowColumn><FlatButton label='Изменить' primary={true}/></TableRowColumn>}
+  </TableRow>
+)
 
 const mapStateToProps = (state, ownProps) => ({
-  state: state.auth
+  state: state.hackathon
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -68,38 +51,17 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 const HackathonIndex = ({state, actions}) => (
-  <div>
-    <h1>Список хакатонов</h1>
+  <Paper style={paperStyle}>
+    <h2>Список хакатонов</h2>
     <Table>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TableRow>
-          <TableHeaderColumn>Тема</TableHeaderColumn>
-          <TableHeaderColumn>Дата</TableHeaderColumn>
-          <TableHeaderColumn>Докладчик</TableHeaderColumn>
-          <TableHeaderColumn>Статус</TableHeaderColumn>
-          {isAdmin() &&<TableHeaderColumn>Действия</TableHeaderColumn>}
-        </TableRow>
-      </TableHeader>  
+        <HackathonTableHeaderRow isAdmin={true}/>
+      </TableHeader>
       <TableBody displayRowCheckbox={false}>
-      {hackstons.map(
-        (item)=>{
-          return (<TableRow key={item.id}>
-                  <TableRowColumn>{item.topic}</TableRowColumn>
-                  <TableRowColumn>{moment(item.date).format('DD, MMM')}</TableRowColumn>
-                  <TableRowColumn>{item.speaker}</TableRowColumn>
-                  <TableRowColumn>{item.done ?
-                    <span>Завершен, материалы: <a href={item.materials_link}>тут</a> </span>
-                    :
-                    'Еще не проведен'
-                    }</TableRowColumn>
-                  {isAdmin() && <TableRowColumn><FlatButton label="Изменить" primary={true} /></TableRowColumn>}
-                </TableRow>)
-        }
-      )
-      }
-    </TableBody>
+        {state.hackstons.map(hackston => <HackathonTableBodyRow key={hackston.id} hackston={hackston} isAdmin={true}/>)}
+      </TableBody>
     </Table>
-  </div>
+  </Paper>
 )
 
 export default connect(

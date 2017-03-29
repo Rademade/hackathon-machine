@@ -1,4 +1,3 @@
-import {browserHistory} from 'react-router'
 import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
@@ -9,7 +8,7 @@ import {
 } from 'constants/auth'
 import initialState from 'store/initial-state'
 
-export default function authReducer(state = initialState.auth, action = {}) {
+export default function auth(state = initialState.auth, action = {}) {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {

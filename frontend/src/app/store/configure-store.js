@@ -16,7 +16,7 @@ const reduxRouterMiddleware = routerMiddleware(browserHistory)
 
 export const DevTools = createDevTools(
   <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
-    <LogMonitor theme="tomorrow" />
+    <LogMonitor theme="tomorrow"/>
   </DockMonitor>
 )
 
