@@ -5,7 +5,10 @@ import (
 	"github.com/labstack/echo"
 )
 
-type UsersController struct {
+type UsersController struct{}
+
+func resourceClass() interface{} {
+	return models.User
 }
 
 func (u UsersController) Index() interface{} {
@@ -18,13 +21,7 @@ func (u UsersController) Index() interface{} {
 
 }
 
-func (u UsersController) Create(c echo.Context) interface{} {
-
-	user := new(models.User)
-
-	if err := c.Bind(user); err != nil {
-		return err
-	}
+func (u UsersController) Create(user models.User) interface{} {
 
 	if err := models.DB.Create(&user).Error; err != nil {
 		return err

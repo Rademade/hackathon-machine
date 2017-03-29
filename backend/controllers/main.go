@@ -31,6 +31,12 @@ func Create(ctrl Controller) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
 
+		record = new(ctrl.resourceClass())
+
+		if err := c.Bind(record); err != nil {
+			return err
+		}
+
 		record := ctrl.Create(c)
 
 		return c.JSON(http.StatusCreated, record)
