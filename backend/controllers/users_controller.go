@@ -7,10 +7,6 @@ import (
 
 type UsersController struct{}
 
-func (u UsersController) newResource() interface{} {
-	return new(models.User)
-}
-
 func (u UsersController) Index() interface{} {
 
 	var users []models.User
@@ -21,7 +17,13 @@ func (u UsersController) Index() interface{} {
 
 }
 
-func (u UsersController) Create(user interface{}) interface{} {
+func (u UsersController) Create(c echo.Context) interface{} {
+
+	user := models.User{}
+
+	if err := c.Bind(user); err != nil {
+		return err
+	}
 
 	if err := models.DB.Create(&user).Error; err != nil {
 		return err

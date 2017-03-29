@@ -9,10 +9,6 @@ import (
 type HackathonsController struct {
 }
 
-func (u HackathonsController) newResource() interface{} {
-	return new(models.Hackathon)
-}
-
 func (u HackathonsController) Index() interface{} {
 
 	var hackathons []models.Hackathon
@@ -23,7 +19,13 @@ func (u HackathonsController) Index() interface{} {
 
 }
 
-func (u HackathonsController) Create(hack interface{}) interface{} {
+func (u HackathonsController) Create(c echo.Context) interface{} {
+
+	hack := models.Hackathon{}
+
+	if err := c.Bind(hack); err != nil {
+		return err
+	}
 
 	if err := models.DB.Create(&hack).Error; err != nil {
 		return err

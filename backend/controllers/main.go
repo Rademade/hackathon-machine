@@ -8,11 +8,9 @@ import (
 type Controller interface {
 	Index() interface{}
 	Show(echo.Context) error
-	Create(interface{}) interface{}
+	Create(echo.Context) interface{}
 	Update(echo.Context) (interface{}, error)
 	Destroy(echo.Context) error
-
-	newResource() interface{}
 }
 
 func Index(ctrl Controller) echo.HandlerFunc {
@@ -33,13 +31,7 @@ func Create(ctrl Controller) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
 
-		r := ctrl.newResource()
-
-		if err := c.Bind(r); err != nil {
-			return err
-		}
-
-		record := ctrl.Create(r)
+		record := ctrl.Create(c)
 
 		return c.JSON(http.StatusCreated, record)
 	}
