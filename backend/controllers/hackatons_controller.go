@@ -9,6 +9,10 @@ import (
 type HackathonsController struct {
 }
 
+func (u HackathonsController) newResource() interface{} {
+	return new(models.Hackathon)
+}
+
 func (u HackathonsController) Index() interface{} {
 
 	var hackathons []models.Hackathon
@@ -19,7 +23,7 @@ func (u HackathonsController) Index() interface{} {
 
 }
 
-func (u HackathonsController) Create(c echo.Context) interface{} {
+func (u HackathonsController) Create(hack interface{}) interface{} {
 
 	return nil
 

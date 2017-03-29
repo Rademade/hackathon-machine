@@ -8,9 +8,11 @@ import (
 type Controller interface {
 	Index() interface{}
 	Show(echo.Context) error
-	Create(echo.Context) interface{}
+	Create(interface{}) interface{}
 	Update(echo.Context) error
 	Destroy(echo.Context) error
+
+	newResource() interface{}
 }
 
 func Index(ctrl Controller) echo.HandlerFunc {
@@ -31,9 +33,9 @@ func Create(ctrl Controller) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
 
-		record = new(ctrl.resourceClass())
+		r := ctrl.newResource()
 
-		if err := c.Bind(record); err != nil {
+		if err := c.Bind(r); err != nil {
 			return err
 		}
 
