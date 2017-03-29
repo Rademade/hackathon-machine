@@ -1,7 +1,9 @@
 import Login from 'containers/auth/Login'
 import HackathonIndex from 'containers/hackathons/index'
 import HackathonNew from 'containers/hackathons/new'
+import HackathonEdit from 'containers/hackathons/edit'
 import ModeratorBoard from 'containers/ModeratorBoard'
+
 import NotFound from 'containers/NotFound'
 
 function requireAuth(nextState, replace) {
@@ -29,6 +31,10 @@ const routes = [{
 }, {
   path: '/hackathons/new',
   component: HackathonNew,
+  onEnter: requireAuth
+}, {
+  path: '/hackathons/edit',
+  component: HackathonEdit,
   onEnter: requireAuth
 }, {
   path: '/moderator',
