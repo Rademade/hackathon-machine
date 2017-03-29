@@ -2,7 +2,6 @@ package models
 
 import (
 	"github.com/hackathon-machine/backend/services/encryption"
-	// "github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
@@ -12,10 +11,10 @@ type User struct {
 	IsAdmin           bool        `json:"is_admin"`
 	Fullname          string      `json:"full_name,omitempty"`
 	EncryptedPassword string      `json:"-"`
-	Email             string      `json:"email", gorm:"type:varchar(100);unique_index"`
-	password          string      `json:"-", gorm:"-"`
-	TopicsHeld        []Hackathon `json:"-", gorm:"ForeignKey:SpeakerID"`
-	TopicsCreated     []Topic     `json:"-", gorm:"ForeignKey:CreatorID"`
+	Email             string      `json:"email" gorm:"type:varchar(100);unique_index"`
+	password          string      `json:"-" gorm:"-"`
+	TopicsHeld        []Hackathon `json:"-" gorm:"ForeignKey:SpeakerID"`
+	TopicsCreated     []Topic     `json:"-" gorm:"ForeignKey:CreatorID"`
 	Votes             []UserVote  `json:"-"`
 }
 

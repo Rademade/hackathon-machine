@@ -15,10 +15,6 @@ func (u HackathonsController) Index() interface{} {
 
 	models.DB.Preload("Topic.Creator").Preload("Speaker").Find(&hackathons)
 
-	// var topic models.Topic
-
-	// fmt.Println(models.DB.Model(hackathons[0]).Related(&topic))
-
 	return hackathons
 
 }
