@@ -28,7 +28,7 @@ const SpeakerSelect = ({speakers}) => (
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  state: state.hackathonApp
+  state
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -39,12 +39,12 @@ const HackathonNew = ({state, actions}) => (
   <Paper style={paperStyle}>
     <Formsy.Form>
       <h2>Создать хакатон</h2>
-      <TopicSelect topics={state.topics}/>
+      <TopicSelect topics={state.topicApp.topics}/>
       <FormsyDate
         name="date"
         floatingLabelText="Дата проведения"
         required/>
-      <SpeakerSelect speakers={state.speakers}/>
+      <SpeakerSelect speakers={state.speakerApp.speakers}/>
       <RaisedButton
         style={{marginTop: 32}}
         type="submit"

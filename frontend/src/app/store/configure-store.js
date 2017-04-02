@@ -8,11 +8,12 @@ import {routerMiddleware, push} from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import reducers from 'reducers'
-import authActions from 'actions/auth'
+import {fetchHackathons} from 'actions/hackathon'
+import {fetchSpeakers} from 'actions/speaker'
+import {fetchTopics} from 'actions/topic'
 
 const loggerMiddleware = createLogger()
 const reduxRouterMiddleware = routerMiddleware(browserHistory)
-
 
 export const DevTools = createDevTools(
   <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
@@ -40,9 +41,14 @@ export default function configureStore(initialState) {
     // simulate auth
     sessionStorage.jwt = 'bla bla bla'
 
-    // if is logged and user on auth page -> redirect to dashboard
-    if (sessionStorage.jwt && (/auth/).test(window.location.pathname)) {
-      store.dispatch(push('/'))
+    // if user is logged
+    if (sessionStorage.jwt) {
+      store.dispatch(fetchHackathons())
+      store.dispatch(fetchSpeakers())
+      store.dispatch(fetchTopics())
+
+      // if user on auth page -> redirect to dashboard
+      if ((/auth/).test(window.location.pathname)) store.dispatch(push('/'))
     }
   }
 

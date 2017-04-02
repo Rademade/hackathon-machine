@@ -28,7 +28,9 @@ const initialState = {
       speaker: 'Test 3',
       done: false,
       materials_link: 'http://ya.ru'
-    }],
+    }]
+  },
+  speakerApp: {
     speakers: [{
       id: 1,
       full_name: 'Alexander Kozlyakov'
@@ -45,6 +47,8 @@ const initialState = {
       id: 5,
       full_name: 'Yaroslav Senishyn'
     }],
+  },
+  topicApp: {
     topics: [{
       id: 1,
       title: 'React'

@@ -45,7 +45,9 @@ export function logout() {
 
 export function login(credentials) {
   return dispatch => {
-    dispatch({ type: LOG_IN_REQUEST })
+    dispatch({
+      type: LOG_IN_REQUEST
+    })
 
     return auth.login(credentials).then(
       response => dispatch(loginRequestSuccess(response.data))

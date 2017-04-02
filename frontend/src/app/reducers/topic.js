@@ -1,24 +1,24 @@
 import initialState from 'store/initial-state'
 import {
-  HACKATHONS_REQUEST,
-  HACKATHONS_REQUEST_SUCCESS,
-  HACKATHONS_REQUEST_FAILURE
-} from 'constants/hackathon'
+  TOPICS_REQUEST,
+  TOPICS_REQUEST_SUCCESS,
+  TOPICS_REQUEST_FAILURE
+} from 'constants/topic'
 
-export default function hackathonApp(state = initialState.hackathonApp, action = {}) {
+export default function topicApp(state = initialState.topicApp, action = {}) {
   switch (action.type) {
-    case HACKATHONS_REQUEST:
+    case TOPICS_REQUEST:
       return {
         ...state,
         isPendingRequest: true
       }
-    case HACKATHONS_REQUEST_SUCCESS:
+    case TOPICS_REQUEST_SUCCESS:
       return {
         ...state,
         hackathons: action.payload,
         isPendingRequest: false
       }
-    case HACKATHONS_REQUEST_FAILURE:
+    case TOPICS_REQUEST_FAILURE:
       return {
         ...state,
         error: action.payload,
