@@ -8,7 +8,6 @@ import {
   ENABLE_LOGIN_BUTTON,
   DISABLE_LOGIN_BUTTON
 } from 'constants/auth'
-import * as _ from 'lodash'
 
 function loginRequestSuccess(user) {
   return {

@@ -24,7 +24,7 @@ const styles = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  state: state.authReducer
+  state: state.authApp
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

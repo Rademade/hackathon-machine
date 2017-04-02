@@ -8,7 +8,7 @@ import {
 } from 'constants/auth'
 import initialState from 'store/initial-state'
 
-export default function auth(state = initialState.auth, action = {}) {
+export default function auth(state = initialState.authApp, action = {}) {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {
