@@ -62,7 +62,7 @@ func Update(ctrl Controller) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
 
-		record, err := ctrl.Show(c)
+		record, err := ctrl.Update(c)
 		if err != nil {
 			return err
 		}
