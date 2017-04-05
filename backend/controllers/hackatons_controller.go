@@ -19,25 +19,25 @@ func (u HackathonsController) Index() interface{} {
 
 }
 
-func (u HackathonsController) Create(c echo.Context) interface{} {
+func (u HackathonsController) Create(c echo.Context) (interface{}, error) {
 
 	hack := models.Hackathon{}
 
 	if err := c.Bind(&hack); err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := models.DB.Create(&hack).Error; err != nil {
-		return err
+		return nil, err
 	}
 
-	return hack
+	return hack, nil
 
 }
 
-func (u HackathonsController) Show(c echo.Context) error {
+func (u HackathonsController) Show(c echo.Context) (interface{}, error) {
 
-	return nil
+	return nil, nil
 
 }
 

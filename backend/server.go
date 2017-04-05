@@ -22,7 +22,7 @@ func resource(e *echo.Echo, url string, controller controllers.Controller) {
 
 	singularUrl := fmt.Sprintf("%s/:id", url)
 
-	e.GET(singularUrl, controller.Show)
+	e.GET(singularUrl, controllers.Show(controller))
 	e.PUT(singularUrl, controllers.Update(controller))
 	e.DELETE(singularUrl, controller.Destroy)
 
