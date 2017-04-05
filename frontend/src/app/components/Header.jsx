@@ -13,7 +13,7 @@ const styles = {
 }
 
 const getAuthButton = ({state, actions}) => {
-  if (state.isLogged) {
+  if (state.isAuthenticated) {
     return (
       <FlatButton
         label='Logout'

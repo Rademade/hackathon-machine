@@ -7,7 +7,7 @@ import ModeratorBoard from 'containers/ModeratorBoard'
 import NotFound from 'containers/NotFound'
 
 function requireAuth(nextState, replace) {
-  if (false) {
+  if (!localStorage.getItem('jwt')) {
     replace({
       pathname: '/auth',
       state: {
