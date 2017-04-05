@@ -62,17 +62,17 @@ func (u UsersController) Update(c echo.Context) (interface{}, error) {
 	return user, nil
 }
 
-func (u UsersController) Destroy(c echo.Context) (interface{}, error) {
+func (u UsersController) Destroy(c echo.Context) error {
 
 	user := models.User{}
 
 	if err := models.DB.First(&user, c.Param("id")).Error; err != nil {
-		return user, err
+		return err
 	}
 
 	if err := models.DB.Delete(&user).Error; err != nil {
-		return user, err
+		return err
 	}
 
-	return user, nil
+	return nil
 }

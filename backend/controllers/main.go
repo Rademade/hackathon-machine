@@ -10,7 +10,7 @@ type Controller interface {
 	Show(echo.Context) (interface{}, error)
 	Create(echo.Context) (interface{}, error)
 	Update(echo.Context) (interface{}, error)
-	Destroy(echo.Context) (interface{}, error)
+	Destroy(echo.Context) error
 }
 
 func Index(ctrl Controller) echo.HandlerFunc {
@@ -78,12 +78,12 @@ func Destroy(ctrl Controller) echo.HandlerFunc {
 
 	return func(c echo.Context) error {
 
-		record, err := ctrl.Destroy(c)
+		err := ctrl.Destroy(c)
 		if err != nil {
 			return err
 		}
 
-		return c.JSON(http.StatusNoContent, record)
+		return c.NoContent(http.StatusNoContent)
 	}
 
 }

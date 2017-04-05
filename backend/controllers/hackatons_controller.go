@@ -60,8 +60,8 @@ func (u HackathonsController) Update(c echo.Context) (interface{}, error) {
 	return hack, nil
 }
 
-func (u HackathonsController) Destroy(c echo.Context) (interface{}, error) {
+func (u HackathonsController) Destroy(c echo.Context) error {
 
-	return nil, nil
+	return nil
 
 }
