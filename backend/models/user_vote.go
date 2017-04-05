@@ -8,10 +8,17 @@ import (
 type UserVote struct {
 	Base
 
-	VotedAt time.Time
-	Vote    int
-	User    User
-	UserId  int
-	Topic   Topic
-	TopicId int
+	VotedAt time.Time	`json:"-"`
+	Vote    int             `json:"vote"`
+	User    User            `json:"-"`
+	UserId  int             `json:"user_id"`
+	Topic   Topic           `json:"-"`
+	TopicId int             `json:"topic_id"`
+}
+
+func (uv *UserVote) BeforeCreate() (err error) {
+
+	uv.VotedAt = time.Now()
+
+	return
 }

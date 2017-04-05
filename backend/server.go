@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"github.com/hackathon-machine/backend/controllers"
 	"github.com/labstack/echo"
+	"fmt"
 )
 
 func main() {
@@ -13,10 +13,13 @@ func main() {
 	resource(e, "/hackathons", controllers.HackathonsController{})
 	resource(e, "/topics", controllers.TopicsController{})
 
+	e.POST("/user_votes", controllers.Create(controllers.UserVotesController{}))
+	e.PUT("/user_votes/:id", controllers.Update(controllers.UserVotesController{}))
+
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func resource(e *echo.Echo, url string, controller controllers.Controller) {
+func resource(e *echo.Echo, url string, controller controllers.CRUDController) {
 
 	e.GET(url, controllers.Index(controller))
 	e.POST(url, controllers.Create(controller))
@@ -25,6 +28,7 @@ func resource(e *echo.Echo, url string, controller controllers.Controller) {
 
 	e.GET(singularUrl, controllers.Show(controller))
 	e.PUT(singularUrl, controllers.Update(controller))
+	e.PATCH(singularUrl, controllers.Update(controller))
 	e.DELETE(singularUrl, controllers.Destroy(controller))
 
 }

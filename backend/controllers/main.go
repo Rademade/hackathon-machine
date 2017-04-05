@@ -5,15 +5,35 @@ import (
 	"net/http"
 )
 
-type Controller interface {
+type IndexController interface {
 	Index() interface{}
+}
+
+type ShowController interface {
 	Show(echo.Context) (interface{}, error)
+}
+
+type CreateController interface {
 	Create(echo.Context) (interface{}, error)
+}
+
+type UpdateController interface {
 	Update(echo.Context) (interface{}, error)
+}
+
+type DestroyController interface {
 	Destroy(echo.Context) error
 }
 
-func Index(ctrl Controller) echo.HandlerFunc {
+type CRUDController interface {
+ 	IndexController
+	ShowController
+	CreateController
+	UpdateController
+	DestroyController
+}
+
+func Index(ctrl IndexController) echo.HandlerFunc {
 
 	//TODO: auth || hooks
 
@@ -25,7 +45,7 @@ func Index(ctrl Controller) echo.HandlerFunc {
 
 }
 
-func Create(ctrl Controller) echo.HandlerFunc {
+func Create(ctrl CreateController) echo.HandlerFunc {
 
 	//TODO: auth || hooks
 
@@ -41,7 +61,7 @@ func Create(ctrl Controller) echo.HandlerFunc {
 
 }
 
-func Show(ctrl Controller) echo.HandlerFunc {
+func Show(ctrl ShowController) echo.HandlerFunc {
 
 	//TODO: auth || hooks
 
@@ -56,7 +76,7 @@ func Show(ctrl Controller) echo.HandlerFunc {
 	}
 }
 
-func Update(ctrl Controller) echo.HandlerFunc {
+func Update(ctrl UpdateController) echo.HandlerFunc {
 
 	//TODO: auth || hooks
 
@@ -72,7 +92,7 @@ func Update(ctrl Controller) echo.HandlerFunc {
 
 }
 
-func Destroy(ctrl Controller) echo.HandlerFunc {
+func Destroy(ctrl DestroyController) echo.HandlerFunc {
 
 	//TODO: auth || hooks
 
