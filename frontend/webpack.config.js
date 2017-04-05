@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -8,7 +7,8 @@ module.exports = {
     hot: true,
     inline: true,
     contentBase: './src',
-    port: 3000
+    port: 3000,
+    host: '0.0.0.0'
   },
   entry: {
     path: path.resolve(__dirname, 'src/app.jsx')
@@ -44,7 +44,6 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:3000' })
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

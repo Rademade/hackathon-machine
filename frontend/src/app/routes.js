@@ -1,7 +1,7 @@
 import Login from 'containers/auth/Login'
-import HackathonIndex from 'containers/hackathons/Index'
-import HackathonNew from 'containers/hackathons/New'
-import HackathonEdit from 'containers/hackathons/Edit'
+import HackathonIndex from 'containers/hackathons/index'
+import HackathonNew from 'containers/hackathons/new'
+import HackathonEdit from 'containers/hackathons/edit'
 import ModeratorBoard from 'containers/ModeratorBoard'
 
 import NotFound from 'containers/NotFound'

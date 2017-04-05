@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    volumes:
+      - "./logs/postgres:/var/log/postgresql"
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./nginx/Dockerfile
+    depends_on:
+      - db
+    volumes: 
+      - "./logs/nginx:/tmp/logs"
+    ports:
+      - '80:80'
