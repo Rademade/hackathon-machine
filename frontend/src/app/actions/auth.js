@@ -5,9 +5,9 @@ import {
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
   LOG_OUT,
-  TOGGLE
+  ENABLE_LOGIN_BUTTON,
+  DISABLE_LOGIN_BUTTON
 } from 'constants/auth'
-import * as _ from 'lodash'
 
 function loginRequestSuccess(user) {
   return {
@@ -27,24 +27,27 @@ function loginRequestFailure(error) {
   }
 }
 
+export function enableLoginButton() {
+  return dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON })
+}
+
+export function disableLoginButton() {
+  return dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
+}
+
 export function logout() {
   return dispatch => {
     sessionStorage.removeItem('jwt')
-    dispatch(push('/auth/login'))
+    dispatch(push('/auth'))
     dispatch({ type: LOG_OUT })
-  }
-}
-
-export function toggle(isRegistration) {
-  return dispatch => {
-    isRegistration ? dispatch(push('/auth/registration')) : dispatch(push('/auth/login'))
-    dispatch({ type: TOGGLE })
   }
 }
 
 export function login(credentials) {
   return dispatch => {
-    dispatch({ type: LOG_IN_REQUEST })
+    dispatch({
+      type: LOG_IN_REQUEST
+    })
 
     return auth.login(credentials).then(
       response => dispatch(loginRequestSuccess(response.data))

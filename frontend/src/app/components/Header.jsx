@@ -19,7 +19,7 @@ const getAuthButton = ({state, actions}) => (
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  state: state.auth
+  state: state.authApp
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

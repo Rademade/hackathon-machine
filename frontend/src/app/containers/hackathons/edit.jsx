@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import {
-  FormsyText, FormsyToggle, FormsyDate, FormsySelect
-} from 'formsy-material-ui/lib'
-import {RaisedButton, Paper, MenuItem} from 'material-ui'
+import {FormsyText, FormsyToggle, FormsyDate, FormsySelect} from 'formsy-material-ui/lib'
+import RaisedButton from 'material-ui/RaisedButton'
+import Paper from 'material-ui/Paper'
 import * as hackathonActions from 'actions/hackathon'
+import MenuItem from 'material-ui/MenuItem';
 
 const paperStyle = {
   width: 300,
@@ -35,22 +36,33 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: bindActionCreators(hackathonActions, dispatch)
 })
 
-const HackathonNew = ({state, actions}) => (
+const HackathonEdit = ({state, actions}) => (
   <Paper style={paperStyle}>
     <Formsy.Form>
-      <h2>Создать хакатон</h2>
+      <h2>Редактирование хакатона</h2>
       <TopicSelect topics={state.topicApp.topics}/>
       <FormsyDate
         name="date"
         floatingLabelText="Дата проведения"
         required/>
       <SpeakerSelect speakers={state.speakerApp.speakers}/>
+      <FormsyToggle
+        name="toggle"
+        label="Проведен?"
+        style={{marginTop: 10, marginBottom: 16}}/>
+      <FormsyText
+        name="url"
+        validations="isUrl"
+        validationError={'Некоррекная ссылка'}
+        hintText="http://www.example.com"
+        floatingLabelText="Ссылка на материалы"
+        updateImmediately/>
       <RaisedButton
         style={{marginTop: 32}}
         type="submit"
-        label="Создать"/>
+        label="Изменить"/>
       <RaisedButton
-        label="Вернуться"
+        label="Не менять"
         disabled={false}
         onTouchTap={() => { actions.navigateToHackathonIndexPath() }}/>
     </Formsy.Form>
@@ -60,4 +72,4 @@ const HackathonNew = ({state, actions}) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HackathonNew)
+)(HackathonEdit)
