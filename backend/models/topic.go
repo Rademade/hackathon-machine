@@ -2,9 +2,9 @@ package models
 
 type Topic struct {
 	Base
-	Name      string
-	Creator   User
-	CreatorID int
+	Name      string   `json:"name"`
+	Creator   User     `json:"-"`
+	CreatorID int      `json:"creator_id"`
 	// Type      int
 }
 
