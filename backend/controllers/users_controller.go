@@ -45,12 +45,34 @@ func (u UsersController) Show(c echo.Context) (interface{}, error) {
 
 func (u UsersController) Update(c echo.Context) (interface{}, error) {
 
-	return nil, nil
+	user := models.User{}
 
+	if err := models.DB.First(&user, c.Param("id")).Error; err != nil {
+		return user, err
+	}
+
+	if err := c.Bind(&user); err != nil {
+		return user, err
+	}
+
+	if err := models.DB.Save(&user).Error; err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
 
-func (u UsersController) Destroy(c echo.Context) error {
+func (u UsersController) Destroy(c echo.Context) (interface{}, error) {
 
-	return nil
+	user := models.User{}
 
+	if err := models.DB.First(&user, c.Param("id")).Error; err != nil {
+		return user, err
+	}
+
+	if err := models.DB.Delete(&user).Error; err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
