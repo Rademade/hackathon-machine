@@ -8,20 +8,12 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 import * as authActions from 'actions/auth'
 
-const styles = {
-  paperStyle: {
-    width: 300,
-    margin: 'auto',
-    padding: 20,
-    marginTop: 100
-  },
-  switchStyle: {
-    marginBottom: 16
-  },
-  submitStyle: {
-    marginTop: 32
-  }
-}
+const paperStyle = {
+  width: 300,
+  margin: 'auto',
+  padding: 20,
+  marginTop: 100
+};
 
 const mapStateToProps = (state, ownProps) => ({
   state: state.authApp
@@ -32,7 +24,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 const Login = ({state, actions}) => (
-  <Paper style={styles.paperStyle}>
+  <Paper style={paperStyle}>
     <Formsy.Form
       onSubmit={actions.login}
       onValid={actions.enableLoginButton}
@@ -52,10 +44,10 @@ const Login = ({state, actions}) => (
         floatingLabelText="Пароль"
       />
       <RaisedButton
-        style={styles.submitStyle}
+        style={{marginTop: 32}}
         type="submit"
         disabled={!state.loginForm.canSubmit}
-        label="Отправить"
+        label="Войти"
       />
     </Formsy.Form>
   </Paper>
