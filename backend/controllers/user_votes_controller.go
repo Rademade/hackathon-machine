@@ -27,7 +27,7 @@ func (u UserVotesController) Create(c echo.Context) (interface{}, error) {
 
 func (u UserVotesController) Update(c echo.Context) (interface{}, error) {
 
-	userVote := models.Hackathon{}
+	userVote := models.UserVote{}
 
 	if err := models.DB.First(&userVote, c.Param("id")).Error; err != nil {
 		return userVote, err
