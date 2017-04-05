@@ -10,20 +10,6 @@ import {
   DISABLE_LOGIN_BUTTON
 } from 'constants/auth'
 
-function loginRequestSuccess(user) {
-  return {
-    type: LOG_IN_REQUEST_SUCCESS,
-    payload: user
-  }
-}
-
-function loginRequestFailure(error) {
-  return {
-    type: LOG_IN_REQUEST_FAILURE,
-    payload: error
-  }
-}
-
 export function loadJWT(jwt) {
   return dispatch => new Promise ((resolve, reject) => {
     dispatch({ type: LOAD_JWT, payload: jwt })
@@ -41,7 +27,7 @@ export function disableLoginButton() {
 
 export function logout() {
   return dispatch => {
-    sessionStorage.removeItem('jwt')
+    localStorage.removeItem('jwt')
     dispatch(push('/auth'))
     dispatch({ type: LOG_OUT })
   }
@@ -52,9 +38,15 @@ export function login(credentials) {
     dispatch({ type: LOG_IN_REQUEST })
 
     return auth.login(credentials).then(
-      response => dispatch(loginRequestSuccess(response.data))
+      response => dispatch({
+        type: LOG_IN_REQUEST_SUCCESS,
+        payload: response.data
+      })
     ).catch(
-      error => dispatch(loginRequestFailure(error))
+      error => dispatch({
+        type: LOG_IN_REQUEST_FAILURE,
+        payload: error
+      })
     )
   }
 }

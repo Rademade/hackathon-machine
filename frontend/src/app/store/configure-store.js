@@ -40,7 +40,10 @@ export default function configureStore(initialState) {
   )
 
   if (typeof window !== 'undefined') {
-    store.dispatch(loadJWT(localStorage.getItem('jwt') || 'bla bla bla')).then((jwt) => {
+    // hook for auth
+    localStorage.setItem('jwt', 'bla bla bla')
+
+    store.dispatch(loadJWT(localStorage.getItem('jwt'))).then((jwt) => {
       if (jwt) {
         store.dispatch(fetchHackathons())
         store.dispatch(fetchSpeakers())

@@ -2,6 +2,7 @@ const initialState = {
   authApp: {
     jwt: null,
     isPendingRequest: false,
+    isAuthenticated: false,
     loginForm: {
       canSubmit: false
     }
@@ -51,19 +52,29 @@ const initialState = {
   topicApp: {
     topics: [{
       id: 1,
-      title: 'React'
+      title: 'React',
+      raitng: 99,
+      currentUserVote: 3
     }, {
       id: 2,
-      title: 'Go'
+      title: 'Go',
+      raitng: 99,
+      currentUserVote: 3
     }, {
       id: 3,
-      title: 'Ruby'
+      title: 'Ruby',
+      raitng: 99,
+      currentUserVote: 3
     }, {
       id: 4,
-      title: 'Elixir'
+      title: 'Elixir',
+      raitng: 99,
+      currentUserVote: 3
     }, {
       id: 5,
-      title: 'Phoenix'
+      title: 'Phoenix',
+      raitng: 99,
+      currentUserVote: 3
     }]
   }
 }

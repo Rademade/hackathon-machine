@@ -3,11 +3,12 @@ import HackathonIndex from 'containers/hackathons/index'
 import HackathonNew from 'containers/hackathons/new'
 import HackathonEdit from 'containers/hackathons/edit'
 import ModeratorBoard from 'containers/ModeratorBoard'
+import TopicIndex from 'containers/topics/Index'
 
 import NotFound from 'containers/NotFound'
 
 function requireAuth(nextState, replace) {
-  if (false) {
+  if (!localStorage.getItem('jwt')) {
     replace({
       pathname: '/auth',
       state: {
@@ -29,12 +30,19 @@ const routes = [{
   component: HackathonIndex,
   onEnter: requireAuth
 }, {
+  path: '/topics',
+  component: Login
+}, {
   path: '/hackathons/new',
   component: HackathonNew,
   onEnter: requireAuth
 }, {
   path: '/hackathons/:id/edit',
   component: HackathonEdit,
+  onEnter: requireAuth
+},{
+  path: '/topics',
+  component: TopicIndex,
   onEnter: requireAuth
 }, {
   path: '/moderator',

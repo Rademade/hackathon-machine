@@ -2,7 +2,6 @@ import axios from 'axios'
 import {API_ENDPOINT} from 'constants/common'
 
 export default {
-  query: () => {
-    return axios.get(`${API_ENDPOINT}/hackathons`)
-  }
+  query: () => axios.get(`${API_ENDPOINT}/hackathons`),
+  update: (hackathon) => axios.put(`${API_ENDPOINT}/hackathons`, hackathon)
 }
