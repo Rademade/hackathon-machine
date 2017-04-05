@@ -6,29 +6,50 @@ import (
 	"fmt"
 )
 
+const (
+	ACTION_INDEX = iota
+	ACTION_SHOW
+	ACTION_CREATE
+	ACTION_UPDATE
+	ACTION_DESTROY
+)
+
 func main() {
 	e := echo.New()
 
-	resource(e, "/users", controllers.UsersController{})
-	resource(e, "/hackathons", controllers.HackathonsController{})
-	resource(e, "/topics", controllers.TopicsController{})
-
-	e.POST("/user_votes", controllers.Create(controllers.UserVotesController{}))
-	e.PUT("/user_votes/:id", controllers.Update(controllers.UserVotesController{}))
+	resource(e, "/users", controllers.UsersController{}, nil)
+	resource(e, "/hackathons", controllers.HackathonsController{}, nil)
+	resource(e, "/topics", controllers.TopicsController{}, nil)
+	resource(e, "/user_votes", controllers.TopicsController{}, []int{ ACTION_CREATE, ACTION_UPDATE })
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func resource(e *echo.Echo, url string, controller controllers.CRUDController) {
+func resource(e *echo.Echo, url string, controller controllers.CRUDController, resourceActions []int) {
+	if resourceActions == nil {
+		resourceActions = []int{ ACTION_INDEX, ACTION_SHOW, ACTION_CREATE, ACTION_UPDATE, ACTION_DESTROY }
+	}
+	for _, action := range resourceActions {
+		resourceAction(e, url, controller, action)
+	}
+}
 
-	e.GET(url, controllers.Index(controller))
-	e.POST(url, controllers.Create(controller))
+func resourceAction(e *echo.Echo, url string, controller controllers.CRUDController, action int) {
+	switch action {
+	case ACTION_INDEX:
+		e.GET(url, controllers.Index(controller))
+	case ACTION_CREATE:
+		e.POST(url, controllers.Create(controller))
+	case ACTION_SHOW:
+		e.GET(singularUrl(url), controllers.Show(controller))
+	case ACTION_UPDATE:
+		e.PUT(singularUrl(url), controllers.Update(controller))
+		e.PATCH(singularUrl(url), controllers.Update(controller))
+	case ACTION_DESTROY:
+		e.DELETE(singularUrl(url), controllers.Destroy(controller))
+	}
+}
 
-	singularUrl := fmt.Sprintf("%s/:id", url)
-
-	e.GET(singularUrl, controllers.Show(controller))
-	e.PUT(singularUrl, controllers.Update(controller))
-	e.PATCH(singularUrl, controllers.Update(controller))
-	e.DELETE(singularUrl, controllers.Destroy(controller))
-
+func singularUrl(url string) string {
+	return fmt.Sprintf("%s/:id", url)
 }
