@@ -11,6 +11,7 @@ func main() {
 
 	resource(e, "/users", controllers.UsersController{})
 	resource(e, "/hackathons", controllers.HackathonsController{})
+	resource(e, "/topics", controllers.TopicsController{})
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
