@@ -49,6 +49,16 @@ const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
   </TableRow>
 )
 
+const CreateHackatonButton = ({isAdmin, actions}) => {
+  if (isAdmin){
+    return <RaisedButton
+      label='Создать новый'
+      primary={true}
+      style={{marginTop: 50}}
+      onTouchTap={() => { actions.navigateToHackathonNewPath() }}/>
+  }
+}
+
 const mapStateToProps = (state, ownProps) => ({
   state: state.hackathonApp
 })
@@ -74,11 +84,7 @@ const HackathonIndex = ({state, actions}) => (
         )}
       </TableBody>
     </Table>
-    <RaisedButton
-      label='Создать новый'
-      primary={true}
-      style={{marginTop: 50}}
-      onTouchTap={() => { actions.navigateToHackathonNewPath() }}/>
+    <CreateHackatonButton isAdmin={true} actions={actions}/>
   </Paper>
 )
 
