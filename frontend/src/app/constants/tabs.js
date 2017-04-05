@@ -1,0 +1,1 @@
+export const NAVIGATE_TO_TOPICS = 'NAVIGATE_TO_TOPICS'
