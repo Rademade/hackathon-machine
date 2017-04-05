@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/hackathon-machine/backend/models"
 	"github.com/labstack/echo"
-	"net/http"
 )
 
 type TopicsController struct {
