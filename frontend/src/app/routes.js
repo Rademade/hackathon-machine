@@ -3,6 +3,7 @@ import HackathonIndex from 'containers/hackathons/Index'
 import HackathonNew from 'containers/hackathons/New'
 import HackathonEdit from 'containers/hackathons/Edit'
 import ModeratorBoard from 'containers/ModeratorBoard'
+import TopicIndex from 'containers/topics/Index'
 
 import NotFound from 'containers/NotFound'
 
@@ -35,6 +36,10 @@ const routes = [{
 }, {
   path: '/hackathons/:id/edit',
   component: HackathonEdit,
+  onEnter: requireAuth
+},{
+  path: '/topics',
+  component: TopicIndex,
   onEnter: requireAuth
 }, {
   path: '/moderator',
