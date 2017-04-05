@@ -87,7 +87,23 @@ func Update(ctrl UpdateController) echo.HandlerFunc {
 			return err
 		}
 
-		return c.JSON(http.StatusCreated, record)
+		return c.JSON(http.StatusOK, record)
+	}
+
+}
+
+func Destroy(ctrl DestroyController) echo.HandlerFunc {
+
+	//TODO: auth || hooks
+
+	return func(c echo.Context) error {
+
+		err := ctrl.Destroy(c)
+		if err != nil {
+			return err
+		}
+
+		return c.NoContent(http.StatusNoContent)
 	}
 
 }

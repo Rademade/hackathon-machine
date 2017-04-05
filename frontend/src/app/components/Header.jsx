@@ -12,11 +12,17 @@ const styles = {
   }
 }
 
-const getAuthButton = ({state, actions}) => (
-  <FlatButton
-    label={state.jwt ? 'Logout' : 'Login'}
-    onTouchTap={actions.logout}/>
-)
+const getAuthButton = ({state, actions}) => {
+  if (state.isLogged) {
+    return (
+      <FlatButton
+        label='Logout'
+        onTouchTap={actions.logout}/>
+    )
+  } else {
+    return null;
+  }
+}
 
 const mapStateToProps = (state, ownProps) => ({
   state: state.authApp

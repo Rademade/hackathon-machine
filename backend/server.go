@@ -29,6 +29,6 @@ func resource(e *echo.Echo, url string, controller controllers.CRUDController) {
 	e.GET(singularUrl, controllers.Show(controller))
 	e.PUT(singularUrl, controllers.Update(controller))
 	e.PATCH(singularUrl, controllers.Update(controller))
-	e.DELETE(singularUrl, controller.Destroy)
+	e.DELETE(singularUrl, controllers.Destroy(controller))
 
 }

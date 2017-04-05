@@ -8,6 +8,8 @@ import {routerMiddleware, push} from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import reducers from 'reducers'
+
+import {loadJWT} from 'actions/auth'
 import {fetchHackathons} from 'actions/hackathon'
 import {fetchSpeakers} from 'actions/speaker'
 import {fetchTopics} from 'actions/topic'
@@ -38,18 +40,15 @@ export default function configureStore(initialState) {
   )
 
   if (typeof window !== 'undefined') {
-    // simulate auth
-    sessionStorage.jwt = 'bla bla bla'
+    store.dispatch(loadJWT(localStorage.getItem('jwt') || 'bla bla bla')).then((jwt) => {
+      if (jwt) {
+        store.dispatch(fetchHackathons())
+        store.dispatch(fetchSpeakers())
+        store.dispatch(fetchTopics())
 
-    // if user is logged
-    if (sessionStorage.jwt) {
-      store.dispatch(fetchHackathons())
-      store.dispatch(fetchSpeakers())
-      store.dispatch(fetchTopics())
-
-      // if user on auth page -> redirect to dashboard
-      if ((/auth/).test(window.location.pathname)) store.dispatch(push('/'))
-    }
+        if ((/auth/).test(window.location.pathname)) store.dispatch(push('/'))
+      }
+    })
   }
 
   return store

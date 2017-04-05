@@ -1,4 +1,5 @@
 import {
+  LOAD_JWT,
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
@@ -10,6 +11,12 @@ import initialState from 'store/initial-state'
 
 export default function auth(state = initialState.authApp, action = {}) {
   switch (action.type) {
+    case LOAD_JWT:
+      return {
+        ...state,
+        jwt: action.payload,
+        isLogged: (action.payload ? true : false)
+      }
     case LOG_IN_REQUEST:
       return {
         ...state,
@@ -24,7 +31,8 @@ export default function auth(state = initialState.authApp, action = {}) {
         auth: {
           ...state.auth,
           isPendingRequest: false,
-          jwt: action.payload.jwt
+          jwt: action.payload,
+          isLogged: true
         }
       }
     case LOG_IN_REQUEST_FAILURE:
@@ -33,14 +41,16 @@ export default function auth(state = initialState.authApp, action = {}) {
         auth: {
           ...state.auth,
           isPendingRequest: false,
-          error: action.payload.error,
-          jwt: null
+          error: action.payload,
+          jwt: null,
+          isLogged: false
         }
       }
     case LOG_OUT:
       return {
         ...state,
-        jwt: null
+        jwt: null,
+        isLogged: false
       }
     case ENABLE_LOGIN_BUTTON:
       return {

@@ -1,6 +1,7 @@
 import {push} from 'react-router-redux'
 import auth from 'api/auth'
 import {
+  LOAD_JWT,
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
@@ -12,19 +13,22 @@ import {
 function loginRequestSuccess(user) {
   return {
     type: LOG_IN_REQUEST_SUCCESS,
-    payload: {
-      user
-    }
+    payload: user
   }
 }
 
 function loginRequestFailure(error) {
   return {
     type: LOG_IN_REQUEST_FAILURE,
-    payload: {
-      error
-    }
+    payload: error
   }
+}
+
+export function loadJWT(jwt) {
+  return dispatch => new Promise ((resolve, reject) => {
+    dispatch({ type: LOAD_JWT, payload: jwt })
+    resolve(jwt)
+  }).catch(e => reject(e))
 }
 
 export function enableLoginButton() {
@@ -45,9 +49,7 @@ export function logout() {
 
 export function login(credentials) {
   return dispatch => {
-    dispatch({
-      type: LOG_IN_REQUEST
-    })
+    dispatch({ type: LOG_IN_REQUEST })
 
     return auth.login(credentials).then(
       response => dispatch(loginRequestSuccess(response.data))
