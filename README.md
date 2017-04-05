@@ -3,15 +3,26 @@
 # Запуск фронтенда:
 ```
 $ cd frontend
-$ npm install %% npm start
+$ npm install && npm start
 ```
 http://localhost:3000
 
 # backend
 
 Install package manager:
+```
+$ curl https://glide.sh/get | sh
+```
 
-    $ curl https://glide.sh/get | sh
+For OSX users
+```
+$ brew install glide
+```
+For ubuntu users 
+```
+$ sudo add-apt-repository ppa:masterminds/glide && sudo apt-get update
+$ sudo apt-get install glide
+```
 
 Install packages:
 

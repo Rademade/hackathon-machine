@@ -1,4 +1,4 @@
-.history/*
+*/.history/*
 frontend/node_modules
 .vscode
 npm-debug.log

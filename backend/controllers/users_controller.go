@@ -5,8 +5,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-type UsersController struct {
-}
+type UsersController struct{}
 
 func (u UsersController) Index() interface{} {
 
@@ -44,9 +43,9 @@ func (u UsersController) Show(c echo.Context) (interface{}, error) {
 	return user, nil
 }
 
-func (u UsersController) Update(c echo.Context) error {
+func (u UsersController) Update(c echo.Context) (interface{}, error) {
 
-	return nil
+	return nil, nil
 
 }
 

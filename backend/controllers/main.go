@@ -9,7 +9,7 @@ type Controller interface {
 	Index() interface{}
 	Show(echo.Context) (interface{}, error)
 	Create(echo.Context) (interface{}, error)
-	Update(echo.Context) error
+	Update(echo.Context) (interface{}, error)
 	Destroy(echo.Context) error
 }
 
@@ -52,6 +52,22 @@ func Show(ctrl Controller) echo.HandlerFunc {
 			return err
 		}
 
+		return c.JSON(http.StatusOK, record)
+	}
+}
+
+func Update(ctrl Controller) echo.HandlerFunc {
+
+	//TODO: auth || hooks
+
+	return func(c echo.Context) error {
+
+		record, err := ctrl.Show(c)
+		if err != nil {
+			return err
+		}
+
 		return c.JSON(http.StatusCreated, record)
 	}
+
 }

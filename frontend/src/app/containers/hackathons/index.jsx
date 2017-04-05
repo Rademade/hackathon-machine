@@ -2,38 +2,83 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
+import {
+  Table, TableBody, TableHeader, TableHeaderColumn,
+  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton
+} from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import RaisedButton from 'material-ui/RaisedButton'
-import Paper from 'material-ui/Paper'
-import * as authActions from 'actions/auth'
+import * as hackathonActions from 'actions/hackathon'
+import moment from 'moment'
 
-const styles = {
-  paperStyle: {
-    width: 300,
-    margin: 'auto',
-    padding: 20,
-    marginTop: 100
-  },
-  switchStyle: {
-    marginBottom: 16
-  },
-  submitStyle: {
-    marginTop: 32
-  }
+moment.locale('ru')
+
+const paperStyle = {
+  margin: 'auto',
+  padding: 20,
+  marginTop: 20
 }
 
+const HackathonTableHeaderRow = ({isAdmin}) => (
+  <TableRow>
+    <TableHeaderColumn>Тема</TableHeaderColumn>
+    <TableHeaderColumn>Дата</TableHeaderColumn>
+    <TableHeaderColumn>Докладчик</TableHeaderColumn>
+    <TableHeaderColumn>Статус</TableHeaderColumn>
+    {isAdmin && <TableHeaderColumn>Действия</TableHeaderColumn>}
+  </TableRow>
+)
+
+const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
+  <TableRow>
+    <TableRowColumn>{hackathon.topic}</TableRowColumn>
+    <TableRowColumn>{moment(hackathon.date).format('DD, MMM')}</TableRowColumn>
+    <TableRowColumn>{hackathon.speaker}</TableRowColumn>
+    <TableRowColumn>{hackathon.done
+      ? (<span>Завершен, материалы: <a href={hackathon.materials_link}>тут</a></span>)
+      : 'Еще не проведен'}
+    </TableRowColumn>
+    {isAdmin &&
+      <TableRowColumn>
+        <FlatButton
+          label='Изменить'
+          primary={true}
+          onTouchTap={() => { actions.navigateToHackathonEditPath(hackathon.id) }}/>
+      </TableRowColumn>
+    }
+  </TableRow>
+)
+
 const mapStateToProps = (state, ownProps) => ({
-  state: state.auth
+  state: state.hackathonApp
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: bindActionCreators(authActions, dispatch)
+  actions: bindActionCreators(hackathonActions, dispatch)
 })
 
 const HackathonIndex = ({state, actions}) => (
-  <Paper style={styles.paperStyle}>
-    HackathonIndex
+  <Paper style={paperStyle}>
+    <h2>Список хакатонов</h2>
+    <Table>
+      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+        <HackathonTableHeaderRow isAdmin={true}/>
+      </TableHeader>
+      <TableBody displayRowCheckbox={false}>
+        {state.hackathons.map(hackathon =>
+          <HackathonTableBodyRow
+            key={hackathon.id}
+            hackathon={hackathon}
+            isAdmin={true}
+            actions={actions}/>
+        )}
+      </TableBody>
+    </Table>
+    <RaisedButton
+      label='Создать новый'
+      primary={true}
+      style={{marginTop: 50}}
+      onTouchTap={() => { actions.navigateToHackathonNewPath() }}/>
   </Paper>
 )
 
