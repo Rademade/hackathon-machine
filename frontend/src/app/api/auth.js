@@ -1,8 +1,12 @@
 import axios from 'axios'
 import {API_ENDPOINT} from 'constants/common'
 
-export default {
-  login: (credentials) => {
-    return axios.post(`${API_ENDPOINT}/auth`, credentials)
+const config = {
+  headers: {
+    'Authorization': localStorage.getItem('jwt')
   }
+}
+
+export default {
+  login: (credentials) => axios.post(`${API_ENDPOINT}/auth`, credentials, config)
 }

@@ -5,16 +5,16 @@ import DockMonitor from 'redux-devtools-dock-monitor'
 import {browserHistory} from 'react-router'
 import {createStore, applyMiddleware, compose} from 'redux'
 import {routerMiddleware, push} from 'react-router-redux'
+import createSagaMiddleware from 'redux-saga'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import reducers from 'reducers'
 
-import {loadJWT} from 'actions/auth'
-import {fetchHackathons} from 'actions/hackathon'
-import {fetchSpeakers} from 'actions/speaker'
-import {fetchTopics} from 'actions/topic'
+import authActions from 'actions/auth'
+import reducers from 'reducers'
+import sagas from 'sagas'
 
 const loggerMiddleware = createLogger()
+const sagaMiddleware = createSagaMiddleware()
 const reduxRouterMiddleware = routerMiddleware(browserHistory)
 
 export const DevTools = createDevTools(
@@ -28,7 +28,8 @@ export default function configureStore(initialState) {
     applyMiddleware(
       reduxRouterMiddleware,
       thunkMiddleware,
-      loggerMiddleware
+      sagaMiddleware,
+      // loggerMiddleware   /* enable if you need */
     ),
     DevTools.instrument()
   )
@@ -39,18 +40,14 @@ export default function configureStore(initialState) {
     enhancer
   )
 
+  sagaMiddleware.run(sagas)
+
   if (typeof window !== 'undefined') {
     // hook for auth
-    localStorage.setItem('jwt', 'bla bla bla')
+    localStorage.setItem('jwt', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.po9twTrX99V7XgAk5mVskkiq8aa0lpYOue62ehubRY4')
 
-    store.dispatch(loadJWT(localStorage.getItem('jwt'))).then((jwt) => {
-      if (jwt) {
-        store.dispatch(fetchHackathons())
-        store.dispatch(fetchSpeakers())
-        store.dispatch(fetchTopics())
-
-        if ((/auth/).test(window.location.pathname)) store.dispatch(push('/'))
-      }
+    store.dispatch(authActions.loadJWT(localStorage.getItem('jwt'))).then((jwt) => {
+      if (jwt && ((/auth/).test(window.location.pathname))) store.dispatch(push('/'))
     })
   }
 

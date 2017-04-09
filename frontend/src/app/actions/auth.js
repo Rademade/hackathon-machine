@@ -10,31 +10,19 @@ import {
   DISABLE_LOGIN_BUTTON
 } from 'constants/auth'
 
-export function loadJWT(jwt) {
-  return dispatch => new Promise ((resolve, reject) => {
-    dispatch({ type: LOAD_JWT, payload: jwt })
-    resolve(jwt)
-  }).catch(e => reject(e))
-}
-
-export function enableLoginButton() {
-  return dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON })
-}
-
-export function disableLoginButton() {
-  return dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
-}
-
-export function logout() {
-  return dispatch => {
+export default {
+  loadJWT: jwt => dispatch => (
+    new Promise ((resolve, reject) => {
+      dispatch({ type: LOAD_JWT, payload: jwt })
+      resolve(jwt)
+    }).catch(e => reject(e))
+  ),
+  logout: () => dispatch => {
     localStorage.removeItem('jwt')
-    dispatch(push('/auth'))
     dispatch({ type: LOG_OUT })
-  }
-}
-
-export function login(credentials) {
-  return dispatch => {
+    dispatch(push('/auth'))
+  },
+  login: (credentials) => dispatch => {
     dispatch({ type: LOG_IN_REQUEST })
 
     return auth.login(credentials).then(
@@ -48,5 +36,7 @@ export function login(credentials) {
         payload: error
       })
     )
-  }
+  },
+  enableLoginButton: () => dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON }),
+  disableLoginButton: () => dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
 }

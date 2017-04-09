@@ -30,9 +30,6 @@ const routes = [{
   component: HackathonIndex,
   onEnter: requireAuth
 }, {
-  path: '/topics',
-  component: Login
-}, {
   path: '/hackathons/new',
   component: HackathonNew,
   onEnter: requireAuth

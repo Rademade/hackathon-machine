@@ -1,7 +1,7 @@
 import './app.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Layout from './app/layout'
+import Layout from './app/Layout'
 
 ReactDOM.render(
   <Layout/>,

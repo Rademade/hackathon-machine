@@ -4,16 +4,25 @@ import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import RaisedButton from 'material-ui/RaisedButton'
-import Paper from 'material-ui/Paper'
-import * as authActions from 'actions/auth'
+import {Paper, RaisedButton} from 'material-ui'
+import authActions from 'actions/auth'
 
-const paperStyle = {
-  width: 300,
-  margin: 'auto',
-  padding: 20,
-  marginTop: 100
-};
+const styles = {
+  paper: {
+    width: 300,
+    margin: 'auto',
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 75
+  },
+  button: {
+    marginTop: 15,
+    marginBottom: 25
+  },
+  hideAutoFillColorStyle: {
+    WebkitBoxShadow: '0 0 0 1000px white inset'
+  }
+}
 
 const mapStateToProps = (state, ownProps) => ({
   state: state.authApp
@@ -24,31 +33,32 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 const Login = ({state, actions}) => (
-  <Paper style={paperStyle}>
+  <Paper style={styles.paper}>
     <Formsy.Form
       onSubmit={actions.login}
       onValid={actions.enableLoginButton}
       onInvalid={actions.disableLoginButton}>
-      <h2>Вход</h2>
       <FormsyText
         name="email"
+        type="email"
         validations="isEmail"
-        validationError={'Email не валидный'}
-        required
-        hintText="Какой Ваш email?"
+        validationError={'This is not a valid email'}
+        hintText="What your email?"
         floatingLabelText="Email"
-      />
+        inputStyle={styles.hideAutoFillColorStyle}
+        required/>
       <FormsyText
         name="password"
-        hintText="Какой Ваш пароль?"
-        floatingLabelText="Пароль"
-      />
+        type="password"
+        hintText="What is your password?"
+        floatingLabelText="Password"
+        inputStyle={styles.hideAutoFillColorStyle}
+        required/>
       <RaisedButton
-        style={{marginTop: 32}}
+        style={styles.button}
         type="submit"
-        disabled={!state.loginForm.canSubmit}
-        label="Войти"
-      />
+        disabled={!state.loginForm.isAvailableSubmit}
+        label="Login"/>
     </Formsy.Form>
   </Paper>
 )
