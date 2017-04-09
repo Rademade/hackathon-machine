@@ -103,27 +103,27 @@ const initialState = {
     topics: [{
       id: 1,
       title: 'React',
-      raitng: 99,
+      rating: 99,
       currentUserVote: 3
     }, {
       id: 2,
       title: 'Go',
-      raitng: 99,
+      rating: 99,
       currentUserVote: 3
     }, {
       id: 3,
       title: 'Ruby',
-      raitng: 99,
+      rating: 99,
       currentUserVote: 3
     }, {
       id: 4,
       title: 'Elixir',
-      raitng: 99,
+      rating: 99,
       currentUserVote: 3
     }, {
       id: 5,
       title: 'Phoenix',
-      raitng: 99,
+      rating: 99,
       currentUserVote: 3
     }]
   }

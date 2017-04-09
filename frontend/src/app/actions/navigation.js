@@ -6,5 +6,6 @@ export default {
   goToHackathonsNew: () => dispatch => dispatch(push('/hackathons/new')),
   goToHackathonsEdit: (id) => dispatch => dispatch(push(`/hackathons/${id}/edit`)),
   goToTopics: () => dispatch => dispatch(push('/topics')),
+  goToTopicsNew: () => dispatch => dispatch(push('/topics/new')),
   goToUsers: () => dispatch => dispatch(push('/users'))
 }

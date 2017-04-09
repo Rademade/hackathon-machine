@@ -1,115 +1,81 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
-  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton, Slider, Dialog, TextField
+  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton, Slider
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import * as hackathonActions from 'actions/hackathon'
+import navigationActions from 'actions/navigation'
 
-
-const paperStyle = {
-  margin: 'auto',
-  padding: 20,
-  marginTop: 20
+const styles = {
+  paper: {
+    width: '40%',
+    padding: 20
+  },
+  button: {
+    marginTop: 20
+  },
+  title: {
+    paddingTop: 0,
+    marginBottom: 0
+  }
 }
 
-const TopicTableHeaderRow = ({isAuthorized}) => (
+const NewTopicButton = ({action}) => (
+  <RaisedButton
+    label='New Topic'
+    primary={true}
+    style={styles.button}
+    onTouchTap={action}/>
+)
+
+const TopicTableHeaderRow = () => (
   <TableRow>
-    <TableHeaderColumn>Название</TableHeaderColumn>
-    {isAuthorized && <TableHeaderColumn>Оценка</TableHeaderColumn>}
-    <TableHeaderColumn>Рейтинг</TableHeaderColumn>
+    <TableHeaderColumn>Name</TableHeaderColumn>
+    <TableHeaderColumn>Rating</TableHeaderColumn>
+    <TableHeaderColumn>Score</TableHeaderColumn>
   </TableRow>
 )
 
-const NewTopicDialogActions = () => {
-  return [
-      <FlatButton
-        label="Отмена"
-        primary={false}
-      />
-      ,
-      <FlatButton
-        label="Предложить"
-        primary={true}
-      />
-    ]
-}
-
-const NewTopicDialog = ({state}) => {
-  return <Dialog
-          contentStyle={{maxWidth: 400}}
-          title="Новая тема"
-          actions={NewTopicDialogActions()}
-          modal={false}
-          open={true}
-        >
-          <TextField
-            style={{width: '100%'}}
-            hintText="Название темы"
-            required
-          />
-        </Dialog>
-}
-
-
-const TopicVote = ({topic, state}) => {
-  return <div style={{width:'100%'}}>
-          <Slider
-            sliderStyle={ {maxWidth:'50%', display: 'inline-block' }}
-            min={0}
-            max={5}
-            step={1}
-            defaultValue={topic.currentUserVote}
-            value={topic.currentUserVote}
-          />
-          <FlatButton style={{display: 'inline-block', maxWidth:'50%'}} label={'Проголосовать - '+topic.currentUserVote}/>
-        </div>
-}
-
-const TopicTableBodyRow = ({topic, isAuthorized}) => (
+const TopicTableBodyRow = ({topic}) => (
   <TableRow>
     <TableRowColumn>{topic.title}</TableRowColumn>
-    {isAuthorized && <TableRowColumn><TopicVote topic={topic}/></TableRowColumn>}
-    <TableRowColumn>{topic.raitng}</TableRowColumn>
+    <TableRowColumn>{topic.rating}</TableRowColumn>
+    <TableRowColumn>
+      <Slider
+        min={0}
+        max={5}
+        step={1}
+        defaultValue={1}
+        value={2}/>
+    </TableRowColumn>
   </TableRow>
 )
 
-const CreateTopicButton = () => {
-    return <RaisedButton
-      label='Предложить тему'
-      primary={true}
-      style={{marginTop: 50}}
-      onTouchTap={() => { console.log('Open modal there') }}/>
-}
-
 const mapStateToProps = (state, ownProps) => ({
-  state: state.topicApp,
-  authState: state.authApp
+  state
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: bindActionCreators(hackathonActions, dispatch)
+  actions: bindActionCreators(navigationActions, dispatch)
 })
 
-const TopicIndex = ({state, actions, authState}) => (
-  <Paper style={paperStyle}>
-    <h2>Темы хакатонов</h2>
-    <Table>
+const TopicIndex = ({state, actions}) => (
+  <Paper style={styles.paper}>
+    <h2 style={styles.title}>Topics</h2>
+    <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TopicTableHeaderRow isAuthorized={true}/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
-        {state.topics.map(topic =>
-          <TopicTableBodyRow isAuthorized={true} key={topic.id} topic={topic}/>
+        {state.topicApp.topics.map(topic =>
+          <TopicTableBodyRow key={topic.id} topic={topic}/>
         )}
       </TableBody>
     </Table>
-    <NewTopicDialog state={state}/>
-    <CreateTopicButton/>
+    <NewTopicButton action={actions.goToTopicsNew}/>
   </Paper>
 )
 

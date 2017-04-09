@@ -25,24 +25,25 @@ const styles = {
     marginBottom: 0
   }
 }
-const HackathonsNewButton = ({isAdmin, action}) => (
+
+const NewHackathonButton = ({isAdmin, action}) => (
   isAdmin
     ? <RaisedButton
-        label='Add new'
+        label='New Hackathon'
         primary={true}
         style={styles.button}
         onTouchTap={action}/>
     : null
 )
 
-const HackathonsEditButton = ({action}) => (
+const EditHackathonButton = ({action}) => (
   <FlatButton
     label='Edit'
     primary={true}
     onTouchTap={action}/>
 )
 
-const HackathonsDeleteButton = ({action}) => (
+const DeleteHackathonButton = ({action}) => (
   <FlatButton
     label='Delete'
     secondary={true}
@@ -55,7 +56,11 @@ const HackathonTableHeaderRow = ({isAdmin}) => (
     <TableHeaderColumn>Date</TableHeaderColumn>
     <TableHeaderColumn>Rapporteur</TableHeaderColumn>
     <TableHeaderColumn>Status</TableHeaderColumn>
-    {isAdmin && <TableHeaderColumn>Actions</TableHeaderColumn>}
+    {isAdmin &&
+      <TableHeaderColumn>
+        Actions
+      </TableHeaderColumn>
+    }
   </TableRow>
 )
 
@@ -70,10 +75,10 @@ const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
     </TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
-        <HackathonsEditButton action={() => {
+        <EditHackathonButton action={() => {
           actions.goToHackathonsEdit(hackathon.id)
         }}/>
-        <HackathonsDeleteButton action={() => {
+        <DeleteHackathonButton action={() => {
           actions.hackathonDelete(hackathon.id)
         }}/>
       </TableRowColumn>
@@ -110,7 +115,7 @@ const HackathonIndex = ({state, actions}) => (
         )}
       </TableBody>
     </Table>
-    <HackathonsNewButton isAdmin={state.authApp.isAdmin} action={actions.goToHackathonsNew}/>
+    <NewHackathonButton isAdmin={state.authApp.isAdmin} action={actions.goToHackathonsNew}/>
   </Paper>
 )
 
