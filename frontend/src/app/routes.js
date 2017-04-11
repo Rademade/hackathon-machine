@@ -6,6 +6,8 @@ import TopicIndex from 'containers/topics/Index'
 import TopicNew from 'containers/topics/New'
 import TopicEdit from 'containers/topics/Edit'
 import SpeakerIndex from 'containers/speakers/Index'
+import SpeakerNew from 'containers/speakers/New'
+import SpeakerEdit from 'containers/speakers/Edit'
 import NotFound from 'containers/NotFound'
 
 function requireAuth(nextState, replace) {
@@ -56,11 +58,11 @@ const routes = [{
   onEnter: requireAuth
 }, {
   path: '/speakers/new',
-  component: NotFound,
+  component: SpeakerNew,
   onEnter: requireAuth
 }, {
   path: '/speakers/:id/edit',
-  component: NotFound,
+  component: SpeakerEdit,
   onEnter: requireAuth
 }, {
   path: '*',
