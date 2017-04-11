@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {API_ENDPOINT} from 'constants/common'
+import {API_ENDPOINT} from 'constants'
 
 const index = _ => `${API_ENDPOINT}/hackathons`
 const show = id => `${API_ENDPOINT}/hackathons/${id}`

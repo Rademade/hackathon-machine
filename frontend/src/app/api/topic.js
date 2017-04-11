@@ -1,5 +1,8 @@
 import axios from 'axios'
-import {API_ENDPOINT} from 'constants/common'
+import {API_ENDPOINT} from 'constants'
+
+const index = _ => `${API_ENDPOINT}/topics`
+const show = id => `${API_ENDPOINT}/topics/${id}`
 
 const config = {
   headers: {
@@ -8,7 +11,9 @@ const config = {
 }
 
 export default {
-  query: () => {
-    return axios.get(`${API_ENDPOINT}/topics`, config)
-  }
+  query: _ => axios.get(index(), config),
+  get: id => axios.get(show(id), config),
+  create: data => axios.put(index(), config),
+  update: data => axios.put(show(data.id), data, config),
+  delete: id => axios.delete(show(id), config)
 }

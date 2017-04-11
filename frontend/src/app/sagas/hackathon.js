@@ -16,7 +16,7 @@ import {
   HACKATHON_DELETE_REQUEST,
   HACKATHON_DELETE_REQUEST_SUCCESS,
   HACKATHON_DELETE_REQUEST_FAILURE
-} from 'constants/hackathon'
+} from 'constants'
 
 function* _query(action) {
   try {

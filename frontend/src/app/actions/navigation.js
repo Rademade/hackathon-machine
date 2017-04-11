@@ -7,5 +7,8 @@ export default {
   goToHackathonsEdit: (id) => dispatch => dispatch(push(`/hackathons/${id}/edit`)),
   goToTopics: () => dispatch => dispatch(push('/topics')),
   goToTopicsNew: () => dispatch => dispatch(push('/topics/new')),
-  goToUsers: () => dispatch => dispatch(push('/users'))
+  goToTopicsEdit: (id) => dispatch => dispatch(push(`/topics/${id}/edit`)),
+  goToSpeakers: () => dispatch => dispatch(push('/speakers')),
+  goToSpeakersNew: () => dispatch => dispatch(push('/speakers/new')),
+  goToSpeakersEdit: (id) => dispatch => dispatch(push(`/speakers/${id}/edit`)),
 }

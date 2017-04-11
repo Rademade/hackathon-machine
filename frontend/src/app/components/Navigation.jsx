@@ -38,9 +38,9 @@ const Navigation = ({state, actions}) => (
           primary={isActive('/topics', state.routing.locationBeforeTransitions.pathname)}
           style={styles.button}/>
         <RaisedButton
-          label="Users"
-          onTouchTap={actions.goToUsers}
-          primary={isActive('/users', state.routing.locationBeforeTransitions.pathname)}
+          label="Speakers"
+          onTouchTap={actions.goToSpeakers}
+          primary={isActive('/speakers', state.routing.locationBeforeTransitions.pathname)}
           style={styles.button}/>
       </div>
     : null

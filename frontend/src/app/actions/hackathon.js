@@ -4,7 +4,7 @@ import {
   HACKATHON_CREATE_REQUEST,
   HACKATHON_UPDATE_REQUEST,
   HACKATHON_DELETE_REQUEST
-} from 'constants/hackathon'
+} from 'constants'
 
 export default {
   query: _ => dispatch => dispatch({ type: HACKATHON_QUERY_REQUEST }),
