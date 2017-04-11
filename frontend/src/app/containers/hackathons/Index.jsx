@@ -7,7 +7,6 @@ import {
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import {HACKATHONS_REQUEST} from 'constants/hackathon'
 import hackathonActions from 'actions/hackathon'
 import navigationActions from 'actions/navigation'
 import moment from 'moment'
@@ -76,10 +75,10 @@ const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
     {isAdmin &&
       <TableRowColumn>
         <EditHackathonButton action={() => {
-          actions.goToHackathonsEdit(hackathon.id)
+          actions.navigation.goToHackathonsEdit(hackathon.id)
         }}/>
         <DeleteHackathonButton action={() => {
-          actions.hackathonDelete(hackathon.id)
+          actions.hackathon.delete(hackathon.id)
         }}/>
       </TableRowColumn>
     }
@@ -91,10 +90,15 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  dispatch({type: HACKATHONS_REQUEST})
+  let actions = {
+    hackathon: bindActionCreators(hackathonActions, dispatch),
+    navigation: bindActionCreators(navigationActions, dispatch)
+  }
+
+  dispatch(actions.hackathon.query())
 
   return {
-    actions: bindActionCreators(Object.assign({}, hackathonActions, navigationActions), dispatch)
+    actions: actions
   }
 }
 
@@ -115,7 +119,7 @@ const HackathonIndex = ({state, actions}) => (
         )}
       </TableBody>
     </Table>
-    <NewHackathonButton isAdmin={state.authApp.isAdmin} action={actions.goToHackathonsNew}/>
+    <NewHackathonButton isAdmin={state.authApp.isAdmin} action={actions.navigation.goToHackathonsNew}/>
   </Paper>
 )
 

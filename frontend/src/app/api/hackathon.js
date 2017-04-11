@@ -1,6 +1,9 @@
 import axios from 'axios'
 import {API_ENDPOINT} from 'constants/common'
 
+const index = _ => `${API_ENDPOINT}/hackathons`
+const show = id => `${API_ENDPOINT}/hackathons/${id}`
+
 const config = {
   headers: {
     'Authorization': localStorage.getItem('jwt')
@@ -8,7 +11,9 @@ const config = {
 }
 
 export default {
-  query: () => axios.get(`${API_ENDPOINT}/hackathons`, config),
-  update: (hackathon) => axios.put(`${API_ENDPOINT}/hackathons`, hackathon, config),
-  delete: (id) => axios.delete(`${API_ENDPOINT}/hackathons/${id}`, config)
+  query: _ => axios.get(index(), config),
+  get: id => axios.get(show(id), config),
+  create: data => axios.put(index(), config),
+  update: data => axios.put(show(data.id), data, config),
+  delete: id => axios.delete(show(id), config)
 }

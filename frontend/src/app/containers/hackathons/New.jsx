@@ -28,14 +28,20 @@ const styles = {
 }
 
 const TopicSelect = ({topics}) => (
-  <FormsySelect name="topic" floatingLabelText="Topic" required>
-    {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.title}/>)}
+  <FormsySelect
+    name="topic_id"
+    value={topics[0].id}
+    floatingLabelText="Topic">
+      {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.title}/>)}
   </FormsySelect>
 )
 
 const SpeakerSelect = ({speakers}) => (
-  <FormsySelect name="speaker" floatingLabelText="Speaker" required>
-    {speakers.map(speaker => <MenuItem key={speaker.id} value={speaker.id} primaryText={speaker.full_name}/>)}
+  <FormsySelect
+    name="speaker_id"
+    value={speakers[0].id}
+    floatingLabelText="Speaker">
+      {speakers.map(speaker => <MenuItem key={speaker.id} value={speaker.id} primaryText={speaker.full_name}/>)}
   </FormsySelect>
 )
 
@@ -44,17 +50,21 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: bindActionCreators(Object.assign({}, hackathonActions, navigationActions), dispatch)
+  actions: {
+    hackathon: bindActionCreators(hackathonActions, dispatch),
+    navigation: bindActionCreators(navigationActions, dispatch)
+  }
 })
 
 const HackathonNew = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form>
+    <Formsy.Form onSubmit={actions.hackathon.create}>
       <h2 style={styles.title}>New Hackathon</h2>
       <TopicSelect topics={state.topicApp.topics}/>
       <FormsyDate
-        name="date"
+        name="conduction_date"
         floatingLabelText="Conduction date"
+        value={new Date()}
         required/>
       <SpeakerSelect speakers={state.speakerApp.speakers}/>
       <RaisedButton
@@ -65,7 +75,7 @@ const HackathonNew = ({state, actions}) => (
       <FlatButton
         label="Cancel"
         secondary={true}
-        onTouchTap={actions.goToHackathons}
+        onTouchTap={actions.navigation.goToHackathons}
         style={styles.button}/>
     </Formsy.Form>
   </Paper>

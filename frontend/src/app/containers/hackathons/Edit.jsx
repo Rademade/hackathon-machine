@@ -27,37 +27,47 @@ const styles = {
 
 const TopicSelect = ({topics}) => (
   <FormsySelect
-    name="topic"
-    floatingLabelText="Topic"
-    required>
+    name="topic_id"
+    value={topics[0].id}
+    floatingLabelText="Topic">
       {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.title}/>)}
   </FormsySelect>
 )
 
 const SpeakerSelect = ({speakers}) => (
   <FormsySelect
-    name="speaker"
-    floatingLabelText="Speaker"
-    required>
+    name="speaker_id"
+    value={speakers[0].id}
+    floatingLabelText="Speaker">
       {speakers.map(speaker => <MenuItem key={speaker.id} value={speaker.id} primaryText={speaker.full_name}/>)}
   </FormsySelect>
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  state
+  state: Object.assign(state, {params: ownProps.params})
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: bindActionCreators(navigationActions, dispatch)
-})
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let actions = {
+    hackathon: bindActionCreators(hackathonActions, dispatch),
+    navigation: bindActionCreators(navigationActions, dispatch)
+  }
+
+  dispatch(actions.hackathon.get(ownProps.params.id))
+
+  return {
+    actions: actions
+  }
+}
 
 const HackathonEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form>
+    <Formsy.Form onSubmit={model => actions.hackathon.update(Object.assign(model, {id: state.params.id}))}>
       <h2 style={styles.title}>Edit Hackathon</h2>
       <TopicSelect topics={state.topicApp.topics}/>
       <FormsyDate
         name="date"
+        value={new Date()}
         floatingLabelText="Conduction date"
         required/>
       <SpeakerSelect speakers={state.speakerApp.speakers}/>
@@ -80,7 +90,7 @@ const HackathonEdit = ({state, actions}) => (
       <FlatButton
         label="Cancel"
         secondary={true}
-        onTouchTap={actions.goToHackathons}
+        onTouchTap={actions.navigation.goToHackathons}
         style={styles.button}/>
     </Formsy.Form>
   </Paper>
