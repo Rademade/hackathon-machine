@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle, FormsyDate, FormsySelect} from 'formsy-material-ui/lib'
-import {Paper, MenuItem, RaisedButton, FlatButton} from 'material-ui'
+import {Paper, MenuItem} from 'material-ui'
+import SubmitButton from 'components/buttons/SubmitButton'
+import CancelButton from 'components/buttons/CancelButton'
 import hackathonActions from 'actions/hackathon'
 import navigationActions from 'actions/navigation'
 
@@ -13,11 +15,6 @@ const styles = {
     margin: 'auto',
     paddingLeft: 20,
     paddingRight: 20
-  },
-  button: {
-    marginTop: 15,
-    marginBottom: 25,
-    marginRight: 20
   },
   title: {
     paddingTop: 20,
@@ -82,16 +79,8 @@ const HackathonEdit = ({state, actions}) => (
         hintText="http://www.example.com"
         floatingLabelText="Materials link"
         updateImmediately/>
-      <RaisedButton
-        type="submit"
-        label="Save"
-        primary={true}
-        style={styles.button}/>
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        onTouchTap={actions.navigation.goToHackathons}
-        style={styles.button}/>
+      <SubmitButton label={'Save'}/>
+      <CancelButton onTouchTap={actions.navigation.goToHackathons}/>
     </Formsy.Form>
   </Paper>
 )
