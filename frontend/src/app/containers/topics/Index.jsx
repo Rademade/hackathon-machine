@@ -62,7 +62,7 @@ const TopicTableHeaderRow = ({isAdmin}) => (
   </TableRow>
 )
 
-const TopicTableBodyRow = ({topic, isAdmin}) => (
+const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.title}</TableRowColumn>
     <TableRowColumn>{topic.rating}</TableRowColumn>

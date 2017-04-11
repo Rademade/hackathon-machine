@@ -4,6 +4,7 @@ import HackathonNew from 'containers/hackathons/New'
 import HackathonEdit from 'containers/hackathons/Edit'
 import TopicIndex from 'containers/topics/Index'
 import TopicNew from 'containers/topics/New'
+import TopicEdit from 'containers/topics/Edit'
 import NotFound from 'containers/NotFound'
 
 function requireAuth(nextState, replace) {
@@ -46,7 +47,7 @@ const routes = [{
   onEnter: requireAuth
 }, {
   path: '/topics/:id/edit',
-  component: NotFound,
+  component: TopicEdit,
   onEnter: requireAuth
 }, {
   path: '/speakers',
