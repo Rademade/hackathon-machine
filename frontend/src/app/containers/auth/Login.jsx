@@ -36,8 +36,8 @@ const Login = ({state, actions}) => (
   <Paper style={styles.paper}>
     <Formsy.Form
       onSubmit={actions.login}
-      onValid={actions.enableLoginButton}
-      onInvalid={actions.disableLoginButton}>
+      onValid={actions.enableLogin}
+      onInvalid={actions.enableLogin}>
       <FormsyText
         name="email"
         type="email"

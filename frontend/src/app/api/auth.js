@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {API_ENDPOINT} from 'constants/common'
 
+const index = _ => `${API_ENDPOINT}/auth`
+
 const config = {
   headers: {
     'Authorization': localStorage.getItem('jwt')
@@ -8,5 +10,5 @@ const config = {
 }
 
 export default {
-  login: (credentials) => axios.post(`${API_ENDPOINT}/auth`, credentials, config)
+  login: data => axios.post(index(), data, config)
 }

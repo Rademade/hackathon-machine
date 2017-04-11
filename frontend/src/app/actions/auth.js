@@ -37,6 +37,6 @@ export default {
       })
     )
   },
-  enableLoginButton: () => dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON }),
-  disableLoginButton: () => dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
+  enableLogin: () => dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON }),
+  enableLogin: () => dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
 }

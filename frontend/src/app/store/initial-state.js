@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 const initialState = {
   authApp: {
     jwt: null,
@@ -103,27 +105,27 @@ const initialState = {
     topics: [{
       id: 1,
       title: 'React',
-      rating: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 2,
       title: 'Go',
-      rating: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 3,
       title: 'Ruby',
-      rating: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 4,
       title: 'Elixir',
-      rating: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 5,
       title: 'Phoenix',
-      rating: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }]
   }
