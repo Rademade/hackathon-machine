@@ -1,10 +1,13 @@
+import * as _ from 'lodash'
+
 const initialState = {
   authApp: {
     jwt: null,
     isPendingRequest: false,
     isAuthenticated: false,
+    isAdmin: true,
     loginForm: {
-      canSubmit: false
+      isAvailableSubmit: false
     }
   },
   hackathonApp: {
@@ -12,22 +15,71 @@ const initialState = {
       id: 1,
       topic: 'PostgreSQL',
       date: new Date(),
-      speaker: 'Test 1',
-      done: true,
+      speaker: 'Alexander Kozlyakov',
+      is_done: true,
       materials_link: 'http://ya.ru'
     }, {
       id: 2,
       topic: 'Websockets',
       date: new Date(),
-      speaker: 'Test 2',
-      done: true,
+      speaker: 'Denys Voriashyn',
+      is_done: true,
       materials_link: 'http://ya.ru'
     }, {
       id: 3,
       topic: 'React',
       date: new Date(),
-      speaker: 'Test 3',
-      done: false,
+      speaker: 'Mikhail Paliukh',
+      is_done: false,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 4,
+      topic: 'Go',
+      date: new Date(),
+      speaker: 'Mikhail Gubenko',
+      is_done: false,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 5,
+      topic: 'Elixir',
+      date: new Date(),
+      speaker: 'Yaroslav Senishyn',
+      is_done: false,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 6,
+      topic: 'Rx JS',
+      date: new Date(),
+      speaker: 'Alexander Kozlyakov',
+      is_done: true,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 7,
+      topic: 'Phoenix',
+      date: new Date(),
+      speaker: 'Denys Voriashyn',
+      is_done: true,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 8,
+      topic: 'SQL',
+      date: new Date(),
+      speaker: 'Mikhail Paliukh',
+      is_done: false,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 9,
+      topic: 'Ruby',
+      date: new Date(),
+      speaker: 'Mikhail Gubenko',
+      is_done: false,
+      materials_link: 'http://ya.ru'
+    }, {
+      id: 10,
+      topic: 'Docker',
+      date: new Date(),
+      speaker: 'Yaroslav Senishyn',
+      is_done: false,
       materials_link: 'http://ya.ru'
     }]
   },
@@ -53,27 +105,27 @@ const initialState = {
     topics: [{
       id: 1,
       title: 'React',
-      raitng: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 2,
       title: 'Go',
-      raitng: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 3,
       title: 'Ruby',
-      raitng: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 4,
       title: 'Elixir',
-      raitng: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }, {
       id: 5,
       title: 'Phoenix',
-      raitng: 99,
+      rating: _.random(100),
       currentUserVote: 3
     }]
   }

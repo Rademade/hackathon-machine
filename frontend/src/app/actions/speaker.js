@@ -1,26 +1,35 @@
-import speaker from 'api/speaker'
 import {
-  SPEAKERS_REQUEST,
-  SPEAKERS_REQUEST_SUCCESS,
-  SPEAKERS_REQUEST_FAILURE
-} from 'constants/speaker'
+  SPEAKER_QUERY_REQUEST,
+  SPEAKER_GET_REQUEST,
+  SPEAKER_CREATE_REQUEST,
+  SPEAKER_UPDATE_REQUEST,
+  SPEAKER_DELETE_REQUEST
+} from 'constants'
 
-export function fetchSpeakers() {
-  return dispatch => {
-    dispatch({
-      type: SPEAKERS_REQUEST
-    })
-
-    return speaker.query().then(
-      response => dispatch({
-        type: SPEAKERS_REQUEST_SUCCESS,
-        payload: response.data
-      })
-    ).catch(
-      error => dispatch({
-        type: SPEAKERS_REQUEST_FAILURE,
-        payload: error
-      })
-    )
-  }
+export default {
+  query: _ => dispatch => dispatch({ type: SPEAKER_QUERY_REQUEST }),
+  get: id => dispatch => dispatch({
+    type: SPEAKER_GET_REQUEST,
+    payload: {
+      id
+    }
+  }),
+  create: data => dispatch => dispatch({
+    type: SPEAKER_CREATE_REQUEST,
+    payload: {
+      data: data
+    }
+  }),
+  update: data => dispatch => dispatch({
+    type: SPEAKER_UPDATE_REQUEST,
+    payload: {
+      data: data
+    }
+  }),
+  delete: id => dispatch => dispatch({
+    type: SPEAKER_DELETE_REQUEST,
+    payload: {
+      id
+    }
+  })
 }

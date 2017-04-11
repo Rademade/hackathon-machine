@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
-  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton, Slider
+  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import topicActions from 'actions/topic'
+import speakerActions from 'actions/speaker'
 import navigationActions from 'actions/navigation'
 
 const styles = {
@@ -27,22 +27,22 @@ const styles = {
   }
 }
 
-const NewTopicButton = ({action}) => (
+const NewSpeakerButton = ({action}) => (
   <RaisedButton
-    label='New Topic'
+    label='New Speaker'
     primary={true}
     style={styles.button}
     onTouchTap={action}/>
 )
 
-const EditTopicButton = ({action}) => (
+const EditSpeakerButton = ({action}) => (
   <FlatButton
     label='Edit'
     primary={true}
     onTouchTap={action}/>
 )
 
-const DeleteTopicButton = ({action}) => (
+const DeleteSpeakerButton = ({action}) => (
   <FlatButton
     label='Delete'
     secondary={true}
@@ -51,9 +51,7 @@ const DeleteTopicButton = ({action}) => (
 
 const TopicTableHeaderRow = ({isAdmin}) => (
   <TableRow>
-    <TableHeaderColumn>Name</TableHeaderColumn>
-    <TableHeaderColumn>Rating</TableHeaderColumn>
-    <TableHeaderColumn>Score</TableHeaderColumn>
+    <TableHeaderColumn>Full Name</TableHeaderColumn>
     {isAdmin &&
       <TableHeaderColumn>
         Actions
@@ -62,26 +60,16 @@ const TopicTableHeaderRow = ({isAdmin}) => (
   </TableRow>
 )
 
-const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
+const TopicTableBodyRow = ({speaker, isAdmin, actions}) => (
   <TableRow>
-    <TableRowColumn>{topic.title}</TableRowColumn>
-    <TableRowColumn>{topic.rating}</TableRowColumn>
-    <TableRowColumn>
-      <Slider
-        min={0}
-        max={100}
-        step={1}
-        defaultValue={50}
-        value={topic.rating}
-        style={styles.slider}/>
-    </TableRowColumn>
+    <TableRowColumn>{speaker.full_name}</TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
-        <EditTopicButton action={() => {
-          actions.navigation.goToTopicsEdit(topic.id)
+        <EditSpeakerButton action={() => {
+          actions.navigation.goToSpeakersEdit(speaker.id)
         }}/>
-        <DeleteTopicButton action={() => {
-          actions.topic.delete(topic.id)
+        <DeleteSpeakerButton action={() => {
+          actions.speaker.delete(speaker.id)
         }}/>
       </TableRowColumn>
     }
@@ -94,39 +82,39 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
-    topic: bindActionCreators(topicActions, dispatch),
+    speaker: bindActionCreators(speakerActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.topic.query())
+  dispatch(actions.speaker.query())
 
   return {
     actions: actions
   }
 }
 
-const TopicIndex = ({state, actions}) => (
+const SpeakerIndex = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <h2 style={styles.title}>Topics</h2>
+    <h2 style={styles.title}>Speakers</h2>
     <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TopicTableHeaderRow isAdmin={state.authApp.isAdmin}/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
-        {state.topicApp.topics.map(topic =>
+        {state.speakerApp.speakers.map(speaker =>
           <TopicTableBodyRow
-            key={topic.id}
-            topic={topic}
+            key={speaker.id}
+            speaker={speaker}
             isAdmin={state.authApp.isAdmin}
             actions={actions}/>
         )}
       </TableBody>
     </Table>
-    <NewTopicButton action={actions.navigation.goToTopicsNew}/>
+    <NewSpeakerButton action={actions.navigation.goToSpeakersNew}/>
   </Paper>
 )
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopicIndex)
+)(SpeakerIndex)

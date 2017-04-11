@@ -2,9 +2,12 @@ import Login from 'containers/auth/Login'
 import HackathonIndex from 'containers/hackathons/Index'
 import HackathonNew from 'containers/hackathons/New'
 import HackathonEdit from 'containers/hackathons/Edit'
-import ModeratorBoard from 'containers/ModeratorBoard'
 import TopicIndex from 'containers/topics/Index'
-
+import TopicNew from 'containers/topics/New'
+import TopicEdit from 'containers/topics/Edit'
+import SpeakerIndex from 'containers/speakers/Index'
+import SpeakerNew from 'containers/speakers/New'
+import SpeakerEdit from 'containers/speakers/Edit'
 import NotFound from 'containers/NotFound'
 
 function requireAuth(nextState, replace) {
@@ -30,9 +33,6 @@ const routes = [{
   component: HackathonIndex,
   onEnter: requireAuth
 }, {
-  path: '/topics',
-  component: Login
-}, {
   path: '/hackathons/new',
   component: HackathonNew,
   onEnter: requireAuth
@@ -45,8 +45,24 @@ const routes = [{
   component: TopicIndex,
   onEnter: requireAuth
 }, {
-  path: '/moderator',
-  component: ModeratorBoard,
+  path: '/topics/new',
+  component: TopicNew,
+  onEnter: requireAuth
+}, {
+  path: '/topics/:id/edit',
+  component: TopicEdit,
+  onEnter: requireAuth
+}, {
+  path: '/speakers',
+  component: SpeakerIndex,
+  onEnter: requireAuth
+}, {
+  path: '/speakers/new',
+  component: SpeakerNew,
+  onEnter: requireAuth
+}, {
+  path: '/speakers/:id/edit',
+  component: SpeakerEdit,
   onEnter: requireAuth
 }, {
   path: '*',
