@@ -5,10 +5,8 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
-  LOG_OUT,
-  ENABLE_LOGIN_BUTTON,
-  DISABLE_LOGIN_BUTTON
-} from 'constants/auth'
+  LOG_OUT
+} from 'constants'
 
 export default {
   loadJWT: jwt => dispatch => (
@@ -36,7 +34,5 @@ export default {
         payload: error
       })
     )
-  },
-  enableLogin: () => dispatch => dispatch({ type: ENABLE_LOGIN_BUTTON }),
-  enableLogin: () => dispatch => dispatch({ type: DISABLE_LOGIN_BUTTON })
+  }
 }

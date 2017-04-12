@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {FormsyText} from 'formsy-material-ui/lib'
-import {Paper, RaisedButton, FlatButton} from 'material-ui'
+import {Paper} from 'material-ui'
+import SubmitButton from 'components/buttons/SubmitButton'
+import CancelButton from 'components/buttons/CancelButton'
 import topicActions from 'actions/topic'
 import navigationActions from 'actions/navigation'
 
@@ -13,11 +15,6 @@ const styles = {
     margin: 'auto',
     paddingLeft: 20,
     paddingRight: 20
-  },
-  button: {
-    marginTop: 15,
-    marginBottom: 25,
-    marginRight: 20
   },
   title: {
     paddingTop: 20,
@@ -48,16 +45,8 @@ const TopicNew = ({state, actions}) => (
         floatingLabelText="Topic"
         inputStyle={styles.hideAutoFillColorStyle}
         required/>
-      <RaisedButton
-        type="submit"
-        label="Create"
-        primary={true}
-        style={styles.button}/>
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        onTouchTap={actions.navigation.goToTopics}
-        style={styles.button}/>
+      <SubmitButton label="Create"/>
+      <CancelButton onTouchTap={actions.navigation.goToTopics}/>
     </Formsy.Form>
   </Paper>
 )

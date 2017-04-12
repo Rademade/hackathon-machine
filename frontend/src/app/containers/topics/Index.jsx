@@ -3,10 +3,13 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
-  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton, Slider
+  TableRow, TableRowColumn, Paper, Slider
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
+import NewButton from 'components/buttons/NewButton'
+import EditButton from 'components/buttons/EditButton'
+import DeleteButton from 'components/buttons/DeleteButton'
 import topicActions from 'actions/topic'
 import navigationActions from 'actions/navigation'
 
@@ -14,9 +17,6 @@ const styles = {
   paper: {
     width: '100%',
     padding: 20
-  },
-  button: {
-    marginTop: 20
   },
   title: {
     paddingTop: 0,
@@ -26,28 +26,6 @@ const styles = {
     height: 40
   }
 }
-
-const NewTopicButton = ({action}) => (
-  <RaisedButton
-    label='New Topic'
-    primary={true}
-    style={styles.button}
-    onTouchTap={action}/>
-)
-
-const EditTopicButton = ({action}) => (
-  <FlatButton
-    label='Edit'
-    primary={true}
-    onTouchTap={action}/>
-)
-
-const DeleteTopicButton = ({action}) => (
-  <FlatButton
-    label='Delete'
-    secondary={true}
-    onTouchTap={action}/>
-)
 
 const TopicTableHeaderRow = ({isAdmin}) => (
   <TableRow>
@@ -70,17 +48,20 @@ const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
       <Slider
         min={0}
         max={100}
-        step={1}
+        step={10}
         defaultValue={50}
         value={topic.rating}
+        onChange={(event, value) => {
+          actions.topic.update(Object.assign(topic, {rating: value}))
+        }}
         style={styles.slider}/>
     </TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
-        <EditTopicButton action={() => {
+        <EditButton onTouchTap={() => {
           actions.navigation.goToTopicsEdit(topic.id)
         }}/>
-        <DeleteTopicButton action={() => {
+        <DeleteButton onTouchTap={() => {
           actions.topic.delete(topic.id)
         }}/>
       </TableRowColumn>
@@ -122,7 +103,7 @@ const TopicIndex = ({state, actions}) => (
         )}
       </TableBody>
     </Table>
-    <NewTopicButton action={actions.navigation.goToTopicsNew}/>
+    <NewButton onTouchTap={actions.navigation.goToTopicsNew}/>
   </Paper>
 )
 

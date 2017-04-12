@@ -5,10 +5,7 @@ const initialState = {
     jwt: null,
     isPendingRequest: false,
     isAuthenticated: false,
-    isAdmin: true,
-    loginForm: {
-      isAvailableSubmit: false
-    }
+    isAdmin: true
   },
   hackathonApp: {
     hackathons: [{

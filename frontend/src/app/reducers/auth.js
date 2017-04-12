@@ -3,9 +3,7 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
-  LOG_OUT,
-  ENABLE_LOGIN_BUTTON,
-  DISABLE_LOGIN_BUTTON
+  LOG_OUT
 } from 'constants/auth'
 import initialState from 'store/initial-state'
 
@@ -53,22 +51,6 @@ export default function auth(state = initialState.authApp, action = {}) {
         ...state,
         isAuthenticated: false,
         jwt: null
-      }
-    case ENABLE_LOGIN_BUTTON:
-      return {
-        ...state,
-        loginForm: {
-          ...state.loginForm,
-          isAvailableSubmit: true
-        }
-      }
-    case DISABLE_LOGIN_BUTTON:
-      return {
-        ...state,
-        loginForm: {
-          ...state.loginForm,
-          isAvailableSubmit: false
-        }
       }
     default:
       return state

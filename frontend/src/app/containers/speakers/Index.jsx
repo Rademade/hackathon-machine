@@ -3,10 +3,13 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
-  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton
+  TableRow, TableRowColumn, Paper
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
+import NewButton from 'components/buttons/NewButton'
+import EditButton from 'components/buttons/EditButton'
+import DeleteButton from 'components/buttons/DeleteButton'
 import speakerActions from 'actions/speaker'
 import navigationActions from 'actions/navigation'
 
@@ -14,9 +17,6 @@ const styles = {
   paper: {
     width: '100%',
     padding: 20
-  },
-  button: {
-    marginTop: 20
   },
   title: {
     paddingTop: 0,
@@ -26,28 +26,6 @@ const styles = {
     height: 40
   }
 }
-
-const NewSpeakerButton = ({action}) => (
-  <RaisedButton
-    label='New Speaker'
-    primary={true}
-    style={styles.button}
-    onTouchTap={action}/>
-)
-
-const EditSpeakerButton = ({action}) => (
-  <FlatButton
-    label='Edit'
-    primary={true}
-    onTouchTap={action}/>
-)
-
-const DeleteSpeakerButton = ({action}) => (
-  <FlatButton
-    label='Delete'
-    secondary={true}
-    onTouchTap={action}/>
-)
 
 const TopicTableHeaderRow = ({isAdmin}) => (
   <TableRow>
@@ -65,10 +43,10 @@ const TopicTableBodyRow = ({speaker, isAdmin, actions}) => (
     <TableRowColumn>{speaker.full_name}</TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
-        <EditSpeakerButton action={() => {
+        <EditButton onTouchTap={() => {
           actions.navigation.goToSpeakersEdit(speaker.id)
         }}/>
-        <DeleteSpeakerButton action={() => {
+        <DeleteButton onTouchTap={() => {
           actions.speaker.delete(speaker.id)
         }}/>
       </TableRowColumn>
@@ -110,7 +88,7 @@ const SpeakerIndex = ({state, actions}) => (
         )}
       </TableBody>
     </Table>
-    <NewSpeakerButton action={actions.navigation.goToSpeakersNew}/>
+    <NewButton onTouchTap={actions.navigation.goToSpeakersNew}/>
   </Paper>
 )
 

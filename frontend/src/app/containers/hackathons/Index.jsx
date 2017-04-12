@@ -3,10 +3,13 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
-  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton
+  TableRow, TableRowColumn, Paper
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
+import NewButton from 'components/buttons/NewButton'
+import EditButton from 'components/buttons/EditButton'
+import DeleteButton from 'components/buttons/DeleteButton'
 import hackathonActions from 'actions/hackathon'
 import navigationActions from 'actions/navigation'
 import moment from 'moment'
@@ -16,38 +19,11 @@ const styles = {
     width: '100%',
     padding: 20
   },
-  button: {
-    marginTop: 20
-  },
   title: {
     paddingTop: 0,
     marginBottom: 0
   }
 }
-
-const NewHackathonButton = ({isAdmin, action}) => (
-  isAdmin
-    ? <RaisedButton
-        label='New Hackathon'
-        primary={true}
-        style={styles.button}
-        onTouchTap={action}/>
-    : null
-)
-
-const EditHackathonButton = ({action}) => (
-  <FlatButton
-    label='Edit'
-    primary={true}
-    onTouchTap={action}/>
-)
-
-const DeleteHackathonButton = ({action}) => (
-  <FlatButton
-    label='Delete'
-    secondary={true}
-    onTouchTap={action}/>
-)
 
 const HackathonTableHeaderRow = ({isAdmin}) => (
   <TableRow>
@@ -74,10 +50,10 @@ const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
     </TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
-        <EditHackathonButton action={() => {
+        <EditButton onTouchTap={() => {
           actions.navigation.goToHackathonsEdit(hackathon.id)
         }}/>
-        <DeleteHackathonButton action={() => {
+        <DeleteButton onTouchTap={() => {
           actions.hackathon.delete(hackathon.id)
         }}/>
       </TableRowColumn>
@@ -119,7 +95,9 @@ const HackathonIndex = ({state, actions}) => (
         )}
       </TableBody>
     </Table>
-    <NewHackathonButton isAdmin={state.authApp.isAdmin} action={actions.navigation.goToHackathonsNew}/>
+    {state.authApp.isAdmin &&
+      <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
+    }
   </Paper>
 )
 

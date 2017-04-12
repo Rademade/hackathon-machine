@@ -44,7 +44,7 @@ const SpeakerEdit = ({state, actions}) => (
         floatingLabelText="Full Name"
         inputStyle={styles.hideAutoFillColorStyle}
         required/>
-      <SubmitButton label={'Save'}/>
+      <SubmitButton label="Save"/>
       <CancelButton onTouchTap={actions.navigation.goToSpeakers}/>
     </Formsy.Form>
   </Paper>

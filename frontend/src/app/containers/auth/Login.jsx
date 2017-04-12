@@ -35,9 +35,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Login = ({state, actions}) => (
   <Paper style={styles.paper}>
     <Formsy.Form
-      onSubmit={actions.login}
-      onValid={actions.enableLogin}
-      onInvalid={actions.enableLogin}>
+      onSubmit={actions.login}>
       <FormsyText
         name="email"
         type="email"
@@ -57,7 +55,6 @@ const Login = ({state, actions}) => (
       <RaisedButton
         style={styles.button}
         type="submit"
-        disabled={!state.loginForm.isAvailableSubmit}
         label="Login"/>
     </Formsy.Form>
   </Paper>
