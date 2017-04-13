@@ -1,0 +1,8 @@
+curl -H "Content-Type: application/json" -X POST -d '{"full_name":"robobee","password":"P@ssword","email":"robobee@example.com"}' http://localhost:1323/users
+
+curl -X POST -H "Content-Type: application/json" \
+      -d '{"email": "robobee@example.com", "pass": "P@ssword"}' \
+      localhost:1323/login
+
+curl localhost:1323/api/v1/users/5 -H \
+  "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImVtYWlsIjoiZW1haWwxMjNAbWFpbC5jb20iLCJleHAiOjE0OTIzNTk5NjQsImlkIjo1LCJuYW1lIjoienp6enp6In0.K7sRXs5TEM5rbQxibCdTFrXhidh_j3p6nR-mb_UcCaU"
