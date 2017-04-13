@@ -1,17 +1,18 @@
-## Супер Хакатон-Машина
+## Hackathon Machine
 
 # Docker
 
-- Установить Docker
-- Добавить себя в группу `gpasswd -a $USER docker`
-- Перелогиниться/перезагрузится
-- Добавить авто-запуск docker'а `sudo systemctl enable docker`
+- Install Docker
+- `gpasswd -a $USER docker`
+- relogin/reboot
+- Autolaunch docker `sudo systemctl enable docker`
 
 ```
 $ ./bin/develop.sh
 ```
 
-# Запуск фронтенда:
+# frontend
+
 ```
 $ cd frontend
 $ npm install && npm start
@@ -29,7 +30,7 @@ For OSX users
 ```
 $ brew install glide
 ```
-For ubuntu users 
+For ubuntu users
 ```
 $ sudo add-apt-repository ppa:masterminds/glide && sudo apt-get update
 $ sudo apt-get install glide

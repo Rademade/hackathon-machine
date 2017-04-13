@@ -1,3 +1,6 @@
+require('babel-core/register')
+require('babel-polyfill')
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -10,10 +13,10 @@ module.exports = {
     port: 3000,
     host: '0.0.0.0'
   },
-  entry: {
-    path: path.resolve(__dirname, 'src/app.jsx')
-
-  },
+  entry: [
+    'babel-polyfill',
+    path.resolve(__dirname, 'src/app.jsx')
+  ],
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
@@ -40,10 +43,11 @@ module.exports = {
       reducers: path.resolve('src/app/reducers'),
       actions: path.resolve('src/app/actions'),
       store: path.resolve('src/app/store'),
+      sagas: path.resolve('src/app/sagas'),
       api: path.resolve('src/app/api')
     }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ]
-};
+}

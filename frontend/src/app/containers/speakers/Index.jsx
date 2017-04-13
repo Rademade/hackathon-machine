@@ -10,9 +10,8 @@ import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
 import NewButton from 'components/buttons/NewButton'
 import EditButton from 'components/buttons/EditButton'
 import DeleteButton from 'components/buttons/DeleteButton'
-import hackathonActions from 'actions/hackathon'
+import speakerActions from 'actions/speaker'
 import navigationActions from 'actions/navigation'
-import moment from 'moment'
 
 const styles = {
   paper: {
@@ -22,15 +21,15 @@ const styles = {
   title: {
     paddingTop: 0,
     marginBottom: 0
+  },
+  slider: {
+    height: 40
   }
 }
 
-const HackathonTableHeaderRow = ({isAdmin}) => (
+const TopicTableHeaderRow = ({isAdmin}) => (
   <TableRow>
-    <TableHeaderColumn>Topic</TableHeaderColumn>
-    <TableHeaderColumn>Date</TableHeaderColumn>
-    <TableHeaderColumn>Rapporteur</TableHeaderColumn>
-    <TableHeaderColumn>Status</TableHeaderColumn>
+    <TableHeaderColumn>Full Name</TableHeaderColumn>
     {isAdmin &&
       <TableHeaderColumn>
         Actions
@@ -39,22 +38,16 @@ const HackathonTableHeaderRow = ({isAdmin}) => (
   </TableRow>
 )
 
-const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
+const TopicTableBodyRow = ({speaker, isAdmin, actions}) => (
   <TableRow>
-    <TableRowColumn>{hackathon.topic}</TableRowColumn>
-    <TableRowColumn>{moment(hackathon.date).format('DD MMMM YYYY')}</TableRowColumn>
-    <TableRowColumn>{hackathon.speaker}</TableRowColumn>
-    <TableRowColumn>{hackathon.is_done
-      ? (<span>Сonducted, materials: <a href={hackathon.materials_link} target="_blank">link</a></span>)
-      : 'Not conducted yet'}
-    </TableRowColumn>
+    <TableRowColumn>{speaker.full_name}</TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
         <EditButton onTouchTap={() => {
-          actions.navigation.goToHackathonsEdit(hackathon.id)
+          actions.navigation.goToSpeakersEdit(speaker.id)
         }}/>
         <DeleteButton onTouchTap={() => {
-          actions.hackathon.delete(hackathon.id)
+          actions.speaker.delete(speaker.id)
         }}/>
       </TableRowColumn>
     }
@@ -67,41 +60,39 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
-    hackathon: bindActionCreators(hackathonActions, dispatch),
+    speaker: bindActionCreators(speakerActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.hackathon.query())
+  dispatch(actions.speaker.query())
 
   return {
     actions: actions
   }
 }
 
-const HackathonIndex = ({state, actions}) => (
+const SpeakerIndex = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <h2 style={styles.title}>Hackathons</h2>
+    <h2 style={styles.title}>Speakers</h2>
     <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <HackathonTableHeaderRow isAdmin={state.authApp.isAdmin}/>
+        <TopicTableHeaderRow isAdmin={state.authApp.isAdmin}/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
-        {state.hackathonApp.hackathons.map(hackathon =>
-          <HackathonTableBodyRow
-            key={hackathon.id}
-            hackathon={hackathon}
+        {state.speakerApp.speakers.map(speaker =>
+          <TopicTableBodyRow
+            key={speaker.id}
+            speaker={speaker}
             isAdmin={state.authApp.isAdmin}
             actions={actions}/>
         )}
       </TableBody>
     </Table>
-    {state.authApp.isAdmin &&
-      <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
-    }
+    <NewButton onTouchTap={actions.navigation.goToSpeakersNew}/>
   </Paper>
 )
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HackathonIndex)
+)(SpeakerIndex)
