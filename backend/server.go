@@ -4,6 +4,7 @@ import (
 	"github.com/hackathon-machine/backend/controllers"
 	"github.com/labstack/echo"
 	"fmt"
+	"github.com/labstack/echo/middleware"
 )
 
 const (
@@ -16,11 +17,16 @@ const (
 
 func main() {
 	e := echo.New()
+	
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{ "*" },
+		AllowMethods: []string{ echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE },
+	}))
 
-	resource(e, "/users", controllers.UsersController{}, nil)
-	resource(e, "/hackathons", controllers.HackathonsController{}, nil)
-	resource(e, "/topics", controllers.TopicsController{}, nil)
-	resource(e, "/user_votes", controllers.TopicsController{}, []int{ ACTION_CREATE, ACTION_UPDATE })
+	resource(e, "/api/users", controllers.UsersController{}, nil)
+	resource(e, "/api/hackathons", controllers.HackathonsController{}, nil)
+	resource(e, "/api/topics", controllers.TopicsController{}, nil)
+	resource(e, "/api/user_votes", controllers.TopicsController{}, []int{ ACTION_CREATE, ACTION_UPDATE })
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

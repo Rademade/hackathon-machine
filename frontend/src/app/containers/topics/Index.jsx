@@ -42,7 +42,7 @@ const TopicTableHeaderRow = ({isAdmin}) => (
 
 const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
-    <TableRowColumn>{topic.title}</TableRowColumn>
+    <TableRowColumn>{topic.name}</TableRowColumn>
     <TableRowColumn>{topic.rating}</TableRowColumn>
     <TableRowColumn>
       <Slider
@@ -110,4 +110,4 @@ const TopicIndex = ({state, actions}) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopicIndex)
+)(TopicIndex);
