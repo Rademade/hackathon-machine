@@ -1,6 +1,20 @@
 ## Hackathon Machine
 
+# Docker
+
+- Установить Docker
+- Добавить себя в группу `gpasswd -a $USER docker`
+- Перелогиниться/перезагрузится
+- Добавить авто-запуск docker'а `sudo systemctl enable docker`
+
+```
+$ ./bin/develop.sh
+```
+
+# Запуск фронтенда:
+
 # frontend
+
 ```
 $ cd frontend
 $ npm install && npm start

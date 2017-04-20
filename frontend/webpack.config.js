@@ -10,7 +10,8 @@ module.exports = {
     hot: true,
     inline: true,
     contentBase: './src',
-    port: 3000
+    port: 3000,
+    host: '0.0.0.0'
   },
   entry: [
     'babel-polyfill',
