@@ -33,9 +33,17 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
+const onSubmit = (actions) => {
+    return function(formData) {
+        actions.topic.create(formData).then(() => {
+            actions.navigation.goToTopics();
+        })
+    }
+}
+
 const TopicNew = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form onSubmit={actions.topic.create}>
+    <Formsy.Form onSubmit={onSubmit(actions)}>
       <h2 style={styles.title}>New Topic</h2>
       <FormsyText
         name="name"

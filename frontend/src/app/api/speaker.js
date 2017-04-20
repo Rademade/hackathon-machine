@@ -1,8 +1,8 @@
 import axios from 'axios'
 import {API_ENDPOINT} from 'constants'
 
-const index = _ => `${API_ENDPOINT}/speakers`
-const show = id => `${API_ENDPOINT}/speakers/${id}`
+const index = _ => `${API_ENDPOINT}/users`
+const show = id => `${API_ENDPOINT}/users/${id}`
 
 const config = {
   headers: {

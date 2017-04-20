@@ -40,7 +40,7 @@ func main() {
 
 	// Resources
 	resource(publicRoutes, "/users", controllers.UsersController{}, []int{ACTION_CREATE})
-	resource(apiRoutes, "/users", controllers.UsersController{}, []int{ACTION_INDEX, ACTION_SHOW, ACTION_UPDATE, ACTION_DESTROY})
+	resource(apiRoutes, "/users", controllers.UsersController{}, []int{ACTION_INDEX, ACTION_CREATE, ACTION_SHOW, ACTION_UPDATE, ACTION_DESTROY})
 	resource(apiRoutes, "/hackathons", controllers.HackathonsController{}, nil)
 	resource(apiRoutes, "/topics", controllers.TopicsController{}, nil)
 	// TODO: UserVotesController should be here, but doesn't pass type checking
