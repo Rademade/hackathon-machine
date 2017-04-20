@@ -23,7 +23,7 @@ const styles = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  state
+    state : Object.assign(state, { params : ownProps.params })
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -39,9 +39,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
+const onSubmit = (id, actions) => {
+  return function (formData) {
+    actions.topic.update(Object.assign(formData, { id : id })).then(() => {
+      actions.navigation.goToTopics();
+    })
+  }
+}
+
 const TopicEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form onSubmit={model => actions.topic.update(Object.assign(model, {id: state.params.id}))}>
+    <Formsy.Form onSubmit={onSubmit(state.params.id - 0, actions)}>
       <h2 style={styles.title}>Edit Topic</h2>
       <FormsyText
         name="name"
@@ -50,6 +58,7 @@ const TopicEdit = ({state, actions}) => (
         hintText="What is your topic?"
         floatingLabelText="Topic"
         inputStyle={styles.hideAutoFillColorStyle}
+        value={state.topicApp.topic ? state.topicApp.topic.name : ''}
         required/>
       <SubmitButton label={'Save'}/>
       <CancelButton onTouchTap={actions.navigation.goToTopics}/>
