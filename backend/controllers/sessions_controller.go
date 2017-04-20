@@ -2,14 +2,12 @@ package controllers
 
 import (
   jwt "github.com/dgrijalva/jwt-go"
+  "github.com/hackathon-machine/backend/config"
   "github.com/hackathon-machine/backend/models"
   "github.com/labstack/echo"
   "net/http"
-  "os"
   "time"
 )
-
-var AppSecret = []byte(os.Getenv("APP_SECRET"))
 
 type TokenRequest struct {
   Email string `json:"email"`
@@ -43,7 +41,7 @@ func Login(c echo.Context) error {
   claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
   // Generate encoded token and send it as response.
-  tokenString, err := token.SignedString(AppSecret)
+  tokenString, err := token.SignedString([]byte(config.AppSecret))
   if err != nil {
     return err
   }
