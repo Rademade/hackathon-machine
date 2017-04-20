@@ -18,9 +18,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
       }
     case USER_VOTE_CREATE_REQUEST_SUCCESS:
       return {
-        ...state,
-        // todo
-        // topics : state.topics.concat(action.payload.topic)
+        ...state
       }
     case USER_VOTE_CREATE_REQUEST_FAILURE:
       return {
@@ -34,13 +32,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
       }
     case USER_VOTE_UPDATE_REQUEST_SUCCESS:
       return {
-        ...state,
-        // todo
-        // topics : _.map(state.topics, topic =>
-        //   topic.id === action.payload.topic.id
-        //     ? action.payload.topic
-        //     : topic
-        // )
+        ...state
       }
     case USER_VOTE_UPDATE_REQUEST_FAILURE:
       return {
