@@ -14,12 +14,17 @@ export default {
       id
     }
   }),
-  create: data => dispatch => dispatch({
-    type: TOPIC_CREATE_REQUEST,
-    payload: {
-      data: data
-    }
-  }),
+  create: data => dispatch => (
+    new Promise((resolve, reject) => {
+      dispatch({
+        type: TOPIC_CREATE_REQUEST,
+        payload: {
+          data: data
+        }
+      });
+      resolve(data)
+    }).catch(e => reject(e))
+  ),
   update: data => dispatch => dispatch({
     type: TOPIC_UPDATE_REQUEST,
     payload: {

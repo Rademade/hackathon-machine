@@ -58,11 +58,11 @@ function* _get(action) {
 
 function* _create(action) {
   try {
-    const request = yield call(api.create(action.payload.data))
+    const request = yield call(api.create, action.payload.data)
     yield put({
       type: HACKATHON_CREATE_REQUEST_SUCCESS,
       payload: {
-        hackathon: action.payload.data
+        hackathon: request.data
       }
     })
   } catch (e) {
@@ -77,11 +77,11 @@ function* _create(action) {
 
 function* _update(action) {
   try {
-    const request = yield call(api.update(action.payload.data))
+    const request = yield call(api.update, action.payload.data)
     yield put({
       type: HACKATHON_UPDATE_REQUEST_SUCCESS,
       payload: {
-        hackathon: action.payload.data
+        hackathon: request.data
       }
     })
   } catch (e) {
@@ -96,7 +96,7 @@ function* _update(action) {
 
 function* _delete(action) {
   try {
-    const request = yield call(api.delete(action.payload.id))
+    const request = yield call(api.delete, action.payload.id)
     yield put({
       type: HACKATHON_DELETE_REQUEST_SUCCESS,
       payload: {
