@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"github.com/hackathon-machine/backend/config"
 	"github.com/hackathon-machine/backend/controllers"
 	"github.com/labstack/echo"
-	"fmt"
+	"github.com/labstack/echo/middleware"
 )
 
 const (
@@ -14,27 +16,49 @@ const (
 	ACTION_DESTROY
 )
 
+var AppSecret = []byte(config.AppSecret)
+
 func main() {
 	e := echo.New()
 
-	resource(e, "/users", controllers.UsersController{}, nil)
-	resource(e, "/hackathons", controllers.HackathonsController{}, nil)
-	resource(e, "/topics", controllers.TopicsController{}, nil)
-	resource(e, "/user_votes", controllers.TopicsController{}, []int{ ACTION_CREATE, ACTION_UPDATE })
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
+	}))
+
+	// Public routes
+	publicRoutes := e.Group("")
+	publicRoutes.POST("/login", controllers.Login)
+
+	// Restricted routes
+	apiRoutes := e.Group("/api")
+	apiRoutes.Use(middleware.JWT(AppSecret))
+
+	// Resources
+	resource(publicRoutes, "/users", controllers.UsersController{}, []int{ACTION_CREATE})
+	resource(apiRoutes, "/users", controllers.UsersController{}, []int{ACTION_INDEX, ACTION_CREATE, ACTION_SHOW, ACTION_UPDATE, ACTION_DESTROY})
+	resource(apiRoutes, "/hackathons", controllers.HackathonsController{}, nil)
+	resource(apiRoutes, "/topics", controllers.TopicsController{}, nil)
+	// TODO: UserVotesController should be here, but doesn't pass type checking
+	resource(apiRoutes, "/user_votes", controllers.TopicsController{}, []int{ACTION_CREATE, ACTION_UPDATE})
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func resource(e *echo.Echo, url string, controller controllers.CRUDController, resourceActions []int) {
+func resource(e *echo.Group, url string, controller controllers.CRUDController, resourceActions []int) {
 	if resourceActions == nil {
-		resourceActions = []int{ ACTION_INDEX, ACTION_SHOW, ACTION_CREATE, ACTION_UPDATE, ACTION_DESTROY }
+		resourceActions = []int{ACTION_INDEX, ACTION_SHOW, ACTION_CREATE, ACTION_UPDATE, ACTION_DESTROY}
 	}
 	for _, action := range resourceActions {
 		resourceAction(e, url, controller, action)
 	}
 }
 
-func resourceAction(e *echo.Echo, url string, controller controllers.CRUDController, action int) {
+func resourceAction(e *echo.Group, url string, controller controllers.CRUDController, action int) {
 	switch action {
 	case ACTION_INDEX:
 		e.GET(url, controllers.Index(controller))

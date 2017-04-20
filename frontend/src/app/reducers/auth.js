@@ -3,9 +3,7 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
-  LOG_OUT,
-  ENABLE_LOGIN_BUTTON,
-  DISABLE_LOGIN_BUTTON
+  LOG_OUT
 } from 'constants/auth'
 import initialState from 'store/initial-state'
 
@@ -22,7 +20,8 @@ export default function auth(state = initialState.authApp, action = {}) {
         ...state,
         auth: {
           ...state.auth,
-          isPendingRequest: true
+          isPendingRequest: true,
+          error: null
         }
       }
     case LOG_IN_REQUEST_SUCCESS:
@@ -31,8 +30,9 @@ export default function auth(state = initialState.authApp, action = {}) {
         auth: {
           ...state.auth,
           isPendingRequest: false,
+          isAuthenticated: true,
           jwt: action.payload,
-          isAuthenticated: true
+          error: null,
         }
       }
     case LOG_IN_REQUEST_FAILURE:
@@ -41,32 +41,16 @@ export default function auth(state = initialState.authApp, action = {}) {
         auth: {
           ...state.auth,
           isPendingRequest: false,
-          error: action.payload,
+          isAuthenticated: false,
           jwt: null,
-          isAuthenticated: false
+          error: action.payload
         }
       }
     case LOG_OUT:
       return {
         ...state,
-        jwt: null,
-        isAuthenticated: false
-      }
-    case ENABLE_LOGIN_BUTTON:
-      return {
-        ...state,
-        loginForm: {
-          ...state.loginForm,
-          canSubmit: true
-        }
-      }
-    case DISABLE_LOGIN_BUTTON:
-      return {
-        ...state,
-        loginForm: {
-          ...state.loginForm,
-          canSubmit: false
-        }
+        isAuthenticated: false,
+        jwt: null
       }
     default:
       return state

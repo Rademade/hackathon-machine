@@ -1,90 +1,103 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {push} from 'react-router-redux'
 import {bindActionCreators} from 'redux'
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
-  TableRow, TableRowColumn, FlatButton, Paper, RaisedButton
+  TableRow, TableRowColumn, Paper
 } from 'material-ui'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import * as hackathonActions from 'actions/hackathon'
+import NewButton from 'components/buttons/NewButton'
+import EditButton from 'components/buttons/EditButton'
+import DeleteButton from 'components/buttons/DeleteButton'
+import hackathonActions from 'actions/hackathon'
+import navigationActions from 'actions/navigation'
 import moment from 'moment'
 
-moment.locale('ru')
-
-const paperStyle = {
-  margin: 'auto',
-  padding: 20,
-  marginTop: 20
+const styles = {
+  paper: {
+    width: '100%',
+    padding: 20
+  },
+  title: {
+    paddingTop: 0,
+    marginBottom: 0
+  }
 }
 
 const HackathonTableHeaderRow = ({isAdmin}) => (
   <TableRow>
-    <TableHeaderColumn>Тема</TableHeaderColumn>
-    <TableHeaderColumn>Дата</TableHeaderColumn>
-    <TableHeaderColumn>Докладчик</TableHeaderColumn>
-    <TableHeaderColumn>Статус</TableHeaderColumn>
-    {isAdmin && <TableHeaderColumn>Действия</TableHeaderColumn>}
+    <TableHeaderColumn>Topic</TableHeaderColumn>
+    <TableHeaderColumn>Date</TableHeaderColumn>
+    <TableHeaderColumn>Rapporteur</TableHeaderColumn>
+    <TableHeaderColumn>Status</TableHeaderColumn>
+    {isAdmin &&
+      <TableHeaderColumn>
+        Actions
+      </TableHeaderColumn>
+    }
   </TableRow>
 )
 
 const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
   <TableRow>
     <TableRowColumn>{hackathon.topic}</TableRowColumn>
-    <TableRowColumn>{moment(hackathon.date).format('DD, MMM')}</TableRowColumn>
+    <TableRowColumn>{moment(hackathon.date).format('DD MMMM YYYY')}</TableRowColumn>
     <TableRowColumn>{hackathon.speaker}</TableRowColumn>
-    <TableRowColumn>{hackathon.done
-      ? (<span>Завершен, материалы: <a href={hackathon.materials_link}>тут</a></span>)
-      : 'Еще не проведен'}
+    <TableRowColumn>{hackathon.is_done
+      ? (<span>Сonducted, materials: <a href={hackathon.materials_link} target="_blank">link</a></span>)
+      : 'Not conducted yet'}
     </TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
-        <FlatButton
-          label='Изменить'
-          primary={true}
-          onTouchTap={() => { actions.navigateToHackathonEditPath(hackathon.id) }}/>
+        <EditButton onTouchTap={() => {
+          actions.navigation.goToHackathonsEdit(hackathon.id)
+        }}/>
+        <DeleteButton onTouchTap={() => {
+          actions.hackathon.delete(hackathon.id)
+        }}/>
       </TableRowColumn>
     }
   </TableRow>
 )
 
-const CreateHackatonButton = ({isAdmin, actions}) => {
-  if (isAdmin){
-    return <RaisedButton
-      label='Создать новый'
-      primary={true}
-      style={{marginTop: 50}}
-      onTouchTap={() => { actions.navigateToHackathonNewPath() }}/>
+const mapStateToProps = (state, ownProps) => ({
+  state
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let actions = {
+    hackathon: bindActionCreators(hackathonActions, dispatch),
+    navigation: bindActionCreators(navigationActions, dispatch)
+  }
+
+  dispatch(actions.hackathon.query())
+
+  return {
+    actions: actions
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  state: state.hackathonApp
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: bindActionCreators(hackathonActions, dispatch)
-})
-
 const HackathonIndex = ({state, actions}) => (
-  <Paper style={paperStyle}>
-    <h2>Список хакатонов</h2>
-    <Table>
+  <Paper style={styles.paper}>
+    <h2 style={styles.title}>Hackathons</h2>
+    <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <HackathonTableHeaderRow isAdmin={true}/>
+        <HackathonTableHeaderRow isAdmin={state.authApp.isAdmin}/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
-        {state.hackathons.map(hackathon =>
+        {state.hackathonApp.hackathons.map(hackathon =>
           <HackathonTableBodyRow
             key={hackathon.id}
             hackathon={hackathon}
-            isAdmin={true}
+            isAdmin={state.authApp.isAdmin}
             actions={actions}/>
         )}
       </TableBody>
     </Table>
-    <CreateHackatonButton isAdmin={true} actions={actions}/>
+    {state.authApp.isAdmin &&
+      <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
+    }
   </Paper>
 )
 
