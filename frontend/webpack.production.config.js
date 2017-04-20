@@ -1,11 +1,15 @@
-const webpack = require('webpack');
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+require('babel-core/register')
+require('babel-polyfill')
+
+const webpack = require('webpack')
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const uglifyJsPlugin = webpack.optimize.UglifyJsPlugin
 
 module.exports = {
   devtool: 'cheap-source-map',
   entry: [
+    'babel-polyfill',
     path.resolve(__dirname, 'src/app.jsx')
   ],
   output: {
@@ -20,7 +24,7 @@ module.exports = {
     }, {
       test: /\.js[x]?$/, include: path.resolve(__dirname, 'src'),
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      loader: 'babel'
     }, {
       test: /\.(png|jpg|gif)$/,
       loader: 'file'
@@ -34,6 +38,7 @@ module.exports = {
       constants: path.resolve('src/app/constants'),
       reducers: path.resolve('src/app/reducers'),
       actions: path.resolve('src/app/actions'),
+      sagas: path.resolve('src/app/sagas'),
       store: path.resolve('src/app/store'),
       api: path.resolve('src/app/api')
     }
@@ -54,4 +59,4 @@ module.exports = {
       { from: './src/index.html', to: 'index.html' }
     ])
   ]
-};
+}

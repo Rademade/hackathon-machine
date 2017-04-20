@@ -25,12 +25,17 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
+	}))
+
 	// Public routes
 	publicRoutes := e.Group("")
 	publicRoutes.POST("/login", controllers.Login)
 
 	// Restricted routes
-	apiRoutes := e.Group("/api/v1")
+	apiRoutes := e.Group("/api")
 	apiRoutes.Use(middleware.JWT(secretKey))
 
 	// Resources

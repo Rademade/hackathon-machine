@@ -1,6 +1,6 @@
-## Супер Хакатон-Машина
+## Hackathon Machine
 
-# Запуск фронтенда:
+# frontend
 ```
 $ cd frontend
 $ npm install && npm start
@@ -18,7 +18,7 @@ For OSX users
 ```
 $ brew install glide
 ```
-For ubuntu users 
+For ubuntu users
 ```
 $ sudo add-apt-repository ppa:masterminds/glide && sudo apt-get update
 $ sudo apt-get install glide
