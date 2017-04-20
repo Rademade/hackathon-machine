@@ -1,5 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import api from 'api/hackathon'
+import authActions from 'actions/auth'
+import navigationActions from 'actions/navigation'
 import {
   HACKATHON_QUERY_REQUEST,
   HACKATHON_QUERY_REQUEST_SUCCESS,
@@ -34,6 +36,7 @@ function* _query(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
@@ -53,18 +56,20 @@ function* _get(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
 function* _create(action) {
   try {
-    const request = yield call(api.create(action.payload.data))
+    const request = yield call(api.create, action.payload.data)
     yield put({
       type: HACKATHON_CREATE_REQUEST_SUCCESS,
       payload: {
-        hackathon: action.payload.data
+        hackathon: request.data
       }
     })
+    yield put(navigationActions.goToHackathons)
   } catch (e) {
     yield put({
       type: HACKATHON_CREATE_REQUEST_FAILURE,
@@ -72,18 +77,20 @@ function* _create(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
 function* _update(action) {
   try {
-    const request = yield call(api.update(action.payload.data))
+    const request = yield call(api.update, action.payload.data)
     yield put({
       type: HACKATHON_UPDATE_REQUEST_SUCCESS,
       payload: {
-        hackathon: action.payload.data
+        hackathon: request.data
       }
     })
+    yield put(navigationActions.goToHackathons)
   } catch (e) {
     yield put({
       type: HACKATHON_UPDATE_REQUEST_FAILURE,
@@ -91,18 +98,20 @@ function* _update(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
 function* _delete(action) {
   try {
-    const request = yield call(api.delete(action.payload.id))
+    const request = yield call(api.delete, action.payload.id)
     yield put({
       type: HACKATHON_DELETE_REQUEST_SUCCESS,
       payload: {
         id: action.payload.id
       }
     })
+    yield put(navigationActions.goToHackathons)
   } catch (e) {
     yield put({
       type: HACKATHON_DELETE_REQUEST_FAILURE,
@@ -111,6 +120,7 @@ function* _delete(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 

@@ -28,7 +28,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
     case TOPIC_QUERY_REQUEST_SUCCESS:
       return {
         ...state,
-        speakers: action.payload.speakers,
+        topics: action.payload.topics
       }
     case TOPIC_QUERY_REQUEST_FAILURE:
       return {
@@ -43,7 +43,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
     case TOPIC_GET_REQUEST_SUCCESS:
       return {
         ...state,
-        speaker: action.payload.speaker
+        topic: action.payload.topic
       }
     case TOPIC_GET_REQUEST_FAILURE:
       return {
@@ -58,7 +58,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
     case TOPIC_CREATE_REQUEST_SUCCESS:
       return {
         ...state,
-        speakers: state.speakers.concat(state.payload.speaker)
+        topics: state.topics.concat(action.payload.topic)
       }
     case TOPIC_CREATE_REQUEST_FAILURE:
       return {
@@ -73,10 +73,10 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
     case TOPIC_UPDATE_REQUEST_SUCCESS:
       return {
         ...state,
-        speakers: _.map(state.speakers, speaker =>
-          speaker.id === action.payload.speaker.id
-            ? action.payload.speaker
-            : speaker
+        topics: _.map(state.topics, topic =>
+          topic.id === action.payload.topic.id
+            ? action.payload.topic
+            : topic
         )
       }
     case TOPIC_UPDATE_REQUEST_FAILURE:
@@ -92,7 +92,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
     case TOPIC_DELETE_REQUEST_SUCCESS:
       return {
         ...state,
-        speakers: _.reject(state.speakers, speaker => speaker.id === action.payload.id)
+        topics: _.reject(state.topics, topic => topic.id === action.payload.id)
       }
     case TOPIC_DELETE_REQUEST_FAILURE:
       return {

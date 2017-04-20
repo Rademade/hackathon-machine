@@ -8,7 +8,6 @@ import (
 type UserVotesController struct {
 }
 
-
 func (u UserVotesController) Create(c echo.Context) (interface{}, error) {
 
 	userVote := models.UserVote{}

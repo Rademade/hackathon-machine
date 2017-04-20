@@ -11,6 +11,7 @@ import NewButton from 'components/buttons/NewButton'
 import EditButton from 'components/buttons/EditButton'
 import DeleteButton from 'components/buttons/DeleteButton'
 import topicActions from 'actions/topic'
+import userVoteActions from 'actions/user-vote'
 import navigationActions from 'actions/navigation'
 
 const styles = {
@@ -24,6 +25,16 @@ const styles = {
   },
   slider: {
     height: 40
+  }
+}
+
+const onChange = (id, userVote, actions) => {
+  return function (event, value) {
+    if (userVote) {
+      actions.userVote.update({ vote: value }, { id: userVote.id })
+    } else {
+      actions.userVote.create({ topic_id : id, vote : value })
+    }
   }
 }
 
@@ -42,18 +53,15 @@ const TopicTableHeaderRow = ({isAdmin}) => (
 
 const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
-    <TableRowColumn>{topic.title}</TableRowColumn>
-    <TableRowColumn>{topic.rating}</TableRowColumn>
+    <TableRowColumn>{topic.name}</TableRowColumn>
+    <TableRowColumn>{topic.averageRating}</TableRowColumn>
     <TableRowColumn>
       <Slider
-        min={0}
-        max={100}
-        step={10}
-        defaultValue={50}
-        value={topic.rating}
-        onChange={(event, value) => {
-          actions.topic.update(Object.assign(topic, {rating: value}))
-        }}
+        min={1}
+        max={5}
+        step={1}
+        value={topic.userVote ? topic.userVote.vote : 1}
+        onChange={onChange(topic.id, topic.userVote, actions)}
         style={styles.slider}/>
     </TableRowColumn>
     {isAdmin &&
@@ -76,6 +84,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
     topic: bindActionCreators(topicActions, dispatch),
+    userVote: bindActionCreators(userVoteActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
@@ -110,4 +119,4 @@ const TopicIndex = ({state, actions}) => (
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopicIndex)
+)(TopicIndex);

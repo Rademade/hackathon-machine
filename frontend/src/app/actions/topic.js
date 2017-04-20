@@ -14,13 +14,15 @@ export default {
       id
     }
   }),
-  create: data => dispatch => dispatch({
-    type: TOPIC_CREATE_REQUEST,
-    payload: {
-      data: data
-    }
-  }),
-  update: data => dispatch => dispatch({
+  create: data => dispatch => (
+    dispatch({
+      type: TOPIC_CREATE_REQUEST,
+      payload: {
+        data: data
+      }
+    })
+  ),
+  update : data => dispatch => dispatch({
     type: TOPIC_UPDATE_REQUEST,
     payload: {
       data: data

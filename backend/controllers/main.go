@@ -26,7 +26,7 @@ type DestroyController interface {
 }
 
 type CRUDController interface {
- 	IndexController
+	IndexController
 	ShowController
 	CreateController
 	UpdateController
@@ -38,6 +38,12 @@ func Index(ctrl IndexController) echo.HandlerFunc {
 	//TODO: auth || hooks
 
 	return func(c echo.Context) error {
+
+		// Getting claims from JWT example
+		// tokenUser := c.Get("user").(*jwt.Token)
+		// claims := tokenUser.Claims.(jwt.MapClaims)
+		// name := claims["name"].(string)
+
 		records := ctrl.Index()
 
 		return c.JSON(http.StatusOK, records)

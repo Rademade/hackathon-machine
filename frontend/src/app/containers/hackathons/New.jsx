@@ -27,7 +27,7 @@ const styles = {
 const TopicSelect = ({topics}) => (
   <FormsySelect
     name="topic_id"
-    value={topics[0].id}
+    value={topics.length > 0 ? topics[0].id : 0}
     floatingLabelText="Topic">
       {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.title}/>)}
   </FormsySelect>
@@ -36,7 +36,7 @@ const TopicSelect = ({topics}) => (
 const SpeakerSelect = ({speakers}) => (
   <FormsySelect
     name="speaker_id"
-    value={speakers[0].id}
+    value={speakers.length > 0 ? speakers[0].id : 0}
     floatingLabelText="Speaker">
       {speakers.map(speaker => <MenuItem key={speaker.id} value={speaker.id} primaryText={speaker.full_name}/>)}
   </FormsySelect>

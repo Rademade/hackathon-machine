@@ -49,8 +49,10 @@ export default function auth(state = initialState.authApp, action = {}) {
     case LOG_OUT:
       return {
         ...state,
+        jwt: null,
+        isPendingRequest: false,
         isAuthenticated: false,
-        jwt: null
+        isAdmin: true
       }
     default:
       return state

@@ -27,8 +27,6 @@ func (u *User) BeforeSave() (err error) {
 	return
 }
 
-func (u *User) IsCorrectPassword(pass string) bool {
-
-	return u.EncryptedPassword == encryption.Encrypt(pass)
-
+func (u *User) IsCorrectPassword(password string) bool {
+	return encryption.CompareHashAndPassword(u.EncryptedPassword, password)
 }

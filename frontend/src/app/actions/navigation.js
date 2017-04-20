@@ -2,6 +2,7 @@ import {push} from 'react-router-redux'
 
 export default {
   goToRoot: _ => dispatch => dispatch(push('/')),
+  goToAuth: _ => dispatch => dispatch(push('/auth')),
   goToHackathons: _ => dispatch => dispatch(push('/hackathons')),
   goToHackathonsNew: _ => dispatch => dispatch(push('/hackathons/new')),
   goToHackathonsEdit: id => dispatch => dispatch(push(`/hackathons/${id}/edit`)),

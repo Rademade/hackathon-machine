@@ -44,10 +44,14 @@ export default function configureStore(initialState) {
 
   if (typeof window !== 'undefined') {
     // hook for auth
-    localStorage.setItem('jwt', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.po9twTrX99V7XgAk5mVskkiq8aa0lpYOue62ehubRY4')
+    // localStorage.setItem('jwt', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.po9twTrX99V7XgAk5mVskkiq8aa0lpYOue62ehubRY4')
 
     store.dispatch(authActions.loadJWT(localStorage.getItem('jwt'))).then(jwt => {
-      if (jwt && ((/auth/).test(window.location.pathname))) store.dispatch(push('/'))
+      if (jwt) {
+        if ((/auth/).test(window.location.pathname)) store.dispatch(push('/'))
+      } else {
+        store.dispatch(push('/auth'))
+      }
     })
   }
 
