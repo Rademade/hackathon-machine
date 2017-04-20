@@ -15,27 +15,19 @@ export default {
     }
   }),
   create: data => dispatch => (
-    new Promise((resolve) => {
-      dispatch({
-        type: TOPIC_CREATE_REQUEST,
-        payload: {
-          data: data
-        }
-      });
-      resolve(data)
+    dispatch({
+      type: TOPIC_CREATE_REQUEST,
+      payload: {
+        data: data
+      }
     })
   ),
-  update : data => dispatch => (
-    new Promise((resolve) => {
-      dispatch({
-        type: TOPIC_UPDATE_REQUEST,
-        payload: {
-          data: data
-        }
-      });
-      resolve(data)
-    })
-  ),
+  update : data => dispatch => dispatch({
+    type: TOPIC_UPDATE_REQUEST,
+    payload: {
+      data: data
+    }
+  }),
   delete: id => dispatch => dispatch({
     type: TOPIC_DELETE_REQUEST,
     payload: {
