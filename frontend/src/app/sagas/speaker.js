@@ -1,5 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import api from 'api/speaker'
+import authActions from 'actions/auth'
+import navigationActions from 'actions/navigation'
 import {
   SPEAKER_QUERY_REQUEST,
   SPEAKER_QUERY_REQUEST_SUCCESS,
@@ -34,6 +36,7 @@ function* _query(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
@@ -53,6 +56,7 @@ function* _get(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
@@ -65,6 +69,7 @@ function* _create(action) {
         speaker: request.data
       }
     })
+    yield put(navigationActions.goToSpeakers)
   } catch (e) {
     yield put({
       type: SPEAKER_CREATE_REQUEST_FAILURE,
@@ -72,6 +77,7 @@ function* _create(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
@@ -84,6 +90,7 @@ function* _update(action) {
         speaker: request.data
       }
     })
+    yield put(navigationActions.goToSpeakers)
   } catch (e) {
     yield put({
       type: SPEAKER_UPDATE_REQUEST_FAILURE,
@@ -91,6 +98,7 @@ function* _update(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
@@ -103,6 +111,7 @@ function* _delete(action) {
         id: action.payload.id
       }
     })
+    yield put(navigationActions.goToSpeakers)
   } catch (e) {
     yield put({
       type: SPEAKER_DELETE_REQUEST_FAILURE,
@@ -111,6 +120,7 @@ function* _delete(action) {
         error: e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 

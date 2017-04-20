@@ -1,4 +1,6 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
+import authActions from 'actions/auth'
+import navigationActions from 'actions/navigation'
 import api from 'api/user-vote'
 import {
   USER_VOTE_CREATE_REQUEST,
@@ -25,6 +27,7 @@ function* _create(action) {
         error : e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
@@ -44,6 +47,7 @@ function* _update(action) {
         error : e.message
       }
     })
+    yield put(authActions.logout())
   }
 }
 
