@@ -5,6 +5,7 @@ import (
 	"github.com/hackathon-machine/backend/controllers"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"os"
 )
 
 const (
@@ -15,8 +16,7 @@ const (
 	ACTION_DESTROY
 )
 
-// TODO: change this key to get from ENV
-var secretKey = []byte("secret")
+var AppSecret = []byte(os.Getenv("APP_SECRET"))
 
 func main() {
 	e := echo.New()
@@ -36,7 +36,7 @@ func main() {
 
 	// Restricted routes
 	apiRoutes := e.Group("/api")
-	apiRoutes.Use(middleware.JWT(secretKey))
+	apiRoutes.Use(middleware.JWT(AppSecret))
 
 	// Resources
 	resource(publicRoutes, "/users", controllers.UsersController{}, []int{ACTION_CREATE})

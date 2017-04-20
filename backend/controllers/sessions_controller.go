@@ -5,11 +5,11 @@ import (
   "github.com/hackathon-machine/backend/models"
   "github.com/labstack/echo"
   "net/http"
+  "os"
   "time"
 )
 
-// TODO: change this key to get from ENV
-var secretKey = []byte("impenetrable fortress")
+var AppSecret = []byte(os.Getenv("APP_SECRET"))
 
 type TokenRequest struct {
   Email string `json:"email"`
@@ -43,7 +43,7 @@ func Login(c echo.Context) error {
   claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
   // Generate encoded token and send it as response.
-  tokenString, err := token.SignedString(secretKey)
+  tokenString, err := token.SignedString(AppSecret)
   if err != nil {
     return err
   }
@@ -51,6 +51,4 @@ func Login(c echo.Context) error {
   return c.JSON(http.StatusOK, map[string]string{
     "token": tokenString,
   })
-
-  return echo.ErrUnauthorized
 }
