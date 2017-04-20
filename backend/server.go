@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/hackathon-machine/backend/config"
 	"github.com/hackathon-machine/backend/controllers"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"os"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 	ACTION_DESTROY
 )
 
-var AppSecret = []byte(os.Getenv("APP_SECRET"))
+var AppSecret = []byte(config.AppSecret)
 
 func main() {
 	e := echo.New()
