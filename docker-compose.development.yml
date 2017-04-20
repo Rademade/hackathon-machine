@@ -11,3 +11,17 @@ services:
       - ./frontend:/frontend
     ports:
       - '3000:3000'
+  backend:
+    image: golang:1.7
+    working_dir: /backend
+    command: go run server.go
+    volumes:
+      - ./backend:/backend
+    ports:
+      - "8000:1323"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      APP_SECRET: ${APP_SECRET}
+    depends_on:
+      - db
