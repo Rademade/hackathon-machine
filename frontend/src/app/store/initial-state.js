@@ -1,5 +1,3 @@
-import * as _ from 'lodash'
-
 const initialState = {
   authApp: {
     jwt: null,

@@ -20,19 +20,10 @@ export default {
     dispatch({ type: LOG_OUT })
     dispatch(push('/auth'))
   },
-  login: (credentials) => dispatch => {
-    dispatch({ type: LOG_IN_REQUEST })
-
-    return auth.login(credentials).then(
-      response => dispatch({
-        type: LOG_IN_REQUEST_SUCCESS,
-        payload: response.data
-      })
-    ).catch(
-      error => dispatch({
-        type: LOG_IN_REQUEST_FAILURE,
-        payload: error
-      })
-    )
-  }
+  login: data => dispatch => dispatch({
+    type: LOG_IN_REQUEST,
+    payload: {
+      data: data
+    }
+  })
 }

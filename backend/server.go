@@ -31,7 +31,7 @@ func main() {
 	}))
 
 	// Public routes
-	publicRoutes := e.Group("")
+	publicRoutes := e.Group("/api")
 	publicRoutes.POST("/login", controllers.Login)
 
 	// Restricted routes
@@ -43,8 +43,7 @@ func main() {
 	resource(apiRoutes, "/users", controllers.UsersController{}, []int{ACTION_INDEX, ACTION_CREATE, ACTION_SHOW, ACTION_UPDATE, ACTION_DESTROY})
 	resource(apiRoutes, "/hackathons", controllers.HackathonsController{}, nil)
 	resource(apiRoutes, "/topics", controllers.TopicsController{}, nil)
-	// TODO: UserVotesController should be here, but doesn't pass type checking
-	resource(apiRoutes, "/user_votes", controllers.TopicsController{}, []int{ACTION_CREATE, ACTION_UPDATE})
+	resource(apiRoutes, "/user_votes", controllers.UserVotesController{}, []int{ACTION_CREATE, ACTION_UPDATE})
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

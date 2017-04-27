@@ -11,21 +11,21 @@ import (
 
 type TokenRequest struct {
   Email string `json:"email"`
-  Pass  string `json:"pass"`
+  Password  string `json:"password"`
 }
 
 func Login(c echo.Context) error {
   payload := new(TokenRequest)
   if err := c.Bind(payload); err != nil {
-    return err
+    return echo.ErrUnauthorized
   }
 
   user := models.User{}
   if err := models.DB.Where("email = ?", payload.Email).First(&user).Error; err != nil {
-    return err
+    return echo.ErrUnauthorized
   }
 
-  if !user.IsCorrectPassword(payload.Pass) {
+  if !user.IsCorrectPassword(payload.Password) {
     return echo.ErrUnauthorized
   }
 

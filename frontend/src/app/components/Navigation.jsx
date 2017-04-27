@@ -27,21 +27,21 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Navigation = ({state, actions}) => (
   state.authApp.isAuthenticated
     ? <div style={styles.root}>
-        <RaisedButton
-          label="Hackatons"
-          onTouchTap={actions.goToHackathons}
-          primary={isActive('/hackathons', state.routing.locationBeforeTransitions.pathname)}
-          style={styles.button}/>
-        <RaisedButton
-          label="Topics"
-          onTouchTap={actions.goToTopics}
-          primary={isActive('/topics', state.routing.locationBeforeTransitions.pathname)}
-          style={styles.button}/>
-        <RaisedButton
-          label="Speakers"
-          onTouchTap={actions.goToSpeakers}
-          primary={isActive('/speakers', state.routing.locationBeforeTransitions.pathname)}
-          style={styles.button}/>
+      <RaisedButton
+        label="Hackatons"
+        onTouchTap={actions.goToHackathons}
+        primary={isActive('/hackathons', state.routing.locationBeforeTransitions.pathname)}
+        style={styles.button}/>
+      <RaisedButton
+        label="Topics"
+        onTouchTap={actions.goToTopics}
+        primary={isActive('/topics', state.routing.locationBeforeTransitions.pathname)}
+        style={styles.button}/>
+      <RaisedButton
+        label="Speakers"
+        onTouchTap={actions.goToSpeakers}
+        primary={isActive('/speakers', state.routing.locationBeforeTransitions.pathname)}
+        style={styles.button}/>
       </div>
     : null
 )

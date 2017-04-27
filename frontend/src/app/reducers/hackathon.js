@@ -58,7 +58,7 @@ export default function hackathonApp(state = initialState.hackathonApp, action =
     case HACKATHON_CREATE_REQUEST_SUCCESS:
       return {
         ...state,
-        hackathons: state.hackathons.concat(state.payload.hackathon)
+        hackathons: state.hackathons.concat(action.payload.hackathon)
       }
     case HACKATHON_CREATE_REQUEST_FAILURE:
       return {
