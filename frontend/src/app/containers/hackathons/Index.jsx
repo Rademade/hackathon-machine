@@ -41,9 +41,9 @@ const HackathonTableHeaderRow = ({isAdmin}) => (
 
 const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
   <TableRow>
-    <TableRowColumn>{hackathon.topic}</TableRowColumn>
+    <TableRowColumn>{hackathon.topic ? hackathon.topic.name : ''}</TableRowColumn>
     <TableRowColumn>{moment(hackathon.date).format('DD MMMM YYYY')}</TableRowColumn>
-    <TableRowColumn>{hackathon.speaker}</TableRowColumn>
+    <TableRowColumn>{hackathon.speaker ? hackathon.speaker.full_name : ''}</TableRowColumn>
     <TableRowColumn>{hackathon.is_done
       ? (<span>Сonducted, materials: <a href={hackathon.materials_link} target="_blank">link</a></span>)
       : 'Not conducted yet'}

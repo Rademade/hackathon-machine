@@ -28,7 +28,7 @@ function* _login(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
