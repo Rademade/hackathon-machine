@@ -166,6 +166,67 @@ func main() {
 				return tx.Model(&User{}).DropColumn("Fullname").Error
 			},
 		},
+		{
+			ID: "6",
+			Migrate: func(tx *gorm.DB) error {
+				type UserVote struct {
+					UserID  int
+				}
+
+				return tx.Model(&UserVote{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT").Error
+			},
+		},
+		{
+			ID: "7",
+			Migrate: func(tx *gorm.DB) error {
+				type UserVote struct {
+					TopicID  int
+				}
+
+				return tx.Model(&UserVote{}).AddForeignKey("topic_id", "topics(id)", "RESTRICT", "RESTRICT").Error
+			},
+		},
+		{
+			ID: "8",
+			Migrate: func(tx *gorm.DB) error {
+				type UserVote struct {
+					UserId int
+					TopicID  int
+				}
+
+				return tx.Model(&UserVote{}).AddUniqueIndex("idx_user_user_id_topic_id", "user_id", "topic_id").Error
+			},
+		},
+		{
+			ID: "9",
+			Migrate: func(tx *gorm.DB) error {
+				type Hackathon struct {
+					SpeakerID int
+				}
+
+				return tx.Model(&Hackathon{}).AddForeignKey("speaker_id", "users(id)", "RESTRICT", "RESTRICT").Error
+			},
+		},
+		{
+			ID: "10",
+			Migrate: func(tx *gorm.DB) error {
+				type Hackathon struct {
+					TopicID   int
+				}
+
+				return tx.Model(&Hackathon{}).AddForeignKey("topic_id", "topics(id)", "RESTRICT", "RESTRICT").Error
+			},
+		},
+		{
+			ID: "11",
+			Migrate: func(tx *gorm.DB) error {
+				type Topic struct {
+					CreatorID   int
+				}
+
+				return tx.Model(&Topic{}).AddForeignKey("creator_id", "users(id)", "RESTRICT", "RESTRICT").Error
+			},
+		},
 	})
 
 	if err = m.Migrate(); err != nil {
