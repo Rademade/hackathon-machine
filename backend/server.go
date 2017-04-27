@@ -44,7 +44,7 @@ func main() {
 	resource(apiRoutes, "/hackathons", controllers.HackathonsController{}, nil)
 	resource(apiRoutes, "/topics", controllers.TopicsController{}, nil)
 	// TODO: UserVotesController should be here, but doesn't pass type checking
-	resource(apiRoutes, "/user_votes", controllers.TopicsController{}, []int{ACTION_CREATE, ACTION_UPDATE})
+	resource(apiRoutes, "/user_votes", controllers.UserVotesController{}, []int{ACTION_CREATE, ACTION_UPDATE})
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

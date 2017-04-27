@@ -6,3 +6,15 @@ curl -X POST -H "Content-Type: application/json" \
 
 curl localhost:1323/api/users/5 -H \
   "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImVtYWlsIjoiZW1haWwxMjNAbWFpbC5jb20iLCJleHAiOjE0OTIzNTk5NjQsImlkIjo1LCJuYW1lIjoienp6enp6In0.K7sRXs5TEM5rbQxibCdTFrXhidh_j3p6nR-mb_UcCaU"
+
+
+curl localhost:1323/api/users/5 -H \
+  "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImVtYWlsIjoiZW1haWwxMjNAbWFpbC5jb20iLCJleHAiOjE0OTIzNTk5NjQsImlkIjo1LCJuYW1lIjoienp6enp6In0.K7sRXs5TEM5rbQxibCdTFrXhidh_j3p6nR-mb_UcCaU"
+
+curl localhost:1323/api/topics -v -H \
+  "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImVtYWlsIjoicm9ib2JlZUBleGFtcGxlMi5jb20iLCJleHAiOjE0OTM1NTc1OTEsImlkIjoyNSwibmFtZSI6InJvYm9iZWUifQ.4jCceXAIow0l1O356sSrX-0RKhpMOgY9YsOyzKcamsk"
+
+curl -X POST localhost:1323/api/topics \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImVtYWlsIjoicm9ib2JlZUBleGFtcGxlMi5jb20iLCJleHAiOjE0OTM1NTc1OTEsImlkIjoyNSwibmFtZSI6InJvYm9iZWUifQ.4jCceXAIow0l1O356sSrX-0RKhpMOgY9YsOyzKcamsk" \
+      -d '{"name": "topic4"}'

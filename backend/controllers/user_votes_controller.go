@@ -43,3 +43,21 @@ func (u UserVotesController) Update(c echo.Context) (interface{}, error) {
 	return userVote, nil
 
 }
+
+func (u UserVotesController) Index() interface{} {
+
+	return nil
+
+}
+
+func (u UserVotesController) Show(c echo.Context) (interface{}, error) {
+
+	return nil, nil
+
+}
+
+func (u UserVotesController) Destroy(c echo.Context) error {
+
+	return nil
+
+}
