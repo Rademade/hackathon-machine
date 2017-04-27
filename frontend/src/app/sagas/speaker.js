@@ -36,7 +36,7 @@ function* _query(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -56,7 +56,7 @@ function* _get(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -77,7 +77,7 @@ function* _create(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -98,7 +98,7 @@ function* _update(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -120,7 +120,7 @@ function* _delete(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 

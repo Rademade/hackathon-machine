@@ -57,9 +57,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
+const onSubmit = (id, actions) => {
+  return function (formData) {
+    actions.hackathon.update(Object.assign(formData, { id : id })).then(() => {
+      actions.navigation.goToHackathons();
+    })
+  }
+}
+
 const HackathonEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form onSubmit={model => actions.hackathon.update(Object.assign(model, {id: state.params.id}))}>
+    <Formsy.Form onSubmit={onSubmit(state.params.id - 0, actions)}>
       <h2 style={styles.title}>Edit Hackathon</h2>
       <TopicSelect topics={state.topicApp.topics}/>
       <FormsyDate

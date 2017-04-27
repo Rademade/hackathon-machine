@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import {
-  FormsyText, FormsyToggle, FormsyDate, FormsySelect
-} from 'formsy-material-ui/lib'
+import {FormsyDate, FormsySelect} from 'formsy-material-ui/lib'
 import {Paper, MenuItem} from 'material-ui'
 import SubmitButton from 'components/buttons/SubmitButton'
 import CancelButton from 'components/buttons/CancelButton'
 import hackathonActions from 'actions/hackathon'
 import navigationActions from 'actions/navigation'
+import topicActions from 'actions/topic'
+import speakerActions from 'actions/speaker'
 
 const styles = {
   paper: {
@@ -29,7 +29,7 @@ const TopicSelect = ({topics}) => (
     name="topic_id"
     value={topics.length > 0 ? topics[0].id : 0}
     floatingLabelText="Topic">
-      {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.title}/>)}
+      {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.name}/>)}
   </FormsySelect>
 )
 
@@ -46,12 +46,19 @@ const mapStateToProps = (state, ownProps) => ({
   state
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let actions = {
     hackathon: bindActionCreators(hackathonActions, dispatch),
-    navigation: bindActionCreators(navigationActions, dispatch)
+    navigation: bindActionCreators(navigationActions, dispatch),
+    topic: bindActionCreators(topicActions, dispatch),
+    speaker: bindActionCreators(speakerActions, dispatch)
   }
-})
+  dispatch(actions.topic.query())
+  dispatch(actions.speaker.query())
+  return {
+    actions: actions
+  }
+}
 
 const HackathonNew = ({state, actions}) => (
   <Paper style={styles.paper}>
