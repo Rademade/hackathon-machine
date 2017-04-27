@@ -59,9 +59,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const onSubmit = (id, actions) => {
   return function (formData) {
-    actions.hackathon.update(Object.assign(formData, { id : id })).then(() => {
-      actions.navigation.goToHackathons();
-    })
+    actions.hackathon.update(Object.assign(formData, { id : id }))
   }
 }
 
