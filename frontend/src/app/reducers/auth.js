@@ -18,33 +18,24 @@ export default function auth(state = initialState.authApp, action = {}) {
     case LOG_IN_REQUEST:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          isPendingRequest: true,
-          error: null
-        }
+        isPendingRequest: true,
+        error: null
       }
     case LOG_IN_REQUEST_SUCCESS:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          isPendingRequest: false,
-          isAuthenticated: true,
-          jwt: action.payload,
-          error: null,
-        }
+        isPendingRequest: false,
+        isAuthenticated: true,
+        jwt: action.payload.jwt,
+        error: null
       }
     case LOG_IN_REQUEST_FAILURE:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          isPendingRequest: false,
-          isAuthenticated: false,
-          jwt: null,
-          error: action.payload
-        }
+        isPendingRequest: false,
+        isAuthenticated: false,
+        jwt: null,
+        error: action.payload
       }
     case LOG_OUT:
       return {
