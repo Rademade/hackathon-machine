@@ -2,8 +2,8 @@ package controllers
 
 import (
   jwt "github.com/dgrijalva/jwt-go"
-  "github.com/hackathon-machine/backend/config"
-  "github.com/hackathon-machine/backend/models"
+  "github.com/Rademade/hackathon-machine/backend/config"
+  "github.com/Rademade/hackathon-machine/backend/models"
   "github.com/labstack/echo"
   "net/http"
   "time"

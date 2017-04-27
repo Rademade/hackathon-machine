@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/hackathon-machine/backend/config"
+	"github.com/Rademade/hackathon-machine/backend/config"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"gopkg.in/gormigrate.v1"

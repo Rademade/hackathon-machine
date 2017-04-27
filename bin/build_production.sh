@@ -4,7 +4,8 @@
 
 source bin/env.sh
 
+echo "##### Building frontend #####"
 ./bin/build_frontend.sh
 
-#echo "building backend"
+echo "##### Building backend #####"
 dcprod build

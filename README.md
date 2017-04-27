@@ -2,16 +2,14 @@
 
 # Docker
 
-- Установить Docker
-- Добавить себя в группу `gpasswd -a $USER docker`
-- Перелогиниться/перезагрузится
-- Добавить авто-запуск docker'а `sudo systemctl enable docker`
+- Install Docker
+- `gpasswd -a $USER docker`
+- relogin/reboot
+- Autolaunch docker `sudo systemctl enable docker`
 
 ```
 $ ./bin/develop.sh
 ```
-
-# Запуск фронтенда:
 
 # frontend
 

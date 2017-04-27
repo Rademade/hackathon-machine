@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/hackathon-machine/backend/models"
-	"github.com/hackathon-machine/backend/queries"
-	"github.com/hackathon-machine/backend/routes"
-	"github.com/hackathon-machine/backend/services"
+	"github.com/Rademade/hackathon-machine/backend/models"
+	"github.com/Rademade/hackathon-machine/backend/queries"
+	"github.com/Rademade/hackathon-machine/backend/routes"
+	"github.com/Rademade/hackathon-machine/backend/services"
 )
 
 func main() {

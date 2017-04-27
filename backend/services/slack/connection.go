@@ -3,7 +3,7 @@ package slack
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hackathon-machine/backend/config"
+	"github.com/Rademade/hackathon-machine/backend/config"
 	"golang.org/x/net/websocket"
 	"io/ioutil"
 	"log"
