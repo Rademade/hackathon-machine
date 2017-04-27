@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/hackathon-machine/backend/models"
+	"github.com/Rademade/hackathon-machine/backend/models"
 	"github.com/labstack/echo"
 )
 

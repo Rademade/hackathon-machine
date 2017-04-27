@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/hackathon-machine/backend/services/encryption"
+	"github.com/Rademade/hackathon-machine/backend/services/encryption"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 

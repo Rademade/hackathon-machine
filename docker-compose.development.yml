@@ -12,13 +12,13 @@ services:
     ports:
       - '3000:3000'
   backend:
-    image: golang:1.7
-    working_dir: /backend
-    command: go run server.go
+    image: billyteves/alpine-golang-glide
+    working_dir: /go/src/github.com/Rademade/hackathon-machine/backend
+    command: /bin/bash -c "go run migrate.go && go run server.go"
     volumes:
-      - ./backend:/backend
+      - ./backend:/go/src/github.com/Rademade/hackathon-machine/backend
     ports:
-      - "8000:1323"
+      - "1323:1323"
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

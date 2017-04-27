@@ -5,9 +5,9 @@ source bin/env.sh
 dcdev build
 ./bin/init_db.sh
 
-echo "installing frontend deps"
+echo "##### Installing frontend deps #####"
 ./bin/npm_frontend.sh i -q
-echo "running migrations"
-dcdev run --rm backend /bin/bash -c "cd backend && go run migrate.go"
-echo "starting"
+echo "##### installing backend deps #####"
+./bin/glide_backend.sh install
+echo "##### Starting App #####"
 dcdev up

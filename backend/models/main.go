@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/hackathon-machine/backend/config"
+	"github.com/Rademade/hackathon-machine/backend/config"
 	"github.com/jinzhu/gorm"
 	"time"
 )

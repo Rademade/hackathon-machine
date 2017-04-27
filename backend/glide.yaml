@@ -1,4 +1,4 @@
-package: github.com/hackathon-machine/backend
+package: github.com/Rademade/hackathon-machine/backend
 import:
 - package: github.com/jinzhu/gorm
   version: ^1.0.0

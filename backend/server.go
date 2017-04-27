@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/hackathon-machine/backend/config"
-	"github.com/hackathon-machine/backend/controllers"
+	"github.com/Rademade/hackathon-machine/backend/config"
+	"github.com/Rademade/hackathon-machine/backend/controllers"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

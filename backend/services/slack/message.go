@@ -2,8 +2,8 @@ package slack
 
 import (
 	"fmt"
-	"github.com/hackathon-machine/backend/config"
-	"github.com/hackathon-machine/backend/models"
+	"github.com/Rademade/hackathon-machine/backend/config"
+	"github.com/Rademade/hackathon-machine/backend/models"
 	"golang.org/x/net/websocket"
 	"sync/atomic"
 )
