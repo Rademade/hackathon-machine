@@ -69,7 +69,7 @@ function* _create(action) {
         hackathon: request.data
       }
     })
-    yield put(navigationActions.goToHackathons)
+    yield put(navigationActions.goToHackathons())
   } catch (e) {
     yield put({
       type: HACKATHON_CREATE_REQUEST_FAILURE,
@@ -90,7 +90,7 @@ function* _update(action) {
         hackathon: request.data
       }
     })
-    yield put(navigationActions.goToHackathons)
+    yield put(navigationActions.goToHackathons())
   } catch (e) {
     yield put({
       type: HACKATHON_UPDATE_REQUEST_FAILURE,
@@ -111,7 +111,7 @@ function* _delete(action) {
         id: action.payload.id
       }
     })
-    yield put(navigationActions.goToHackathons)
+    yield put(navigationActions.goToHackathons())
   } catch (e) {
     yield put({
       type: HACKATHON_DELETE_REQUEST_FAILURE,

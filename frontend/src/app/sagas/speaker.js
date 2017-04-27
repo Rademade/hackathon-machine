@@ -69,7 +69,7 @@ function* _create(action) {
         speaker: request.data
       }
     })
-    yield put(navigationActions.goToSpeakers)
+    yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
       type: SPEAKER_CREATE_REQUEST_FAILURE,
@@ -90,7 +90,7 @@ function* _update(action) {
         speaker: request.data
       }
     })
-    yield put(navigationActions.goToSpeakers)
+    yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
       type: SPEAKER_UPDATE_REQUEST_FAILURE,
@@ -111,7 +111,7 @@ function* _delete(action) {
         id: action.payload.id
       }
     })
-    yield put(navigationActions.goToSpeakers)
+    yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
       type: SPEAKER_DELETE_REQUEST_FAILURE,

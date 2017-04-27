@@ -58,7 +58,7 @@ export default function speakerApp(state = initialState.speakerApp, action = {})
     case SPEAKER_CREATE_REQUEST_SUCCESS:
       return {
         ...state,
-        speakers: state.speakers.concat(state.payload.speaker)
+        speakers: state.speakers.concat(action.payload.speaker)
       }
     case SPEAKER_CREATE_REQUEST_FAILURE:
       return {
