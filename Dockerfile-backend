@@ -1,0 +1,13 @@
+FROM centurylink/ca-certs
+
+COPY backend/dist /
+
+VOLUME /data
+
+WORKDIR /
+
+EXPOSE 1323
+
+ENTRYPOINT ["/migrate"]
+
+CMD ["/server"]

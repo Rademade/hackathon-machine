@@ -1,15 +1,49 @@
 version: '2'
+
+networks:
+  default:
+    external:
+      name: service-tier
+  app:
+    internal: true
+
 services:
+  dbclient:
+    networks:
+      - app
   db:
+    container_name: hackathon_db_data
+    network_mode: none
     volumes:
       - "./logs/postgres:/var/log/postgresql"
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../Dockerfile-backend
+    container_name: hackathon_app
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      APP_SECRET: ${APP_SECRET}
   nginx:
+    restart: always
     build:
       context: ./
       dockerfile: ./nginx/Dockerfile
+    container_name: hackathon_nginx
     depends_on:
       - db
-    volumes: 
+    volumes:
       - "./logs/nginx:/tmp/logs"
-    ports:
-      - '80:80'
+    networks:
+      - default
+      - app
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      VIRTUAL_NETWORK: app
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    expose:
+      - '80'

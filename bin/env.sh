@@ -8,3 +8,7 @@ dcdev() {
 dcprod() {
   docker-compose -f docker-compose.yml -f $DOCKER_CONFIG_PROD "$@"
 }
+
+dcbackend() {
+  docker run --rm -v $(pwd)/backend:/go/src/github.com/Rademade/hackathon-machine/backend -w /go/src/github.com/Rademade/hackathon-machine/backend billyteves/alpine-golang-glide bash -c "$@"
+}

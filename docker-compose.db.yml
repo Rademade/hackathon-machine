@@ -2,6 +2,7 @@ version: '2'
 services:
   dbclient:
     image: postgres:9.6
+    container_name: hackathon_db
     depends_on:
       - db
     environment:
