@@ -31,7 +31,7 @@ func main() {
 	}))
 
 	// Public routes
-	publicRoutes := e.Group("/api")
+	publicRoutes := e.Group("")
 	publicRoutes.POST("/login", controllers.Login)
 
 	// Restricted routes

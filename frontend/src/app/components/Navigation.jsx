@@ -28,7 +28,7 @@ const Navigation = ({state, actions}) => (
   state.authApp.isAuthenticated
     ? <div style={styles.root}>
       <RaisedButton
-        label="Hackatons"
+        label="Hackathons"
         onTouchTap={actions.goToHackathons}
         primary={isActive('/hackathons', state.routing.locationBeforeTransitions.pathname)}
         style={styles.button}/>
