@@ -2,8 +2,8 @@ import axios from 'axios'
 import {API_ENDPOINT} from 'constants'
 import apiRouterConfig from 'api/config'
 
-const index = _ => `${API_ENDPOINT}/api/users`
-const show = id => `${API_ENDPOINT}/api/users/${id}`
+const index = _ => `${API_ENDPOINT}/users`
+const show = id => `${API_ENDPOINT}/users/${id}`
 
 export default {
   query: _ => axios.get(index(), apiRouterConfig()),

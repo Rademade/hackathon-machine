@@ -42,7 +42,7 @@ function* _query(action) {
 
 function* _get(action) {
   try {
-    const request = yield call(api.get(action.payload.id))
+    const request = yield call(api.get, action.payload.id)
     yield put({
       type: HACKATHON_GET_REQUEST_SUCCESS,
       payload: {
