@@ -8,19 +8,31 @@ networks:
     internal: true
 
 services:
-  dbclient:
+  dbdata:
+    restart: always
+    image: postgres:9.6
+    command: 'true'
+    container_name: hackathon_dbdata
+    network_mode: none
+  db:
+    image: postgres:9.6
+    container_name: hackathon_db
     networks:
       - app
-  db:
-    container_name: hackathon_db_data
-    network_mode: none
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    volumes_from:
+      - dbdata
     volumes:
-      - "./logs/postgres:/var/log/postgresql"
+      - "./logs/postgres:/var/log/postgresql"    
   backend:
+    restart: always
     build:
       context: ./backend
-      dockerfile: ../Dockerfile-backend
     container_name: hackathon_app
+    networks:
+      - app
     depends_on:
       - db
     environment:
@@ -45,5 +57,3 @@ services:
       VIRTUAL_NETWORK: app
       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-    expose:
-      - '80'
