@@ -25,7 +25,7 @@ services:
     volumes_from:
       - dbdata
     volumes:
-      - "./logs/postgres:/var/log/postgresql"    
+      - "./logs/postgres:/var/log/postgresql"
   backend:
     restart: always
     build:

@@ -44,7 +44,6 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.optimize.DedupePlugin(),
     new uglifyJsPlugin({
       compress: {
         warnings: false
