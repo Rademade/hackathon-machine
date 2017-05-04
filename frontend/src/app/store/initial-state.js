@@ -3,7 +3,7 @@ const initialState = {
     jwt: null,
     isPendingRequest: false,
     isAuthenticated: false,
-    isAdmin: true
+    isAdmin: false
   },
   hackathonApp: {
     hackathons: []
