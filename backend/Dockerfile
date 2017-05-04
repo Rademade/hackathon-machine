@@ -1,6 +1,6 @@
 FROM debian:jessie-slim
 
-COPY backend/dist /
+COPY dist /
 
 WORKDIR /
 
