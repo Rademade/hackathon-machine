@@ -13,7 +13,7 @@ fi
 ./bin/build_production.sh
 
 echo "##### run migrations #####"
-dcprod -f $DOCKER_CONFIG_PROD run --rm backend bash -c '/migrate'
+dcprod exec backend /migrate
 
 ./bin/stop_production.sh
 ./bin/start_production.sh

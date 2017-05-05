@@ -35,6 +35,8 @@ services:
       - app
     depends_on:
       - db
+    links:
+      - db
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -47,6 +49,8 @@ services:
     container_name: hackathon_nginx
     depends_on:
       - db
+    links:
+      - backend
     volumes:
       - "./logs/nginx:/tmp/logs"
     networks:
