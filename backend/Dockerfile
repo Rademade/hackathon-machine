@@ -6,4 +6,4 @@ WORKDIR /
 
 EXPOSE 1323
 
-ENTRYPOINT ["/server"]
+ENTRYPOINT bash -c "/migrate && /server"
