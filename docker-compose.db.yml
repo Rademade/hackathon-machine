@@ -4,6 +4,8 @@ services:
     image: postgres:9.6
     depends_on:
       - db
+    links:
+      - db
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

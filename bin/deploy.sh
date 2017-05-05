@@ -11,9 +11,9 @@ else
   ./bin/backup.sh
 fi
 ./bin/build_production.sh
+./bin/stop_production.sh
 
 echo "##### run migrations #####"
 dcprod exec backend /migrate
 
-./bin/stop_production.sh
 ./bin/start_production.sh
