@@ -39,6 +39,7 @@ module.exports = function (options) {
         components: helpers.root('src/app/components'),
         containers: helpers.root('src/app/containers'),
         constants: helpers.root('src/app/constants'),
+        settings: helpers.root('src/app/settings'),
         reducers: helpers.root('src/app/reducers'),
         actions: helpers.root('src/app/actions'),
         store: helpers.root('src/app/store'),

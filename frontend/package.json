@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "src/app.jsx",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --content-base src/",
+    "start": "webpack-dev-server --config config/webpack.dev.js --progress --hot --profile --watch --content-base src/",
     "build": "npm run clean:dist && webpack --config config/webpack.prod.js --progress --profile",
     "clean:dist": "npm run rimraf -- dist",
     "rimraf": "rimraf"
