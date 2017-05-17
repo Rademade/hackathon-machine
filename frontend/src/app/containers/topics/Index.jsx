@@ -5,6 +5,7 @@ import {
   Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn, Paper, Slider
 } from 'material-ui'
+import ReactStars from 'react-stars'
 import Formsy from 'formsy-react'
 import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
 import NewButton from 'components/buttons/NewButton'
@@ -51,18 +52,13 @@ const TopicTableHeaderRow = ({isAdmin}) => (
   </TableRow>
 )
 
+
 const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
     <TableRowColumn>{topic.average_vote}</TableRowColumn>
     <TableRowColumn>
-      <Slider
-        min={1}
-        max={5}
-        step={1}
-        value={topic.userVote ? topic.userVote.vote : 1}
-        onChange={onChange(topic.id, topic.userVote, actions)}
-        style={styles.slider}/>
+      <ReactStars count={5} onChange={onChange(topic.id, topic.userVote, actions)} size={24} color2={'#ffd700'} />
     </TableRowColumn>
     {isAdmin &&
       <TableRowColumn>
