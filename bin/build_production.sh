@@ -7,5 +7,11 @@ source bin/env.sh
 echo "##### Building frontend #####"
 ./bin/build_frontend.sh
 
+echo "##### Building go server sources #####"
+dcbackend 'CGO_ENABLED=${CGO_ENABLED:-0} go build --installsuffix cgo --ldflags="${LDFLAGS:--s}" migrate.go'
+mv -f backend/migrate backend/dist
+dcbackend 'CGO_ENABLED=${CGO_ENABLED:-0} go build --installsuffix cgo --ldflags="${LDFLAGS:--s}" server.go'
+mv -f backend/server backend/dist
+
 echo "##### Building backend #####"
 dcprod build
