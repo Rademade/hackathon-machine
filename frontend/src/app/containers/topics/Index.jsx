@@ -38,20 +38,18 @@ const onChange = (id, userVote, actions) => {
   }
 }
 
-const TopicTableHeaderRow = ({isAdmin}) => (
+const TopicTableHeaderRow = () => (
   <TableRow>
     <TableHeaderColumn>Name</TableHeaderColumn>
     <TableHeaderColumn>Rating</TableHeaderColumn>
     <TableHeaderColumn>Score</TableHeaderColumn>
-    {isAdmin &&
-      <TableHeaderColumn>
-        Actions
-      </TableHeaderColumn>
-    }
+    <TableHeaderColumn>
+      Actions
+    </TableHeaderColumn>
   </TableRow>
 )
 
-const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
+const TopicTableBodyRow = ({topic, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
     <TableRowColumn>{topic.average_vote}</TableRowColumn>
@@ -64,16 +62,14 @@ const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
         onChange={onChange(topic.id, topic.userVote, actions)}
         style={styles.slider}/>
     </TableRowColumn>
-    {isAdmin &&
-      <TableRowColumn>
-        <EditButton onTouchTap={() => {
-          actions.navigation.goToTopicsEdit(topic.id)
-        }}/>
-        <DeleteButton onTouchTap={() => {
-          actions.topic.delete(topic.id)
-        }}/>
-      </TableRowColumn>
-    }
+    <TableRowColumn>
+      <EditButton onTouchTap={() => {
+        actions.navigation.goToTopicsEdit(topic.id)
+      }}/>
+      <DeleteButton onTouchTap={() => {
+        actions.topic.delete(topic.id)
+      }}/>
+    </TableRowColumn>
   </TableRow>
 )
 
@@ -100,14 +96,13 @@ const TopicIndex = ({state, actions}) => (
     <h2 style={styles.title}>Topics</h2>
     <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TopicTableHeaderRow isAdmin={state.authApp.isAdmin}/>
+        <TopicTableHeaderRow/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {state.topicApp.topics.map(topic =>
           <TopicTableBodyRow
             key={topic.id}
             topic={topic}
-            isAdmin={state.authApp.isAdmin}
             actions={actions}/>
         )}
       </TableBody>

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import {FormsyText} from 'formsy-material-ui/lib'
+import {FormsyText, FormsyCheckbox} from 'formsy-material-ui/lib'
 import {Paper} from 'material-ui'
 import SubmitButton from 'components/buttons/SubmitButton'
 import CancelButton from 'components/buttons/CancelButton'
@@ -52,7 +52,7 @@ const SpeakerEdit = ({state, actions}) => (
       <FormsyText
         name="full_name"
         type="text"
-        hintText="What is him name?"
+        hintText="What is his name?"
         floatingLabelText="Full Name"
         inputStyle={styles.hideAutoFillColorStyle}
         value={state.speakerApp.speaker ? state.speakerApp.speaker.full_name : ''}
@@ -60,11 +60,24 @@ const SpeakerEdit = ({state, actions}) => (
       <FormsyText
         name="email"
         type="email"
-        hintText="What is him email?"
+        hintText="What is his email?"
         floatingLabelText="Email"
         inputStyle={styles.hideAutoFillColorStyle}
         value={state.speakerApp.speaker ? state.speakerApp.speaker.email : ''}
         required/>
+      <FormsyText
+        name="password"
+        type="password"
+        hintText="What is his password?"
+        floatingLabelText="Password"
+        inputStyle={styles.hideAutoFillColorStyle}
+      />
+      <FormsyCheckbox
+        name="is_admin"
+        type="checkbox"
+        label="Admin"
+        value={state.speakerApp.speaker ? state.speakerApp.speaker.is_admin : false}
+      />
       <SubmitButton label="Save"/>
       <CancelButton onTouchTap={actions.navigation.goToSpeakers}/>
     </Formsy.Form>
