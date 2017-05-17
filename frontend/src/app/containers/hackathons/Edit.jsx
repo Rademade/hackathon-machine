@@ -80,10 +80,11 @@ const HackathonEdit = ({state, actions}) => (
         style={styles.button}/>
       <FormsyText
         name="url"
-        validations="isUrl"
-        validationError={'Incorrect link'}
         hintText="http://www.example.com"
         floatingLabelText="Materials link"
+        multiLine={true}
+        rows={3}
+        type={"text"}
         updateImmediately/>
       <SubmitButton label={'Save'}/>
       <CancelButton onTouchTap={actions.navigation.goToHackathons}/>
