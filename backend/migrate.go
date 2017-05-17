@@ -227,6 +227,37 @@ func main() {
 				return tx.Model(&Topic{}).AddForeignKey("creator_id", "users(id)", "RESTRICT", "RESTRICT").Error
 			},
 		},
+		{
+			ID: "12",
+			Migrate: func(tx *gorm.DB) error {
+				type UserVote struct {
+					Vote  float64
+				}
+
+				return tx.AutoMigrate(&UserVote{}).Error
+			},
+			Rollback: func(tx *gorm.DB) error {
+				type UserVote struct {
+					Vote  int
+				}
+
+				return tx.AutoMigrate(&UserVote{}).Error
+			},
+		},
+		{
+			ID: "13",
+			Migrate: func(tx *gorm.DB) error {
+				type UserVote struct {
+					Vote  float64
+				}
+
+				err := tx.Model(&UserVote{}).DropColumn("vote").Error
+				if err != nil {
+					return err
+				}
+				return tx.AutoMigrate(&UserVote{}).Error
+			},
+		},
 	})
 
 	if err = m.Migrate(); err != nil {

@@ -31,11 +31,11 @@ func main() {
 	}))
 
 	// Public routes
-	publicRoutes := e.Group("")
+	publicRoutes := e.Group("/api/public")
 	publicRoutes.POST("/login", controllers.Login)
 
 	// Restricted routes
-	apiRoutes := e.Group("/api")
+	apiRoutes := e.Group("/api/private")
 	apiRoutes.Use(middleware.JWT(AppSecret))
 
 	// Resources

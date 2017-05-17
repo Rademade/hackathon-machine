@@ -9,7 +9,7 @@ type UserVote struct {
 	Base
 
 	VotedAt time.Time	`json:"-"`
-	Vote    int             `json:"vote"`
+	Vote    float64         `json:"vote"`
 	User    User            `json:"-"`
 	UserId  int             `json:"user_id"`
 	Topic   Topic           `json:"-"`

@@ -30,7 +30,7 @@ const styles = {
 }
 
 const onChange = (id, userVote, actions) => {
-  return function (event, value) {
+  return function (value) {
     if (userVote) {
       actions.userVote.update({ vote: value }, { id: userVote.id })
     } else {

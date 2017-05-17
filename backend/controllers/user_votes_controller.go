@@ -25,13 +25,19 @@ func (u UserVotesController) Create(c echo.Context) (interface{}, error) {
 		return userVote, err
 	}
 
-	if !authorizeUser(c, userVote.UserId) {
-		return nil, echo.ErrUnauthorized
-	}
+	tokenUser := c.Get("user").(*jwt.Token)
+	claims := tokenUser.Claims.(jwt.MapClaims)
+	userId := int(claims["id"].(float64))
+
+	// if !authorizeUser(c, userVote.UserId) {
+	// 	return nil, echo.ErrUnauthorized
+	// }
 
 	if userVote.Vote < 0 || userVote.Vote > 5 {
 		return nil, errors.New("invalid vote")
 	}
+
+	userVote.UserId = userId
 
 	if err := models.DB.Create(&userVote).Error; err != nil {
 		return userVote, err
