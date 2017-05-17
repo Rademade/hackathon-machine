@@ -7,6 +7,14 @@ import {
 } from 'constants/auth'
 import initialState from 'store/initial-state'
 
+let getUserFromJwt = (jwt) => {
+  if (jwt) {
+    return JSON.parse(atob(jwt.split('.')[1]));
+  } else {
+    return { isAdmin: false };
+  }
+};
+
 export default function auth(state = initialState.authApp, action = {}) {
   switch (action.type) {
     case LOAD_JWT:
@@ -14,7 +22,7 @@ export default function auth(state = initialState.authApp, action = {}) {
         ...state,
         jwt: action.payload,
         isAuthenticated: (action.payload ? true : false),
-        isAdmin: true // todo
+        user: getUserFromJwt(action.payload)
       }
     case LOG_IN_REQUEST:
       return {
@@ -28,7 +36,7 @@ export default function auth(state = initialState.authApp, action = {}) {
         isPendingRequest: false,
         isAuthenticated: true,
         jwt: action.payload.jwt,
-        isAdmin: true, // todo
+        user: getUserFromJwt(action.payload.jwt),
         error: null
       }
     case LOG_IN_REQUEST_FAILURE:
@@ -45,7 +53,7 @@ export default function auth(state = initialState.authApp, action = {}) {
         jwt: null,
         isPendingRequest: false,
         isAuthenticated: false,
-        isAdmin: false
+        user: {}
       }
     default:
       return state

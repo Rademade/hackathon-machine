@@ -27,30 +27,30 @@ const styles = {
   }
 }
 
-const TopicTableHeaderRow = ({isAdmin}) => (
+const TopicTableHeaderRow = () => (
   <TableRow>
     <TableHeaderColumn>Full Name</TableHeaderColumn>
-    {isAdmin &&
-      <TableHeaderColumn>
-        Actions
-      </TableHeaderColumn>
-    }
+    <TableHeaderColumn>
+      Actions
+    </TableHeaderColumn>
   </TableRow>
 )
 
-const TopicTableBodyRow = ({speaker, isAdmin, actions}) => (
+const TopicTableBodyRow = ({speaker, editable, removable, actions}) => (
   <TableRow>
     <TableRowColumn>{speaker.full_name}</TableRowColumn>
-    {isAdmin &&
-      <TableRowColumn>
-        <EditButton onTouchTap={() => {
-          actions.navigation.goToSpeakersEdit(speaker.id)
-        }}/>
-        <DeleteButton onTouchTap={() => {
-          actions.speaker.delete(speaker.id)
-        }}/>
-      </TableRowColumn>
+    <TableRowColumn>
+    {editable &&
+      <EditButton onTouchTap={() => {
+        actions.navigation.goToSpeakersEdit(speaker.id)
+      }}/>
     }
+    {removable &&
+      <DeleteButton onTouchTap={() => {
+        actions.speaker.delete(speaker.id)
+      }}/>
+    }
+    </TableRowColumn>
   </TableRow>
 )
 
@@ -76,19 +76,22 @@ const SpeakerIndex = ({state, actions}) => (
     <h2 style={styles.title}>Speakers</h2>
     <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TopicTableHeaderRow isAdmin={state.authApp.isAdmin}/>
+        <TopicTableHeaderRow/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {state.speakerApp.speakers.map(speaker =>
           <TopicTableBodyRow
             key={speaker.id}
             speaker={speaker}
-            isAdmin={state.authApp.isAdmin}
+            editable={state.authApp.user.isAdmin || state.authApp.user.id == speaker.id}
+            removable={state.authApp.user.isAdmin}
             actions={actions}/>
         )}
       </TableBody>
     </Table>
-    <NewButton onTouchTap={actions.navigation.goToSpeakersNew}/>
+    {state.authApp.user.isAdmin &&
+      <NewButton onTouchTap={actions.navigation.goToSpeakersNew}/>
+    }
   </Paper>
 )
 
