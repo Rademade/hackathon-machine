@@ -24,7 +24,7 @@ module.exports = {
     }, {
       test: /\.js[x]?$/, include: path.resolve(__dirname, 'src'),
       exclude: /node_modules/,
-      loader: 'babel'
+      loader: 'babel-loader'
     }, {
       test: /\.(png|jpg|gif)$/,
       loader: 'file'
@@ -44,7 +44,6 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.optimize.DedupePlugin(),
     new uglifyJsPlugin({
       compress: {
         warnings: false

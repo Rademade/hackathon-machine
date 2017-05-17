@@ -3,9 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Hackathon Machine</title>
-  </head>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
+    <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">  </head>
   <body>
-    <script type="text/javascript" src="/bundle.js"></script>
+    <% if (htmlWebpackPlugin.options.metadata.isDevServer) { %>
+    <script src="/webpack-dev-server.js"></script>
+    <% } %>
   </body>
 </html>
