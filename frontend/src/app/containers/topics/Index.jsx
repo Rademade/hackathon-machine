@@ -54,7 +54,7 @@ const TopicTableHeaderRow = ({isAdmin}) => (
 const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
-    <TableRowColumn>{topic.averageRating}</TableRowColumn>
+    <TableRowColumn>{topic.average_vote}</TableRowColumn>
     <TableRowColumn>
       <Slider
         min={1}

@@ -12,7 +12,7 @@ func (u HackathonsController) Index() interface{} {
 
 	var hackathons []models.Hackathon
 
-	models.DB.Preload("Topic.Creator").Preload("Speaker").Find(&hackathons)
+	models.DB.Preload("Topic").Preload("Speaker").Find(&hackathons)
 
 	return hackathons
 

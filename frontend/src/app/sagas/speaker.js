@@ -36,13 +36,13 @@ function* _query(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
 function* _get(action) {
   try {
-    const request = yield call(api.get(action.payload.id))
+    const request = yield call(api.get, action.payload.id)
     yield put({
       type: SPEAKER_GET_REQUEST_SUCCESS,
       payload: {
@@ -56,7 +56,7 @@ function* _get(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -69,7 +69,7 @@ function* _create(action) {
         speaker: request.data
       }
     })
-    yield put(navigationActions.goToSpeakers)
+    yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
       type: SPEAKER_CREATE_REQUEST_FAILURE,
@@ -77,7 +77,7 @@ function* _create(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -90,7 +90,7 @@ function* _update(action) {
         speaker: request.data
       }
     })
-    yield put(navigationActions.goToSpeakers)
+    yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
       type: SPEAKER_UPDATE_REQUEST_FAILURE,
@@ -98,7 +98,7 @@ function* _update(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -111,7 +111,7 @@ function* _delete(action) {
         id: action.payload.id
       }
     })
-    yield put(navigationActions.goToSpeakers)
+    yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
       type: SPEAKER_DELETE_REQUEST_FAILURE,
@@ -120,7 +120,7 @@ function* _delete(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 

@@ -1,14 +1,12 @@
-import axios from 'axios'
-import {API_ENDPOINT} from 'constants/common'
+import {AppSettings} from 'settings'
+import {ApiClient} from './api-client';
 
-const index = _ => `${API_ENDPOINT}/auth`
+class AuthApiClient extends ApiClient {
+  constructor(props) {
+    super(props);
 
-const config = {
-  headers: {
-    'Authorization': localStorage.getItem('jwt')
+    this.login = data => this.http.post(`${AppSettings.PUBLIC_ENDPOINT}/login`, data)
   }
 }
 
-export default {
-  login: data => axios.post(index(), data, config)
-}
+export default new AuthApiClient('/login')

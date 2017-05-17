@@ -36,7 +36,7 @@ function* _query(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -56,7 +56,7 @@ function* _get(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -69,7 +69,7 @@ function* _create(action) {
         topic: request.data
       }
     })
-    yield put(navigationActions.goToTopics)
+    yield put(navigationActions.goToTopics())
   } catch (e) {
     yield put({
       type: TOPIC_CREATE_REQUEST_FAILURE,
@@ -77,7 +77,7 @@ function* _create(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -90,7 +90,7 @@ function* _update(action) {
         topic: request.data
       }
     })
-    yield put(navigationActions.goToTopics)
+    yield put(navigationActions.goToTopics())
   } catch (e) {
     yield put({
       type: TOPIC_UPDATE_REQUEST_FAILURE,
@@ -98,7 +98,7 @@ function* _update(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -111,7 +111,7 @@ function* _delete(action) {
         id: action.payload.id
       }
     })
-    yield put(navigationActions.goToTopics)
+    yield put(navigationActions.goToTopics())
   } catch (e) {
     yield put({
       type: TOPIC_DELETE_REQUEST_FAILURE,
@@ -120,7 +120,7 @@ function* _delete(action) {
         error: e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 

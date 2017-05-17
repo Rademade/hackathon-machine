@@ -1,11 +1,9 @@
-import * as _ from 'lodash'
-
 const initialState = {
   authApp: {
     jwt: null,
     isPendingRequest: false,
     isAuthenticated: false,
-    isAdmin: true
+    isAdmin: false
   },
   hackathonApp: {
     hackathons: []

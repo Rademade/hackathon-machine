@@ -27,7 +27,7 @@ function* _create(action) {
         error : e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 
@@ -47,7 +47,7 @@ function* _update(action) {
         error : e.message
       }
     })
-    yield put(authActions.logout())
+    console.log(e)
   }
 }
 

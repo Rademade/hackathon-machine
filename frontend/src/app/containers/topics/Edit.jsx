@@ -41,9 +41,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const onSubmit = (id, actions) => {
   return function (formData) {
-    actions.topic.update(Object.assign(formData, { id : id })).then(() => {
-      actions.navigation.goToTopics();
-    })
+    actions.topic.update(Object.assign(formData, { id : id }))
   }
 }
 

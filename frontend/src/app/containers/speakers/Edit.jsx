@@ -23,19 +23,31 @@ const styles = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  state
+  state : Object.assign(state, { params : ownProps.params })
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let actions = {
     speaker: bindActionCreators(speakerActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
-})
+
+  dispatch(actions.speaker.get(ownProps.params.id))
+
+  return {
+    actions: actions
+  }
+}
+
+const onSubmit = (id, actions) => {
+  return function (formData) {
+    actions.speaker.update(Object.assign(formData, { id : id }))
+  }
+}
 
 const SpeakerEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form onSubmit={model => actions.speaker.update(Object.assign(model, {id: state.params.id}))}>
+    <Formsy.Form onSubmit={onSubmit(state.params.id - 0, actions)}>
       <h2 style={styles.title}>Edit Speaker</h2>
       <FormsyText
         name="full_name"
@@ -43,6 +55,15 @@ const SpeakerEdit = ({state, actions}) => (
         hintText="What is him name?"
         floatingLabelText="Full Name"
         inputStyle={styles.hideAutoFillColorStyle}
+        value={state.speakerApp.speaker ? state.speakerApp.speaker.full_name : ''}
+        required/>
+      <FormsyText
+        name="email"
+        type="email"
+        hintText="What is him email?"
+        floatingLabelText="Email"
+        inputStyle={styles.hideAutoFillColorStyle}
+        value={state.speakerApp.speaker ? state.speakerApp.speaker.email : ''}
         required/>
       <SubmitButton label="Save"/>
       <CancelButton onTouchTap={actions.navigation.goToSpeakers}/>

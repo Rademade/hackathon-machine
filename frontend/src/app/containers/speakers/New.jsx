@@ -44,6 +44,13 @@ const SpeakerNew = ({state, actions}) => (
         floatingLabelText="Full Name"
         inputStyle={styles.hideAutoFillColorStyle}
         required/>
+      <FormsyText
+        name="email"
+        type="email"
+        hintText="What is him email?"
+        floatingLabelText="Email"
+        inputStyle={styles.hideAutoFillColorStyle}
+        required/>
       <SubmitButton label="Create"/>
       <CancelButton onTouchTap={actions.navigation.goToSpeakers}/>
     </Formsy.Form>
