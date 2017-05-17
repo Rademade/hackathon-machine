@@ -7,4 +7,4 @@ source bin/env.sh
 echo "building frontend"
 dcdev build
 ./bin/npm_frontend.sh i -q
-./bin/npm_frontend.sh run deploy
+./bin/npm_frontend.sh run build

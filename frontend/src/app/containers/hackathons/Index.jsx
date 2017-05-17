@@ -25,21 +25,19 @@ const styles = {
   }
 }
 
-const HackathonTableHeaderRow = ({isAdmin}) => (
+const HackathonTableHeaderRow = () => (
   <TableRow>
     <TableHeaderColumn>Topic</TableHeaderColumn>
     <TableHeaderColumn>Date</TableHeaderColumn>
     <TableHeaderColumn>Rapporteur</TableHeaderColumn>
     <TableHeaderColumn>Status</TableHeaderColumn>
-    {isAdmin &&
-      <TableHeaderColumn>
-        Actions
-      </TableHeaderColumn>
-    }
+    <TableHeaderColumn>
+      Actions
+    </TableHeaderColumn>
   </TableRow>
 )
 
-const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
+const HackathonTableBodyRow = ({hackathon, actions}) => (
   <TableRow>
     <TableRowColumn>{hackathon.topic ? hackathon.topic.name : ''}</TableRowColumn>
     <TableRowColumn>{moment(hackathon.date).format('DD MMMM YYYY')}</TableRowColumn>
@@ -48,16 +46,14 @@ const HackathonTableBodyRow = ({hackathon, isAdmin, actions}) => (
       ? (<span>Сonducted, materials: <a href={hackathon.materials_link} target="_blank">link</a></span>)
       : 'Not conducted yet'}
     </TableRowColumn>
-    {isAdmin &&
-      <TableRowColumn>
-        <EditButton onTouchTap={() => {
-          actions.navigation.goToHackathonsEdit(hackathon.id)
-        }}/>
-        <DeleteButton onTouchTap={() => {
-          actions.hackathon.delete(hackathon.id)
-        }}/>
-      </TableRowColumn>
-    }
+    <TableRowColumn>
+      <EditButton onTouchTap={() => {
+        actions.navigation.goToHackathonsEdit(hackathon.id)
+      }}/>
+      <DeleteButton onTouchTap={() => {
+        actions.hackathon.delete(hackathon.id)
+      }}/>
+    </TableRowColumn>
   </TableRow>
 )
 
@@ -83,21 +79,18 @@ const HackathonIndex = ({state, actions}) => (
     <h2 style={styles.title}>Hackathons</h2>
     <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <HackathonTableHeaderRow isAdmin={state.authApp.isAdmin}/>
+        <HackathonTableHeaderRow/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {state.hackathonApp.hackathons.map(hackathon =>
           <HackathonTableBodyRow
             key={hackathon.id}
             hackathon={hackathon}
-            isAdmin={state.authApp.isAdmin}
             actions={actions}/>
         )}
       </TableBody>
     </Table>
-    {state.authApp.isAdmin &&
-      <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
-    }
+    <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
   </Paper>
 )
 
