@@ -1,6 +1,6 @@
 FROM nginx:stable
 
-ADD ./frontend/build /static
+ADD ./frontend/dist /static
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
