@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Formsy from 'formsy-react';
-import { FormsyText } from 'formsy-material-ui/lib';
-import { Paper } from 'material-ui';
+import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
+import { Paper, MenuItem } from 'material-ui';
 import SubmitButton from 'components/buttons/SubmitButton';
 import CancelButton from 'components/buttons/CancelButton';
 import topicActions from 'actions/topic';
+import speakerActions from 'actions/speaker';
 import navigationActions from 'actions/navigation';
 
 const styles = {
@@ -28,10 +29,12 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
     topic: bindActionCreators(topicActions, dispatch),
+    speaker: bindActionCreators(speakerActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
   dispatch(actions.topic.get(ownProps.params.id));
+  dispatch(actions.speaker.query());
 
   return {
     actions: actions
@@ -57,13 +60,27 @@ const TopicEdit = ({state, actions}) => (
         value={state.topicApp.topic ? state.topicApp.topic.name : ''}
         fullWidth={true}
         required/>
-      <FormsyText
+      <FormsySelect
         name="created_by"
-        type="text"
-        validationError={'This is not a valid topic'}
-        hintText="Who is topic creator?"
         floatingLabelText="Created by"
         value={state.topicApp.topic ? state.topicApp.topic.created_by : ''}
+        fullWidth={true}
+        required>
+        {state.speakerApp.speakers.map(speaker =>
+          <MenuItem
+            key={speaker.id}
+            value={speaker.id}
+            primaryText={speaker.full_name}/>)}
+      </FormsySelect>
+      <FormsyText
+        name="description"
+        type="text"
+        validationError={'This is not a valid description'}
+        value={state.topicApp.topic ? state.topicApp.topic.description : ''}
+        hintText="Want say something?"
+        floatingLabelText="Description"
+        multiLine={true}
+        rows={5}
         fullWidth={true}
         required/>
       <SubmitButton label={'Save'}/>
