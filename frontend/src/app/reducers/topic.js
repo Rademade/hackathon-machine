@@ -28,7 +28,7 @@ export default function topicApp(state = initialState.topicApp, action = {}) {
     case TOPIC_QUERY_REQUEST_SUCCESS:
       return {
         ...state,
-        topics: action.payload.topics
+        topics: _.sortBy(action.payload.topics, 'average_vote').reverse()
       };
     case TOPIC_QUERY_REQUEST_FAILURE:
       return {
