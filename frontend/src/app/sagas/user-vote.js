@@ -8,7 +8,8 @@ import {
   USER_VOTE_CREATE_REQUEST_FAILURE,
   USER_VOTE_UPDATE_REQUEST,
   USER_VOTE_UPDATE_REQUEST_SUCCESS,
-  USER_VOTE_UPDATE_REQUEST_FAILURE
+  USER_VOTE_UPDATE_REQUEST_FAILURE,
+  HACKATHON_QUERY_REQUEST
 } from 'constants';
 
 function* _create(action) {
@@ -21,6 +22,8 @@ function* _create(action) {
         topic : request.data
       }
     });
+
+    yield put({ type: HACKATHON_QUERY_REQUEST });
   } catch (e) {
     yield put({
       type : USER_VOTE_CREATE_REQUEST_FAILURE,
@@ -40,7 +43,9 @@ function* _update(action) {
       payload : {
         topic : request.data
       }
-    })
+    });
+
+    yield put({ type: HACKATHON_QUERY_REQUEST })
   } catch (e) {
     yield put({
       type : USER_VOTE_UPDATE_REQUEST_FAILURE,

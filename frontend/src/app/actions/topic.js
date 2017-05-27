@@ -4,7 +4,7 @@ import {
   TOPIC_CREATE_REQUEST,
   TOPIC_UPDATE_REQUEST,
   TOPIC_DELETE_REQUEST
-} from 'constants'
+} from 'constants';
 
 export default {
   query: _ => dispatch => dispatch({ type: TOPIC_QUERY_REQUEST }),
