@@ -42,8 +42,15 @@ const TopicNew = ({state, actions}) => (
         validationError={'This is not a valid topic'}
         hintText="What is your topic?"
         floatingLabelText="Topic"
-        multiLine={true}
-        rows={3}
+        fullWidth={true}
+        required/>
+      <FormsyText
+        name="created_by"
+        type="text"
+        validationError={'This is not a valid topic'}
+        hintText="Who is topic creator?"
+        floatingLabelText="Created by"
+        value={state.topicApp.topic ? state.topicApp.topic.created_by : ''}
         fullWidth={true}
         required/>
       <SubmitButton label="Create"/>

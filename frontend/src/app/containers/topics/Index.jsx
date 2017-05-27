@@ -31,11 +31,11 @@ const styles = {
 
 const onChange = (topic, actions) => {
   return function (value) {
-    if (userVote) {
-      actions.userVote.update({
+    if (topic.userVote) {
+      actions.topic.userVote.update({
         vote: value
       }, {
-        id: userVote.id
+        id: topic.userVote.id
       });
     } else {
       actions.userVote.create({
@@ -51,6 +51,7 @@ const TopicTableHeaderRow = () => (
     <TableHeaderColumn>Name</TableHeaderColumn>
     <TableHeaderColumn>Rating</TableHeaderColumn>
     <TableHeaderColumn>Score</TableHeaderColumn>
+    <TableHeaderColumn>Created by</TableHeaderColumn>
     <TableHeaderColumn>
       Actions
     </TableHeaderColumn>
@@ -68,6 +69,7 @@ const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
         size={24}
         color2={'#ffd700'} />
     </TableRowColumn>
+    <TableRowColumn>{topic.created_by}</TableRowColumn>
     <TableRowColumn>
       <EditButton onTouchTap={() => {
         actions.navigation.goToTopicsEdit(topic.id)
