@@ -1,16 +1,15 @@
-import React from 'react'
-import {browserHistory, Router, Route, IndexRoute} from 'react-router'
-import {syncHistoryWithStore} from 'react-router-redux'
-import {Provider} from 'react-redux'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import {MuiThemeProvider, getMuiTheme} from 'material-ui/styles'
-import Header from 'components/Header'
-import Navigation from 'components/Navigation'
-import store from 'store'
-import routes from './routes'
-import {DevTools} from 'store/configure-store'
+import React from 'react';
+import { browserHistory, Router } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { Provider } from 'react-redux';
+import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import Header from 'components/Header';
+import Navigation from 'components/Navigation';
+import store from 'store';
+import routes from './routes';
 
-injectTapEventPlugin()
+injectTapEventPlugin();
 
 const history = syncHistoryWithStore(browserHistory, store)
 const muiTheme = getMuiTheme({
@@ -20,7 +19,7 @@ const muiTheme = getMuiTheme({
   appBar: {
     height: 50
   },
-})
+});
 
 const Layout = () => (
   <Provider store={store} key='provider'>
@@ -32,6 +31,6 @@ const Layout = () => (
       </div>
     </MuiThemeProvider>
   </Provider>
-)
+);
 
-export default Layout
+export default Layout;

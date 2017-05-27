@@ -1,7 +1,7 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
-import api from 'api/topic'
-import authActions from 'actions/auth'
-import navigationActions from 'actions/navigation'
+import { call, put, takeEvery } from 'redux-saga/effects';
+import api from 'api/topic';
+import authActions from 'actions/auth';
+import navigationActions from 'actions/navigation';
 import {
   TOPIC_QUERY_REQUEST,
   TOPIC_QUERY_REQUEST_SUCCESS,
@@ -18,11 +18,12 @@ import {
   TOPIC_DELETE_REQUEST,
   TOPIC_DELETE_REQUEST_SUCCESS,
   TOPIC_DELETE_REQUEST_FAILURE
-} from 'constants'
+} from 'constants';
 
 function* _query(action) {
   try {
-    const request = yield call(api.query)
+    const request = yield call(api.query);
+
     yield put({
       type: TOPIC_QUERY_REQUEST_SUCCESS,
       payload: {
@@ -35,82 +36,85 @@ function* _query(action) {
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _get(action) {
   try {
-    const request = yield call(api.get, action.payload.id)
+    const request = yield call(api.get, action.payload.id);
+
     yield put({
       type: TOPIC_GET_REQUEST_SUCCESS,
       payload: {
         topic: request.data
       }
-    })
+    });
   } catch (e) {
     yield put({
       type: TOPIC_GET_REQUEST_FAILURE,
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _create(action) {
   try {
-    const request = yield call(api.create, action.payload.data)
+    const request = yield call(api.create, action.payload.data);
+
     yield put({
       type: TOPIC_CREATE_REQUEST_SUCCESS,
       payload: {
         topic: request.data
       }
-    })
-    yield put(navigationActions.goToTopics())
+    });
+
+    yield put(navigationActions.goToTopics());
   } catch (e) {
     yield put({
       type: TOPIC_CREATE_REQUEST_FAILURE,
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _update(action) {
   try {
-    const request = yield call(api.update, action.payload.data)
+    const request = yield call(api.update, action.payload.data);
+
     yield put({
       type: TOPIC_UPDATE_REQUEST_SUCCESS,
       payload: {
         topic: request.data
       }
-    })
-    yield put(navigationActions.goToTopics())
+    });
+
+    yield put(navigationActions.goToTopics());
   } catch (e) {
     yield put({
       type: TOPIC_UPDATE_REQUEST_FAILURE,
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _delete(action) {
   try {
-    const request = yield call(api.delete, action.payload.id)
+    const request = yield call(api.delete, action.payload.id);
+
     yield put({
       type: TOPIC_DELETE_REQUEST_SUCCESS,
       payload: {
         id: action.payload.id
       }
-    })
+    });
+
     yield put(navigationActions.goToTopics())
   } catch (e) {
     yield put({
@@ -119,8 +123,7 @@ function* _delete(action) {
         id: action.payload.id,
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 

@@ -1,7 +1,7 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
-import api from 'api/speaker'
-import authActions from 'actions/auth'
-import navigationActions from 'actions/navigation'
+import { call, put, takeEvery } from 'redux-saga/effects';
+import api from 'api/speaker';
+import authActions from 'actions/auth';
+import navigationActions from 'actions/navigation';
 import {
   SPEAKER_QUERY_REQUEST,
   SPEAKER_QUERY_REQUEST_SUCCESS,
@@ -18,57 +18,59 @@ import {
   SPEAKER_DELETE_REQUEST,
   SPEAKER_DELETE_REQUEST_SUCCESS,
   SPEAKER_DELETE_REQUEST_FAILURE
-} from 'constants'
+} from 'constants';
 
 function* _query(action) {
   try {
-    const request = yield call(api.query)
+    const request = yield call(api.query);
+
     yield put({
       type: SPEAKER_QUERY_REQUEST_SUCCESS,
       payload: {
         speakers: request.data
       }
-    })
+    });
   } catch (e) {
     yield put({
       type: SPEAKER_QUERY_REQUEST_FAILURE,
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _get(action) {
   try {
-    const request = yield call(api.get, action.payload.id)
+    const request = yield call(api.get, action.payload.id);
+
     yield put({
       type: SPEAKER_GET_REQUEST_SUCCESS,
       payload: {
         speaker: request.data
       }
-    })
+    });
   } catch (e) {
     yield put({
       type: SPEAKER_GET_REQUEST_FAILURE,
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _create(action) {
   try {
-    const request = yield call(api.create, action.payload.data)
+    const request = yield call(api.create, action.payload.data);
+
     yield put({
       type: SPEAKER_CREATE_REQUEST_SUCCESS,
       payload: {
         speaker: request.data
       }
-    })
+    });
+
     yield put(navigationActions.goToSpeakers())
   } catch (e) {
     yield put({
@@ -76,42 +78,44 @@ function* _create(action) {
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _update(action) {
   try {
-    const request = yield call(api.update, action.payload.data)
+    const request = yield call(api.update, action.payload.data);
+
     yield put({
       type: SPEAKER_UPDATE_REQUEST_SUCCESS,
       payload: {
         speaker: request.data
       }
-    })
-    yield put(navigationActions.goToSpeakers())
+    });
+
+    yield put(navigationActions.goToSpeakers());
   } catch (e) {
     yield put({
       type: SPEAKER_UPDATE_REQUEST_FAILURE,
       payload: {
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 
 function* _delete(action) {
   try {
-    const request = yield call(api.delete, action.payload.id)
+    const request = yield call(api.delete, action.payload.id);
+
     yield put({
       type: SPEAKER_DELETE_REQUEST_SUCCESS,
       payload: {
         id: action.payload.id
       }
-    })
-    yield put(navigationActions.goToSpeakers())
+    });
+
+    yield put(navigationActions.goToSpeakers());
   } catch (e) {
     yield put({
       type: SPEAKER_DELETE_REQUEST_FAILURE,
@@ -119,8 +123,7 @@ function* _delete(action) {
         id: action.payload.id,
         error: e.message
       }
-    })
-    console.log(e)
+    });
   }
 }
 

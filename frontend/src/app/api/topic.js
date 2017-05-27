@@ -1,3 +1,3 @@
-import {ApiClient} from './api-client';
+import { ApiClient } from './api-client';
 
-export default new ApiClient('/topics')
+export default new ApiClient('/topics');

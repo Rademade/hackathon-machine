@@ -1,11 +1,11 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {push} from 'react-router-redux'
-import {bindActionCreators} from 'redux'
-import Formsy from 'formsy-react'
-import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import {Paper, RaisedButton} from 'material-ui'
-import authActions from 'actions/auth'
+import React from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import Formsy from 'formsy-react';
+import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import { Paper, RaisedButton } from 'material-ui';
+import authActions from 'actions/auth';
 
 const styles = {
   paper: {

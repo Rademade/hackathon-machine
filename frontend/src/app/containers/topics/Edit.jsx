@@ -1,18 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import Formsy from 'formsy-react'
-import {FormsyText} from 'formsy-material-ui/lib'
-import {Paper} from 'material-ui'
-import SubmitButton from 'components/buttons/SubmitButton'
-import CancelButton from 'components/buttons/CancelButton'
-import topicActions from 'actions/topic'
-import navigationActions from 'actions/navigation'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Formsy from 'formsy-react';
+import { FormsyText } from 'formsy-material-ui/lib';
+import { Paper } from 'material-ui';
+import SubmitButton from 'components/buttons/SubmitButton';
+import CancelButton from 'components/buttons/CancelButton';
+import topicActions from 'actions/topic';
+import navigationActions from 'actions/navigation';
 
 const styles = {
   paper: {
-    width: 300,
-    margin: 'auto',
+    width: 600,
     paddingLeft: 20,
     paddingRight: 20
   },
@@ -20,7 +19,7 @@ const styles = {
     paddingTop: 20,
     marginBottom: 0
   }
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
     state : Object.assign(state, { params : ownProps.params })
@@ -32,11 +31,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.topic.get(ownProps.params.id))
+  dispatch(actions.topic.get(ownProps.params.id));
 
   return {
     actions: actions
-  }
+  };
 }
 
 const onSubmit = (id, actions) => {
@@ -47,7 +46,7 @@ const onSubmit = (id, actions) => {
 
 const TopicEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form onSubmit={onSubmit(state.params.id - 0, actions)}>
+    <Formsy.Form onSubmit={onSubmit(+state.params.id, actions)}>
       <h2 style={styles.title}>Edit Topic</h2>
       <FormsyText
         name="name"
@@ -57,14 +56,17 @@ const TopicEdit = ({state, actions}) => (
         floatingLabelText="Topic"
         inputStyle={styles.hideAutoFillColorStyle}
         value={state.topicApp.topic ? state.topicApp.topic.name : ''}
+        multiLine={true}
+        rows={3}
+        fullWidth={true}
         required/>
       <SubmitButton label={'Save'}/>
       <CancelButton onTouchTap={actions.navigation.goToTopics}/>
     </Formsy.Form>
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopicEdit)
+)(TopicEdit);
