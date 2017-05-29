@@ -1,18 +1,18 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn, Paper
-} from 'material-ui'
-import Formsy from 'formsy-react'
-import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import NewButton from 'components/buttons/NewButton'
-import EditButton from 'components/buttons/EditButton'
-import DeleteButton from 'components/buttons/DeleteButton'
-import hackathonActions from 'actions/hackathon'
-import navigationActions from 'actions/navigation'
-import moment from 'moment'
+} from 'material-ui';
+import Formsy from 'formsy-react';
+import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import NewButton from 'components/buttons/NewButton';
+import EditButton from 'components/buttons/EditButton';
+import DeleteButton from 'components/buttons/DeleteButton';
+import hackathonActions from 'actions/hackathon';
+import navigationActions from 'actions/navigation';
+import moment from 'moment';
 
 const styles = {
   paper: {
@@ -23,7 +23,7 @@ const styles = {
     paddingTop: 0,
     marginBottom: 0
   }
-}
+};
 
 const HackathonTableHeaderRow = () => (
   <TableRow>
@@ -35,7 +35,7 @@ const HackathonTableHeaderRow = () => (
       Actions
     </TableHeaderColumn>
   </TableRow>
-)
+);
 
 const HackathonTableBodyRow = ({hackathon, actions}) => (
   <TableRow>
@@ -55,11 +55,11 @@ const HackathonTableBodyRow = ({hackathon, actions}) => (
       }}/>
     </TableRowColumn>
   </TableRow>
-)
+);
 
 const mapStateToProps = (state, ownProps) => ({
   state
-})
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
@@ -67,11 +67,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.hackathon.query())
+  dispatch(actions.hackathon.query());
 
   return {
     actions: actions
-  }
+  };
 }
 
 const HackathonIndex = ({state, actions}) => (
@@ -92,9 +92,9 @@ const HackathonIndex = ({state, actions}) => (
     </Table>
     <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HackathonIndex)
+)(HackathonIndex);

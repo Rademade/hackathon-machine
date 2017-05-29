@@ -1,17 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn, Paper
-} from 'material-ui'
-import Formsy from 'formsy-react'
-import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import NewButton from 'components/buttons/NewButton'
-import EditButton from 'components/buttons/EditButton'
-import DeleteButton from 'components/buttons/DeleteButton'
-import speakerActions from 'actions/speaker'
-import navigationActions from 'actions/navigation'
+} from 'material-ui';
+import Formsy from 'formsy-react';
+import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import NewButton from 'components/buttons/NewButton';
+import EditButton from 'components/buttons/EditButton';
+import DeleteButton from 'components/buttons/DeleteButton';
+import speakerActions from 'actions/speaker';
+import navigationActions from 'actions/navigation';
 
 const styles = {
   paper: {
@@ -25,16 +25,18 @@ const styles = {
   slider: {
     height: 40
   }
-}
+};
 
-const TopicTableHeaderRow = () => (
+const TopicTableHeaderRow = ({isAdmin}) => (
   <TableRow>
     <TableHeaderColumn>Full Name</TableHeaderColumn>
-    <TableHeaderColumn>
-      Actions
-    </TableHeaderColumn>
+    {isAdmin &&
+      <TableHeaderColumn>
+        Actions
+      </TableHeaderColumn>
+    }
   </TableRow>
-)
+);
 
 const TopicTableBodyRow = ({speaker, editable, removable, actions}) => (
   <TableRow>
@@ -52,11 +54,11 @@ const TopicTableBodyRow = ({speaker, editable, removable, actions}) => (
     }
     </TableRowColumn>
   </TableRow>
-)
+);
 
 const mapStateToProps = (state, ownProps) => ({
   state
-})
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
@@ -64,11 +66,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.speaker.query())
+  dispatch(actions.speaker.query());
 
   return {
     actions: actions
-  }
+  };
 }
 
 const SpeakerIndex = ({state, actions}) => (
@@ -76,7 +78,7 @@ const SpeakerIndex = ({state, actions}) => (
     <h2 style={styles.title}>Speakers</h2>
     <Table fixedHeader={true} height={'350px'}>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TopicTableHeaderRow/>
+        <TopicTableHeaderRow isAdmin={state.authApp.user.isAdmin}/>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {state.speakerApp.speakers.map(speaker =>
@@ -93,9 +95,9 @@ const SpeakerIndex = ({state, actions}) => (
       <NewButton onTouchTap={actions.navigation.goToSpeakersNew}/>
     }
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SpeakerIndex)
+)(SpeakerIndex);

@@ -1,18 +1,17 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import Formsy from 'formsy-react'
-import {FormsyText} from 'formsy-material-ui/lib'
-import {Paper} from 'material-ui'
-import SubmitButton from 'components/buttons/SubmitButton'
-import CancelButton from 'components/buttons/CancelButton'
-import speakerActions from 'actions/speaker'
-import navigationActions from 'actions/navigation'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Formsy from 'formsy-react';
+import { FormsyText } from 'formsy-material-ui/lib';
+import { Paper } from 'material-ui';
+import SubmitButton from 'components/buttons/SubmitButton';
+import CancelButton from 'components/buttons/CancelButton';
+import speakerActions from 'actions/speaker';
+import navigationActions from 'actions/navigation';
 
 const styles = {
   paper: {
-    width: 300,
-    margin: 'auto',
+    width: 600,
     paddingLeft: 20,
     paddingRight: 20
   },
@@ -20,18 +19,18 @@ const styles = {
     paddingTop: 20,
     marginBottom: 0
   }
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
   state
-})
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: {
     speaker: bindActionCreators(speakerActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
-})
+});
 
 const SpeakerNew = ({state, actions}) => (
   <Paper style={styles.paper}>
@@ -42,22 +41,22 @@ const SpeakerNew = ({state, actions}) => (
         type="text"
         hintText="What is him name?"
         floatingLabelText="Full Name"
-        inputStyle={styles.hideAutoFillColorStyle}
+        fullWidth={true}
         required/>
       <FormsyText
         name="email"
         type="email"
         hintText="What is him email?"
         floatingLabelText="Email"
-        inputStyle={styles.hideAutoFillColorStyle}
+        fullWidth={true}
         required/>
       <SubmitButton label="Create"/>
       <CancelButton onTouchTap={actions.navigation.goToSpeakers}/>
     </Formsy.Form>
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SpeakerNew)
+)(SpeakerNew);

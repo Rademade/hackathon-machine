@@ -4,8 +4,8 @@ import {
   LOG_IN_REQUEST_SUCCESS,
   LOG_IN_REQUEST_FAILURE,
   LOG_OUT
-} from 'constants/auth'
-import initialState from 'store/initial-state'
+} from 'constants/auth';
+import initialState from 'store/initial-state';
 
 let getUserFromJwt = (jwt) => {
   if (jwt) {

@@ -1,18 +1,18 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import Formsy from 'formsy-react'
-import {FormsyText} from 'formsy-material-ui/lib'
-import {Paper} from 'material-ui'
-import SubmitButton from 'components/buttons/SubmitButton'
-import CancelButton from 'components/buttons/CancelButton'
-import topicActions from 'actions/topic'
-import navigationActions from 'actions/navigation'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Formsy from 'formsy-react';
+import { FormsyText, FormsySelect } from 'formsy-material-ui/lib';
+import { Paper, MenuItem } from 'material-ui';
+import SubmitButton from 'components/buttons/SubmitButton';
+import CancelButton from 'components/buttons/CancelButton';
+import topicActions from 'actions/topic';
+import speakerActions from 'actions/speaker';
+import navigationActions from 'actions/navigation';
 
 const styles = {
   paper: {
-    width: 300,
-    margin: 'auto',
+    width: 600,
     paddingLeft: 20,
     paddingRight: 20
   },
@@ -20,7 +20,7 @@ const styles = {
     paddingTop: 20,
     marginBottom: 0
   }
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
     state : Object.assign(state, { params : ownProps.params })
@@ -29,14 +29,16 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
     topic: bindActionCreators(topicActions, dispatch),
+    speaker: bindActionCreators(speakerActions, dispatch),
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.topic.get(ownProps.params.id))
+  dispatch(actions.topic.get(ownProps.params.id));
+  dispatch(actions.speaker.query());
 
   return {
     actions: actions
-  }
+  };
 }
 
 const onSubmit = (id, actions) => {
@@ -47,7 +49,7 @@ const onSubmit = (id, actions) => {
 
 const TopicEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form onSubmit={onSubmit(state.params.id - 0, actions)}>
+    <Formsy.Form onSubmit={onSubmit(+state.params.id, actions)}>
       <h2 style={styles.title}>Edit Topic</h2>
       <FormsyText
         name="name"
@@ -55,16 +57,39 @@ const TopicEdit = ({state, actions}) => (
         validationError={'This is not a valid topic'}
         hintText="What is your topic?"
         floatingLabelText="Topic"
-        inputStyle={styles.hideAutoFillColorStyle}
         value={state.topicApp.topic ? state.topicApp.topic.name : ''}
+        fullWidth={true}
+        required/>
+      <FormsySelect
+        name="created_by"
+        floatingLabelText="Created by"
+        value={state.topicApp.topic ? state.topicApp.topic.created_by : ''}
+        fullWidth={true}
+        required>
+        {state.speakerApp.speakers.map(speaker =>
+          <MenuItem
+            key={speaker.id}
+            value={speaker.id}
+            primaryText={speaker.full_name}/>)}
+      </FormsySelect>
+      <FormsyText
+        name="description"
+        type="text"
+        validationError={'This is not a valid description'}
+        value={state.topicApp.topic ? state.topicApp.topic.description : ''}
+        hintText="Want say something?"
+        floatingLabelText="Description"
+        multiLine={true}
+        rows={5}
+        fullWidth={true}
         required/>
       <SubmitButton label={'Save'}/>
       <CancelButton onTouchTap={actions.navigation.goToTopics}/>
     </Formsy.Form>
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopicEdit)
+)(TopicEdit);

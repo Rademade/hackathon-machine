@@ -13,8 +13,7 @@ import speakerActions from 'actions/speaker'
 
 const styles = {
   paper: {
-    width: 300,
-    margin: 'auto',
+    width: 600,
     paddingLeft: 20,
     paddingRight: 20
   },
@@ -23,24 +22,6 @@ const styles = {
     marginBottom: 0
   }
 }
-
-const TopicSelect = ({topics}) => (
-  <FormsySelect
-    name="topic_id"
-    value={topics.length > 0 ? topics[0].id : 0}
-    floatingLabelText="Topic">
-      {topics.map(topic => <MenuItem key={topic.id} value={topic.id} primaryText={topic.name}/>)}
-  </FormsySelect>
-)
-
-const SpeakerSelect = ({speakers}) => (
-  <FormsySelect
-    name="speaker_id"
-    value={speakers.length > 0 ? speakers[0].id : 0}
-    floatingLabelText="Speaker">
-      {speakers.map(speaker => <MenuItem key={speaker.id} value={speaker.id} primaryText={speaker.full_name}/>)}
-  </FormsySelect>
-)
 
 const mapStateToProps = (state, ownProps) => ({
   state
@@ -53,8 +34,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     topic: bindActionCreators(topicActions, dispatch),
     speaker: bindActionCreators(speakerActions, dispatch)
   }
-  dispatch(actions.topic.query())
-  dispatch(actions.speaker.query())
+
+  dispatch(actions.topic.query());
+  dispatch(actions.speaker.query());
+
   return {
     actions: actions
   }
@@ -64,13 +47,43 @@ const HackathonNew = ({state, actions}) => (
   <Paper style={styles.paper}>
     <Formsy.Form onSubmit={actions.hackathon.create}>
       <h2 style={styles.title}>New Hackathon</h2>
-      <TopicSelect topics={state.topicApp.topics}/>
+      <FormsySelect
+        name="topic_id"
+        value={state.topicApp.topics.length > 0 ? state.topicApp.topics[0].id : 0}
+        floatingLabelText="Topic"
+        fullWidth={true}>
+        {state.topicApp.topics.map(topic =>
+          <MenuItem
+            key={topic.id}
+            value={topic.id}
+            primaryText={topic.name}/>)}
+      </FormsySelect>
       <FormsyDate
         name="conduction_date"
         floatingLabelText="Conduction date"
         value={new Date()}
+        fullWidth={true}
         required/>
-      <SpeakerSelect speakers={state.speakerApp.speakers}/>
+      <FormsySelect
+        name="speaker_id"
+        value={state.speakerApp.speakers.length > 0 ? state.speakerApp.speakers[0].id : 0}
+        floatingLabelText="Speaker"
+        fullWidth={true}>
+        {state.speakerApp.speakers.map(speaker =>
+          <MenuItem
+            key={speaker.id}
+            value={speaker.id}
+            primaryText={speaker.full_name}/>)}
+      </FormsySelect>
+      <FormsyText
+        name="url"
+        value={state.hackathonApp.hackathon ? state.hackathonApp.hackathon.material : null}
+        hintText="http://www.example.com"
+        floatingLabelText="Materials link"
+        multiLine={true}
+        rows={3}
+        type={"text"}
+        fullWidth={true}/>
       <SubmitButton label="Create"/>
       <CancelButton onTouchTap={actions.navigation.goToHackathons}/>
     </Formsy.Form>

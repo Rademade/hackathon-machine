@@ -1,4 +1,4 @@
-import {push} from 'react-router-redux'
+import { push } from 'react-router-redux';
 
 export default {
   goToRoot: _ => dispatch => dispatch(push('/')),

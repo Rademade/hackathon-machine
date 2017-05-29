@@ -1,19 +1,19 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn, Paper, Slider
-} from 'material-ui'
-import ReactStars from 'react-stars'
-import Formsy from 'formsy-react'
-import {FormsyText, FormsyToggle} from 'formsy-material-ui/lib'
-import NewButton from 'components/buttons/NewButton'
-import EditButton from 'components/buttons/EditButton'
-import DeleteButton from 'components/buttons/DeleteButton'
-import topicActions from 'actions/topic'
-import userVoteActions from 'actions/user-vote'
-import navigationActions from 'actions/navigation'
+} from 'material-ui';
+import ReactStars from 'react-stars';
+import Formsy from 'formsy-react';
+import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import NewButton from 'components/buttons/NewButton';
+import EditButton from 'components/buttons/EditButton';
+import DeleteButton from 'components/buttons/DeleteButton';
+import topicActions from 'actions/topic';
+import userVoteActions from 'actions/user-vote';
+import navigationActions from 'actions/navigation';
 
 const styles = {
   paper: {
@@ -27,14 +27,21 @@ const styles = {
   slider: {
     height: 40
   }
-}
+};
 
-const onChange = (id, userVote, actions) => {
+const onChange = (topic, actions) => {
   return function (value) {
-    if (userVote) {
-      actions.userVote.update({ vote: value }, { id: userVote.id })
+    if (topic.userVote) {
+      actions.topic.userVote.update({
+        vote: value
+      }, {
+        id: topic.userVote.id
+      });
     } else {
-      actions.userVote.create({ topic_id : id, vote : value })
+      actions.userVote.create({
+        topic_id: topic.id,
+        vote : value
+      });
     }
   }
 }
@@ -44,19 +51,25 @@ const TopicTableHeaderRow = () => (
     <TableHeaderColumn>Name</TableHeaderColumn>
     <TableHeaderColumn>Rating</TableHeaderColumn>
     <TableHeaderColumn>Score</TableHeaderColumn>
+    <TableHeaderColumn>Created by</TableHeaderColumn>
     <TableHeaderColumn>
       Actions
     </TableHeaderColumn>
   </TableRow>
-)
+);
 
 const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
-    <TableRowColumn>{topic.average_vote}</TableRowColumn>
+    <TableRowColumn>{Math.round(topic.average_vote * 100) / 100}</TableRowColumn>
     <TableRowColumn>
-      <ReactStars count={5} onChange={onChange(topic.id, topic.userVote, actions)} size={24} color2={'#ffd700'} />
+      <ReactStars
+        count={5}
+        onChange={onChange(topic, actions)}
+        size={24}
+        color2={'#ffd700'} />
     </TableRowColumn>
+    <TableRowColumn>{topic.created_by}</TableRowColumn>
     <TableRowColumn>
       <EditButton onTouchTap={() => {
         actions.navigation.goToTopicsEdit(topic.id)
@@ -70,7 +83,7 @@ const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
 
 const mapStateToProps = (state, ownProps) => ({
   state
-})
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
@@ -79,11 +92,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     navigation: bindActionCreators(navigationActions, dispatch)
   }
 
-  dispatch(actions.topic.query())
+  dispatch(actions.topic.query());
 
   return {
     actions: actions
-  }
+  };
 }
 
 const TopicIndex = ({state, actions}) => (
@@ -104,7 +117,7 @@ const TopicIndex = ({state, actions}) => (
     </Table>
     <NewButton onTouchTap={actions.navigation.goToTopicsNew}/>
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,

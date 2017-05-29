@@ -4,7 +4,7 @@ import {
   SPEAKER_CREATE_REQUEST,
   SPEAKER_UPDATE_REQUEST,
   SPEAKER_DELETE_REQUEST
-} from 'constants'
+} from 'constants';
 
 export default {
   query: _ => dispatch => dispatch({ type: SPEAKER_QUERY_REQUEST }),
