@@ -5,7 +5,6 @@ import { routerMiddleware, push } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import authActions from 'actions/auth';
 import reducers from 'reducers';
 import sagas from 'sagas';
 
@@ -32,16 +31,6 @@ export default function configureStore(initialState) {
   );
 
   sagaMiddleware.run(sagas);
-
-  if (typeof window !== 'undefined') {
-    store.dispatch(authActions.loadJWT(localStorage.getItem('jwt'))).then(jwt => {
-      if (jwt) {
-        if ((/auth/).test(window.location.pathname)) store.dispatch(push('/'));
-      } else {
-        store.dispatch(push('/auth'));
-      }
-    })
-  }
 
   return store;
 }

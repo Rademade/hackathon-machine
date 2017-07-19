@@ -1,69 +1,59 @@
-import Login from 'containers/auth/Login'
-import HackathonIndex from 'containers/hackathons/Index'
-import HackathonNew from 'containers/hackathons/New'
-import HackathonEdit from 'containers/hackathons/Edit'
-import TopicIndex from 'containers/topics/Index'
-import TopicNew from 'containers/topics/New'
-import TopicEdit from 'containers/topics/Edit'
-import SpeakerIndex from 'containers/speakers/Index'
-import SpeakerNew from 'containers/speakers/New'
-import SpeakerEdit from 'containers/speakers/Edit'
-import NotFound from 'containers/NotFound'
-
-function requireAuth(nextState, replace) {
-  if (!localStorage.getItem('jwt')) {
-    replace({
-      pathname: '/auth',
-      state: {
-        nextPathname: nextState.location.pathname
-      }
-    })
-  }
-}
+import onEnter from 'store/config/on-enter';
+import Login from 'containers/auth/Login';
+import HackathonIndex from 'containers/hackathons/Index';
+import HackathonNew from 'containers/hackathons/New';
+import HackathonEdit from 'containers/hackathons/Edit';
+import TopicIndex from 'containers/topics/Index';
+import TopicNew from 'containers/topics/New';
+import TopicEdit from 'containers/topics/Edit';
+import SpeakerIndex from 'containers/speakers/Index';
+import SpeakerNew from 'containers/speakers/New';
+import SpeakerEdit from 'containers/speakers/Edit';
+import NotFound from 'containers/NotFound';
 
 const routes = [{
   path: '/',
   component: HackathonIndex,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/auth',
   component: Login
 }, {
   path: '/hackathons',
   component: HackathonIndex,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/hackathons/new',
   component: HackathonNew,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/hackathons/:id/edit',
   component: HackathonEdit,
-  onEnter: requireAuth
+  onEnter
 },{
   path: '/topics',
   component: TopicIndex,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/topics/new',
   component: TopicNew,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/topics/:id/edit',
   component: TopicEdit,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/speakers',
   component: SpeakerIndex,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/speakers/new',
   component: SpeakerNew,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '/speakers/:id/edit',
   component: SpeakerEdit,
-  onEnter: requireAuth
+  onEnter
 }, {
   path: '*',
   component: NotFound

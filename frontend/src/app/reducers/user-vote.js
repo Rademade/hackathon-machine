@@ -1,4 +1,4 @@
-import initialState from 'store/initial-state';
+import initialState from 'store/config/initial-state';
 import {
   USER_VOTE_CREATE_REQUEST,
   USER_VOTE_CREATE_REQUEST_SUCCESS,

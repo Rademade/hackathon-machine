@@ -1,17 +1,15 @@
 import React from 'react';
-import { browserHistory, Router } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
+import { store, history } from 'store/index';
+import routes from './routes';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from 'components/Header';
 import Navigation from 'components/Navigation';
-import store from 'store';
-import routes from './routes';
 
 injectTapEventPlugin();
 
-const history = syncHistoryWithStore(browserHistory, store)
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: 'rgb(46, 199, 131)'

@@ -1,4 +1,4 @@
-import initialState from 'store/initial-state';
+import initialState from 'store/config/initial-state';
 import {
   SPEAKER_QUERY_REQUEST,
   SPEAKER_QUERY_REQUEST_SUCCESS,
