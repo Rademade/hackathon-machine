@@ -56,42 +56,44 @@ const HackathonEdit = ({state, actions}) => (
   <Paper style={styles.paper}>
     <Formsy.Form onSubmit={onSubmit(+state.params.id, actions)}>
       <h2 style={styles.title}>Edit Hackathon</h2>
-      <FormsySelect
-      name="topic_id"
-      value={state.hackathonApp.hackathon ? state.hackathonApp.hackathon.topic.id : null}
-      floatingLabelText="Topic"
-      fullWidth={true}>
-        {state.topicApp.topics.map(topic =>
-          <MenuItem
-            key={topic.id}
-            value={topic.id}
-            primaryText={topic.name}/>)}
-      </FormsySelect>
+      {state.hackathonApp.hackathon.topic &&
+        <FormsySelect
+          name="topic_id"
+          value={state.hackathonApp.hackathon.topic.id}
+          floatingLabelText="Topic"
+          fullWidth={true}>
+          {state.topicApp.topics.map(topic =>
+            <MenuItem
+              key={topic.id}
+              value={topic.id}
+              primaryText={topic.name}/>)}
+      </FormsySelect>}
       <FormsyDate
         name="date"
-        value={state.hackathonApp.hackathon ? state.hackathonApp.hackathon.held_at : null}
+        value={state.hackathonApp.hackathon.held_at}
         floatingLabelText="Conduction date"
         fullWidth={true}
         required/>
-      <FormsySelect
-        name="speaker_id"
-        value={state.speakerApp.speaker ? state.speakerApp.speaker.id : null}
-        floatingLabelText="Speaker"
-        fullWidth={true}>
-        {state.speakerApp.speakers.map(speaker =>
-          <MenuItem
-            key={speaker.id}
-            value={speaker.id}
-            primaryText={speaker.full_name}/>)}
-      </FormsySelect>
+      {state.hackathonApp.hackathon.speaker &&
+        <FormsySelect
+          name="speaker_id"
+          value={state.hackathonApp.hackathon.speaker.id}
+          floatingLabelText="Speaker"
+          fullWidth={true}>
+          {state.speakerApp.speakers.map(speaker =>
+            <MenuItem
+              key={speaker.id}
+              value={speaker.id}
+              primaryText={speaker.full_name}/>)}
+        </FormsySelect>}
       <FormsyToggle
         name="toggle"
         label="Conducted?"
-        value={state.hackathonApp.hackathon ? state.hackathonApp.hackathon.is_done : false}
+        value={state.hackathonApp.hackathon.is_done || false}
         style={styles.button}/>
       <FormsyText
         name="url"
-        value={state.hackathonApp.hackathon ? state.hackathonApp.hackathon.material : null}
+        value={state.hackathonApp.hackathon.materials}
         hintText="http://www.example.com"
         floatingLabelText="Materials link"
         multiLine={true}

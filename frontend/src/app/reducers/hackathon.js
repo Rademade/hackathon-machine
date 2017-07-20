@@ -1,4 +1,4 @@
-import initialState from 'store/initial-state';
+import initialState from 'store/config/initial-state';
 import {
   HACKATHON_QUERY_REQUEST,
   HACKATHON_QUERY_REQUEST_SUCCESS,

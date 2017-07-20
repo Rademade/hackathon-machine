@@ -1,18 +1,20 @@
 const initialState = {
   authApp: {
     jwt: null,
-    isPendingRequest: false,
-    isAuthenticated: false,
+    isAuthenticated: localStorage.getItem('jwt') ? true : false,
     user: {}
   },
   hackathonApp: {
-    hackathons: []
+    hackathons: [],
+    hackathon: {}
   },
   speakerApp: {
     speakers: [],
+    speaker: {}
   },
   topicApp: {
-    topics: []
+    topics: [],
+    topic: {}
   }
 };
 
