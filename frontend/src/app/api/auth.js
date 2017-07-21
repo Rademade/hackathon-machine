@@ -5,7 +5,8 @@ class AuthApiClient extends ApiClient {
   constructor(props) {
     super(props);
 
-    this.login = data => this.http.post(`${AppSettings.PUBLIC_ENDPOINT}/login`, data);
+    this.signIn = (data) => this.http.post(`${AppSettings.PUBLIC_ENDPOINT}/sign_in`, data);
+    this.signUp = (data) => this.http.post(`${AppSettings.PUBLIC_ENDPOINT}/sign_up`, data);
   }
 }
 

@@ -32,7 +32,7 @@ func main() {
 
 	// Public routes
 	publicRoutes := e.Group("/api/public")
-	publicRoutes.POST("/login", controllers.Login)
+	publicRoutes.POST("/sign_in", controllers.SignIn)
 
 	// Restricted routes
 	apiRoutes := e.Group("/api/private")

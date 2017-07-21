@@ -14,7 +14,7 @@ type TokenRequest struct {
   Password  string `json:"password"`
 }
 
-func Login(c echo.Context) error {
+func SignIn(c echo.Context) error {
   payload := new(TokenRequest)
   if err := c.Bind(payload); err != nil {
     return echo.ErrUnauthorized

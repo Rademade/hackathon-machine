@@ -1,41 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import Formsy from 'formsy-react';
 import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
 import { Paper, RaisedButton } from 'material-ui';
-import authActions from 'actions/auth';
+import styler from 'react-styling';
+import auth from 'actions/auth';
+import navigation from 'actions/navigation';
 
-const styles = {
-  paper: {
-    width: 300,
-    margin: 'auto',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 75
-  },
-  button: {
-    marginTop: 15,
-    marginBottom: 25
-  },
-  hideAutoFillColorStyle: {
-    WebkitBoxShadow: '0 0 0 1000px white inset'
-  }
-}
+const styles = styler(`
+  paper:
+    width: 300
+    margin: auto
+    padding-left: 20
+    padding-right: 20
+    margin-top: 75
+  wraper:
+    display: flex
+    justify-content: space-between
+  button:
+    margin-top: 15
+    margin-bottom: 25
+  hideAutoFillColorStyle:
+    -webkit-box-shadow: 0 0 0 1000px white inset
+`);
 
 const mapStateToProps = (state, ownProps) => ({
   state: state.authApp
-})
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: bindActionCreators(authActions, dispatch)
-})
+  actions: {
+    auth: bindActionCreators(auth, dispatch),
+    navigation: bindActionCreators(navigation, dispatch)
+  }
+});
 
-const Login = ({state, actions}) => (
+const SignIn = ({state, actions}) => (
   <Paper style={styles.paper}>
     <Formsy.Form
-      onSubmit={actions.login}>
+      onSubmit={actions.auth.signIn}>
       <FormsyText
         name="email"
         type="email"
@@ -52,15 +56,23 @@ const Login = ({state, actions}) => (
         floatingLabelText="Password"
         inputStyle={styles.hideAutoFillColorStyle}
         required/>
-      <RaisedButton
-        style={styles.button}
-        type="submit"
-        label="Login"/>
+      <div style={styles.wraper}>
+        <RaisedButton
+          style={styles.button}
+          primary={true}
+          type="submit"
+          label="Sing in"/>
+        <RaisedButton
+          style={styles.button}
+          onTouchTap={actions.navigation.goToAuthSignUp}
+          type="submit"
+          label="Sign up"/>
+      </div>
     </Formsy.Form>
   </Paper>
-)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login)
+)(SignIn);
