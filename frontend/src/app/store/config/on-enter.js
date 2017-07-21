@@ -3,7 +3,7 @@ import navigation from 'actions/navigation';
 
 const onEnter = () => {
   if (!store.getState().authApp.isAuthenticated) {
-    store.dispatch(navigation.goToAuth());
+    store.dispatch(navigation.goToAuthSignIn());
   }
 }
 
