@@ -57,6 +57,22 @@ const HackathonTableBodyRow = ({hackathon, actions}) => (
   </TableRow>
 );
 
+const HackathonTable = ({state, actions}) => (
+  <Table fixedHeader={true} height={'350px'}>
+    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+      <HackathonTableHeaderRow/>
+    </TableHeader>
+    <TableBody displayRowCheckbox={false}>
+      {state.hackathonApp.hackathons.map(hackathon =>
+        <HackathonTableBodyRow
+          key={hackathon.id}
+          hackathon={hackathon}
+          actions={actions}/>
+      )}
+    </TableBody>
+  </Table>
+);
+
 const mapStateToProps = (state, ownProps) => ({
   state
 });
@@ -76,21 +92,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const HackathonIndex = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <h2 style={styles.title}>Hackathons</h2>
-    <Table fixedHeader={true} height={'350px'}>
-      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <HackathonTableHeaderRow/>
-      </TableHeader>
-      <TableBody displayRowCheckbox={false}>
-        {state.hackathonApp.hackathons.map(hackathon =>
-          <HackathonTableBodyRow
-            key={hackathon.id}
-            hackathon={hackathon}
-            actions={actions}/>
-        )}
-      </TableBody>
-    </Table>
-    <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
+    <h2 style={styles.title}>Hackathons:</h2>
+    {state.hackathonApp.error
+      ? <h2>{state.hackathonApp.error}</h2>
+      : <div>
+          <HackathonTable state={state} actions={actions}/>
+          <NewButton onTouchTap={actions.navigation.goToHackathonsNew}/>
+        </div>}
   </Paper>
 );
 

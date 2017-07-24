@@ -58,16 +58,21 @@ const TopicTableHeaderRow = () => (
   </TableRow>
 );
 
+const round = (num) => Math.round(num * 100) / 100;
+
 const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
-    <TableRowColumn>{Math.round(topic.average_vote * 100) / 100}</TableRowColumn>
+    <TableRowColumn style={{fontWeight: 'bold'}}>{round(topic.average_vote)}</TableRowColumn>
     <TableRowColumn>
       <ReactStars
         count={5}
+        value={round(topic.average_vote)}
+        char={''}
+        color1={'#000'}
         onChange={onChange(topic, actions)}
         size={24}
-        color2={'#ffd700'} />
+        color2={'#ffd700'}/>
     </TableRowColumn>
     <TableRowColumn>{topic.created_by}</TableRowColumn>
     <TableRowColumn>
@@ -79,7 +84,23 @@ const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
       }}/>
     </TableRowColumn>
   </TableRow>
-)
+);
+
+const TopicsTable = ({state, actions}) => (
+  <Table fixedHeader={true} height={'350px'}>
+    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+      <TopicTableHeaderRow/>
+    </TableHeader>
+    <TableBody displayRowCheckbox={false}>
+      {state.topicApp.topics.map(topic =>
+        <TopicTableBodyRow
+          key={topic.id}
+          topic={topic}
+          actions={actions}/>
+      )}
+    </TableBody>
+  </Table>
+);
 
 const mapStateToProps = (state, ownProps) => ({
   state
@@ -101,21 +122,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const TopicIndex = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <h2 style={styles.title}>Topics</h2>
-    <Table fixedHeader={true} height={'350px'}>
-      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-        <TopicTableHeaderRow/>
-      </TableHeader>
-      <TableBody displayRowCheckbox={false}>
-        {state.topicApp.topics.map(topic =>
-          <TopicTableBodyRow
-            key={topic.id}
-            topic={topic}
-            actions={actions}/>
-        )}
-      </TableBody>
-    </Table>
-    <NewButton onTouchTap={actions.navigation.goToTopicsNew}/>
+    <h2 style={styles.title}>Topics:</h2>
+    {state.topicApp.error
+      ? <h2>{state.topicApp.error}</h2>
+      : <div>
+          <TopicsTable state={state} actions={actions}/>
+          <NewButton onTouchTap={actions.navigation.goToTopicsNew}/>
+        </div>}
   </Paper>
 );
 
