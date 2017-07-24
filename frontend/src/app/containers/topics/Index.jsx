@@ -29,19 +29,19 @@ const styles = {
   }
 };
 
-const onChange = (topic, actions) => {
-  return function (value) {
-    if (topic.userVote) {
-      actions.topic.userVote.update({
-        vote: value
-      }, {
-        id: topic.userVote.id
-      });
+const onChange = (topic, user, actions) => {
+  return (value) => {
+    const votes = topic.votes || [];
+    const vote = votes.find((vote) => vote.user_id === user.id);
+
+    if (vote) {
+      actions.userVote.update({ vote: value }, { id: vote.id }).then(
+        (_) => actions.topic.query()
+      );
     } else {
-      actions.userVote.create({
-        topic_id: topic.id,
-        vote : value
-      });
+      actions.userVote.create({ topic_id: topic.id, vote : value }).then(
+        (_) => actions.topic.query()
+      );
     }
   }
 }
@@ -60,7 +60,7 @@ const TopicTableHeaderRow = () => (
 
 const round = (num) => Math.round(num * 100) / 100;
 
-const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
+const TopicTableBodyRow = ({topic, isAdmin, user, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
     <TableRowColumn style={{fontWeight: 'bold'}}>{round(topic.average_vote)}</TableRowColumn>
@@ -70,7 +70,7 @@ const TopicTableBodyRow = ({topic, isAdmin, actions}) => (
         value={round(topic.average_vote)}
         char={''}
         color1={'#000'}
-        onChange={onChange(topic, actions)}
+        onChange={onChange(topic, user, actions)}
         size={24}
         color2={'#ffd700'}/>
     </TableRowColumn>
@@ -96,6 +96,7 @@ const TopicsTable = ({state, actions}) => (
         <TopicTableBodyRow
           key={topic.id}
           topic={topic}
+          user={state.authApp.user}
           actions={actions}/>
       )}
     </TableBody>
