@@ -59,7 +59,7 @@ const HackathonEdit = ({state, actions}) => (
       {state.hackathonApp.hackathon.topic &&
         <FormsySelect
           name="topic_id"
-          value={state.hackathonApp.hackathon.topic.id}
+          value={state.hackathonApp.hackathon.topic_id}
           floatingLabelText="Topic"
           fullWidth={true}>
           {state.topicApp.topics.map(topic =>
@@ -77,7 +77,7 @@ const HackathonEdit = ({state, actions}) => (
       {state.hackathonApp.hackathon.speaker &&
         <FormsySelect
           name="speaker_id"
-          value={state.hackathonApp.hackathon.speaker.id}
+          value={state.hackathonApp.hackathon.speaker_id}
           floatingLabelText="Speaker"
           fullWidth={true}>
           {state.speakerApp.speakers.map(speaker =>
@@ -87,12 +87,12 @@ const HackathonEdit = ({state, actions}) => (
               primaryText={speaker.full_name}/>)}
         </FormsySelect>}
       <FormsyToggle
-        name="toggle"
+        name="is_done"
         label="Conducted?"
         value={state.hackathonApp.hackathon.is_done || false}
         style={styles.button}/>
       <FormsyText
-        name="url"
+        name="materials"
         value={state.hackathonApp.hackathon.materials}
         hintText="http://www.example.com"
         floatingLabelText="Materials link"

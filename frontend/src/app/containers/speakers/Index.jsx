@@ -59,15 +59,15 @@ const TopicTableBodyRow = ({speaker, editable, removable, actions}) => (
 const SpeakerTable = ({state, actions}) => (
   <Table fixedHeader={true} height={'350px'}>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-      <TopicTableHeaderRow isAdmin={state.authApp.user.isAdmin}/>
+      <TopicTableHeaderRow isAdmin={state.authApp.user.is_admin}/>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
       {state.speakerApp.speakers.map(speaker =>
         <TopicTableBodyRow
           key={speaker.id}
           speaker={speaker}
-          editable={state.authApp.user.isAdmin || state.authApp.user.id == speaker.id}
-          removable={state.authApp.user.isAdmin}
+          editable={state.authApp.user.is_admin || state.authApp.user.id == speaker.id}
+          removable={state.authApp.user.is_admin}
           actions={actions}/>
       )}
     </TableBody>
@@ -98,7 +98,7 @@ const SpeakerIndex = ({state, actions}) => (
       ? <h2>{state.speakerApp.error}</h2>
       : <div>
           <SpeakerTable state={state} actions={actions}/>
-          {state.authApp.user.isAdmin &&
+          {state.authApp.user.is_admin &&
             <NewButton onTouchTap={actions.navigation.goToSpeakersNew}/>
           }
         </div>}
