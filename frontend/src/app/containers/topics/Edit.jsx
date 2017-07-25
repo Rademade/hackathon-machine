@@ -63,7 +63,7 @@ const TopicEdit = ({state, actions}) => (
       <FormsySelect
         name="created_by"
         floatingLabelText="Created by"
-        value={state.topicApp.topic ? state.topicApp.topic.created_by : ''}
+        value={state.topicApp.topic ? state.topicApp.topic.creator_id : ''}
         fullWidth={true}
         required>
         {state.speakerApp.speakers.map(speaker =>
