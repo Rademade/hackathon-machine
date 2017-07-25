@@ -14,6 +14,7 @@ import DeleteButton from 'components/buttons/DeleteButton';
 import topicActions from 'actions/topic';
 import userVoteActions from 'actions/user-vote';
 import navigationActions from 'actions/navigation';
+import speakerActions from 'actions/speaker';
 
 const styles = {
   paper: {
@@ -59,8 +60,12 @@ const TopicTableHeaderRow = () => (
 );
 
 const round = (num) => Math.round(num * 100) / 100;
+const getCreatedBy = (users, id) => {
+  let user = users.find((user) => user.id === id);
+  return user ? user.full_name : '- - - - -';
+}
 
-const TopicTableBodyRow = ({topic, isAdmin, user, actions}) => (
+const TopicTableBodyRow = ({topic, isAdmin, user, users, actions}) => (
   <TableRow>
     <TableRowColumn>{topic.name}</TableRowColumn>
     <TableRowColumn style={{fontWeight: 'bold'}}>{round(topic.average_vote)}</TableRowColumn>
@@ -97,6 +102,7 @@ const TopicsTable = ({state, actions}) => (
           key={topic.id}
           topic={topic}
           user={state.authApp.user}
+          users={state.speakerApp.speakers}
           actions={actions}/>
       )}
     </TableBody>
@@ -111,10 +117,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
     topic: bindActionCreators(topicActions, dispatch),
     userVote: bindActionCreators(userVoteActions, dispatch),
-    navigation: bindActionCreators(navigationActions, dispatch)
+    navigation: bindActionCreators(navigationActions, dispatch),
+    speaker: bindActionCreators(speakerActions, dispatch)
   }
 
   dispatch(actions.topic.query());
+  dispatch(actions.speaker.query());
 
   return {
     actions: actions
