@@ -10,7 +10,16 @@ import {
 } from 'constants';
 import * as _ from 'lodash';
 
-const sort = (items) => _.sortBy(items, 'average_vote').reverse();
+const rejectAverageVoteNulls = (items) => _.map(items, (item) => {
+  if (_.isNumber(item.average_vote)) {
+    return item;
+  } else {
+    item.average_vote = 0;
+    return item;
+  }
+});
+
+const sort = (items) => _.sortBy(rejectAverageVoteNulls(items), 'average_vote').reverse();
 const reject = (items, id) => _.reject(items, topic => topic.id === id);
 const update = (items, id, newItem) => _.map(items, (item) =>
   item.id === id ? newItem : item

@@ -5,6 +5,7 @@ import {
   Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn, Paper, Slider
 } from 'material-ui';
+import * as _ from 'lodash';
 import ReactStars from 'react-stars';
 import Formsy from 'formsy-react';
 import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
@@ -33,7 +34,7 @@ const styles = {
 const onChange = (topic, user, actions) => {
   return (value) => {
     const votes = topic.votes || [];
-    const vote = votes.find((vote) => vote.user_id === user.id);
+    const vote = _.find(votes, (vote) => vote.user_id === user.id);
 
     if (vote) {
       actions.userVote.update({ vote: value }, { id: vote.id }).then(
@@ -61,7 +62,7 @@ const TopicTableHeaderRow = () => (
 
 const round = (num) => Math.round(num * 100) / 100;
 const getCreatedBy = (users, id) => {
-  let user = users.find((user) => user.id === id);
+  let user = _.find(users, (user) => user.id === id);
   return user ? user.full_name : '- - - - -';
 }
 
@@ -79,7 +80,7 @@ const TopicTableBodyRow = ({topic, isAdmin, user, users, actions}) => (
         size={24}
         color2={'#ffd700'}/>
     </TableRowColumn>
-    <TableRowColumn>{topic.created_by}</TableRowColumn>
+    <TableRowColumn>{getCreatedBy(users, topic.creator_id)}</TableRowColumn>
     <TableRowColumn>
       <EditButton onTouchTap={() => {
         actions.navigation.goToTopicsEdit(topic.id)
