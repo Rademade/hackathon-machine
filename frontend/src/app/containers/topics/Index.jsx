@@ -9,9 +9,12 @@ import * as _ from 'lodash';
 import ReactStars from 'react-stars';
 import Formsy from 'formsy-react';
 import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import IconButton from 'material-ui/IconButton';
+import CommunicationComment from 'material-ui/svg-icons/communication/comment';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
+
 import NewButton from 'components/buttons/NewButton';
-import EditButton from 'components/buttons/EditButton';
-import DeleteButton from 'components/buttons/DeleteButton';
 import topicActions from 'actions/topic';
 import userVoteActions from 'actions/user-vote';
 import navigationActions from 'actions/navigation';
@@ -82,12 +85,24 @@ const TopicTableBodyRow = ({topic, isAdmin, user, users, actions}) => (
     </TableRowColumn>
     <TableRowColumn>{getCreatedBy(users, topic.creator_id)}</TableRowColumn>
     <TableRowColumn>
-      <EditButton onTouchTap={() => {
-        actions.navigation.goToTopicsEdit(topic.id)
-      }}/>
-      <DeleteButton onTouchTap={() => {
-        actions.topic.delete(topic.id)
-      }}/>
+      <IconButton>
+        <CommunicationComment
+          onTouchTap={() => {
+            actions.navigation.goToTopicsComments(topic.id)
+          }}/>
+      </IconButton>
+      <IconButton>
+        <EditorModeEdit
+          onTouchTap={() => {
+            actions.navigation.goToTopicsEdit(topic.id)
+          }}/>
+      </IconButton>
+      <IconButton>
+        <ActionDeleteForever
+          onTouchTap={() => {
+            actions.topic.delete(topic.id)
+          }}/>
+      </IconButton>
     </TableRowColumn>
   </TableRow>
 );

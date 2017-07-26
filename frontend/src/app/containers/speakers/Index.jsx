@@ -7,9 +7,10 @@ import {
 } from 'material-ui';
 import Formsy from 'formsy-react';
 import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import IconButton from 'material-ui/IconButton';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import NewButton from 'components/buttons/NewButton';
-import EditButton from 'components/buttons/EditButton';
-import DeleteButton from 'components/buttons/DeleteButton';
 import speakerActions from 'actions/speaker';
 import navigationActions from 'actions/navigation';
 
@@ -43,14 +44,20 @@ const TopicTableBodyRow = ({speaker, editable, removable, actions}) => (
     <TableRowColumn>{speaker.full_name}</TableRowColumn>
     <TableRowColumn>
     {editable &&
-      <EditButton onTouchTap={() => {
-        actions.navigation.goToSpeakersEdit(speaker.id)
-      }}/>
+      <IconButton>
+        <EditorModeEdit
+          onTouchTap={() => {
+            actions.navigation.goToSpeakersEdit(speaker.id)
+          }}/>
+      </IconButton>
     }
     {removable &&
-      <DeleteButton onTouchTap={() => {
-        actions.speaker.delete(speaker.id)
-      }}/>
+      <IconButton>
+        <ActionDeleteForever
+          onTouchTap={() => {
+            actions.speaker.delete(speaker.id)
+          }}/>
+      </IconButton>
     }
     </TableRowColumn>
   </TableRow>

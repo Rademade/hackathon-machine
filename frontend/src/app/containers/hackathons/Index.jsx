@@ -7,9 +7,10 @@ import {
 } from 'material-ui';
 import Formsy from 'formsy-react';
 import { FormsyText, FormsyToggle } from 'formsy-material-ui/lib';
+import IconButton from 'material-ui/IconButton';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import NewButton from 'components/buttons/NewButton';
-import EditButton from 'components/buttons/EditButton';
-import DeleteButton from 'components/buttons/DeleteButton';
 import hackathonActions from 'actions/hackathon';
 import navigationActions from 'actions/navigation';
 import moment from 'moment';
@@ -47,12 +48,18 @@ const HackathonTableBodyRow = ({hackathon, actions}) => (
       : 'Not conducted yet'}
     </TableRowColumn>
     <TableRowColumn>
-      <EditButton onTouchTap={() => {
-        actions.navigation.goToHackathonsEdit(hackathon.id)
-      }}/>
-      <DeleteButton onTouchTap={() => {
-        actions.hackathon.delete(hackathon.id)
-      }}/>
+      <IconButton>
+        <EditorModeEdit
+          onTouchTap={() => {
+            actions.navigation.goToHackathonsEdit(hackathon.id)
+          }}/>
+      </IconButton>
+      <IconButton>
+        <ActionDeleteForever
+          onTouchTap={() => {
+            actions.hackathon.delete(hackathon.id)
+          }}/>
+      </IconButton>
     </TableRowColumn>
   </TableRow>
 );
