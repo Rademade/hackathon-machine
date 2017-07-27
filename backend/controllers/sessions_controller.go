@@ -7,11 +7,24 @@ import (
   "github.com/labstack/echo"
   "net/http"
   "time"
+  //"fmt"
 )
 
 type TokenRequest struct {
   Email string `json:"email"`
   Password  string `json:"password"`
+}
+
+type UserResponse struct {
+  Id int `json:"id"`
+  IsAdmin bool `json:"is_admin"`
+  FullName string `json:"full_name"`
+  Email string `json:"email"`
+}
+
+type TokenResponse struct {
+  Token string `json:"token"`
+  User UserResponse `json:"user"`
 }
 
 func SignIn(c echo.Context) error {
@@ -46,7 +59,15 @@ func SignIn(c echo.Context) error {
     return err
   }
 
-  return c.JSON(http.StatusOK, map[string]string{
-    "token": tokenString,
-  })
+  response := TokenResponse{
+    Token: tokenString,
+    User: UserResponse{
+      Id: user.Base.ID,
+      Email: user.Email,
+      IsAdmin: user.IsAdmin,
+      FullName: user.Fullname,
+    },
+  }
+
+  return c.JSON(http.StatusOK, response)
 }
