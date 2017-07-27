@@ -7,7 +7,6 @@ import (
   "github.com/labstack/echo"
   "net/http"
   "time"
-  //"fmt"
 )
 
 type TokenRequest struct {
