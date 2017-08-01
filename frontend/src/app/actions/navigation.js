@@ -10,6 +10,7 @@ export default {
   goToTopics: (_) => dispatch => dispatch(push('/topics')),
   goToTopicsNew: (_) => dispatch => dispatch(push('/topics/new')),
   goToTopicsEdit: (id) => dispatch => dispatch(push(`/topics/${id}/edit`)),
+  goToTopicsComments: (id) => dispatch => dispatch(push(`/topics/${id}/comments`)),
   goToSpeakers: (_) => dispatch => dispatch(push('/speakers')),
   goToSpeakersNew: (_) => dispatch => dispatch(push('/speakers/new')),
   goToSpeakersEdit: (id) => dispatch => dispatch(push(`/speakers/${id}/edit`)),

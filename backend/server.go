@@ -39,7 +39,7 @@ func main() {
 	apiRoutes.Use(middleware.JWT(AppSecret))
 
 	// Resources
-	resource(publicRoutes, "/users", controllers.UsersController{}, []int{ACTION_CREATE})
+	resource(publicRoutes, "/sign_up", controllers.UsersController{}, []int{ACTION_CREATE})
 	resource(apiRoutes, "/users", controllers.UsersController{}, []int{ACTION_INDEX, ACTION_CREATE, ACTION_SHOW, ACTION_UPDATE, ACTION_DESTROY})
 	resource(apiRoutes, "/hackathons", controllers.HackathonsController{}, nil)
 	resource(apiRoutes, "/topics", controllers.TopicsController{}, nil)
