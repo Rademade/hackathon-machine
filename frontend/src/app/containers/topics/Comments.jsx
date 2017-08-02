@@ -18,13 +18,13 @@ const styles = {
   },
   title: {
     paddingTop: 20,
-    marginBottom: 0
+    paddingBottom: 20
   }
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    state : Object.assign(state, { params : ownProps.params })
-})
+  state : Object.assign(state, { params : ownProps.params })
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let actions = {
@@ -49,7 +49,7 @@ const onSubmit = (id, actions) => {
 
 const Comments = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <h2 style={styles.title}>Comments:</h2>
+    <h2 style={styles.title}>To be continued ...</h2>
   </Paper>
 );
 

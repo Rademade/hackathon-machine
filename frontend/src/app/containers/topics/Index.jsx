@@ -40,7 +40,7 @@ const onChange = (topic, user, actions) => {
     const vote = _.find(votes, (vote) => vote.user_id === user.id);
 
     if (vote) {
-      actions.userVote.update({ vote: value }, { id: vote.id }).then(
+      actions.userVote.update({ id: vote.id, vote: value }).then(
         (_) => actions.topic.query()
       );
     } else {

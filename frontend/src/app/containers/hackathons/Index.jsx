@@ -44,7 +44,7 @@ const HackathonTableBodyRow = ({hackathon, actions}) => (
     <TableRowColumn>{moment(hackathon.date).format('DD MMMM YYYY')}</TableRowColumn>
     <TableRowColumn>{hackathon.speaker ? hackathon.speaker.full_name : ''}</TableRowColumn>
     <TableRowColumn>{hackathon.is_done
-      ? (<span>Сonducted, materials: <a href={hackathon.materials_link} target="_blank">link</a></span>)
+      ? (<span>Сonducted, <a href={hackathon.materials} target="_blank">materials link</a></span>)
       : 'Not conducted yet'}
     </TableRowColumn>
     <TableRowColumn>
