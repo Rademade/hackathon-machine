@@ -21,6 +21,12 @@ const styles = styler(`
   button:
     margin-top: 15
     margin-bottom: 25
+  link:
+    margin-top: 35
+    margin-bottom: 25
+    fontSize: 12
+    color: rgb(46, 199, 131)
+    cursor: pointer
   hideAutoFillColorStyle:
     -webkit-box-shadow: 0 0 0 1000px white inset
 `);
@@ -62,11 +68,9 @@ const SignIn = ({state, actions}) => (
           primary={true}
           type="submit"
           label="Sing in"/>
-        <RaisedButton
-          style={styles.button}
-          onTouchTap={actions.navigation.goToAuthSignUp}
-          type="submit"
-          label="Sign up"/>
+        <span style={styles.link} onClick={actions.navigation.goToAuthSignUp}>
+          {"Don't Have an Account?"}
+        </span>
       </div>
     </Formsy.Form>
   </Paper>

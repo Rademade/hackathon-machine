@@ -7,7 +7,7 @@ import {
 } from 'constants';
 
 export default {
-  singUp: (data) => (dispatch) => dispatch({
+  signUp: (data) => (dispatch) => dispatch({
     type: SIGN_UP_REQUEST,
     payload: {
       data: data
@@ -21,6 +21,7 @@ export default {
   }),
   signOut: (_) => (dispatch) => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
     dispatch({ type: SIGN_OUT });
     dispatch(push('/auth/sign_in'));
   }

@@ -23,7 +23,7 @@ const styles = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    state : Object.assign(state, { params : ownProps.params })
+  state : Object.assign(state, { params : ownProps.params })
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -33,12 +33,11 @@ function* _signIn(action) {
 
     yield put({
       type: SIGN_IN_REQUEST_SUCCESS,
-      payload: {
-        jwt: request.data.token
-      }
+      payload: request.data
     });
 
     localStorage.setItem('jwt', request.data.token);
+    localStorage.setItem('user', JSON.stringify(request.data.user));
 
     yield put(navigation.goToHackathons());
   } catch (e) {
