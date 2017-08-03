@@ -38,8 +38,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const SignUp = ({state, actions}) => (
   <Paper style={styles.paper}>
-    <Formsy.Form
-      onSubmit={actions.auth.signUp}>
+    <Formsy.Form onSubmit={actions.auth.signUp}>
       <FormsyText
         name="email"
         type="email"

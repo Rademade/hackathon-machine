@@ -16,10 +16,10 @@ function* _signUp(action) {
     const request = yield call(api.signUp, action.payload.data);
 
     yield put({ type: SIGN_UP_REQUEST_SUCCESS });
-    yield put(navigation.goToAuthLogin());
+    yield put(navigation.goToAuthSignIn());
   } catch (e) {
     yield put({
-      type: SIGN_IN_REQUEST_FAILURE,
+      type: SIGN_UP_REQUEST_FAILURE,
       payload: {
         error: e.message
       }

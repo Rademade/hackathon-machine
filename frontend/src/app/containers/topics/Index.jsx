@@ -75,7 +75,7 @@ const TopicTableBodyRow = ({topic, isAdmin, user, users, actions}) => (
     <TableRowColumn style={{fontWeight: 'bold'}}>{round(topic.average_vote)}</TableRowColumn>
     <TableRowColumn>
       <ReactStars
-        count={5}
+        count={10}
         value={round(topic.average_vote)}
         char={''}
         color1={'#000'}
